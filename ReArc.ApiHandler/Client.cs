@@ -107,7 +107,7 @@ public class Client
     {
         try
         {
-            var response = token != null ? await client.AddTokenToHeader(token).GetAsync(route) : await client.GetAsync(route);
+            var response = token != null ? await client.WithToken(token).GetAsync(route) : await client.GetAsync(route);
             return await NormalizeJsonResponse<T>(response);
         }
         catch (Exception e)
@@ -153,7 +153,7 @@ public class Client
     {
         try
         {
-            var response = token != null ? await client.AddTokenToHeader(token).DeleteAsync(route) : await client.DeleteAsync(route);
+            var response = token != null ? await client.WithToken(token).DeleteAsync(route) : await client.DeleteAsync(route);
             if (response.StatusCode != HttpStatusCode.OK)
                 return await HandleNotOkResponse<HttpResponseMessage>(response);
 

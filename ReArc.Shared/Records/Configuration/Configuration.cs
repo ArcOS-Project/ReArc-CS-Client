@@ -1,8 +1,11 @@
-﻿namespace ReArc.Shared.Records.Configuration;
+﻿using System.Text.Json.Serialization;
+
+namespace ReArc.Shared.Records.Configuration;
 
 public record ConfigurationSettings
 {
+    [JsonInclude]
     public List<ServerOption> Servers = [];
-    public string? Token = null;
-    public string? Username = null;
+    [JsonInclude]
+    public string? LastServer = null;
 }

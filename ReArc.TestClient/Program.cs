@@ -1,5 +1,6 @@
 ﻿using ReArc.ApiHandler;
 using ReArc.ApiHandler.Controllers;
+using ReArc.Shared;
 using ReArc.Shared.Helpers;
 using ReArc.Shared.Records.Configuration;
 
@@ -11,6 +12,8 @@ internal class Program
     {
         try
         {
+            await Configuration.ReadConfiguration();
+
             var client = await Client.Initialize(new ServerOption() { Url = "https://arcapi.nl" });
             string? identity = ConsoleHelpers.Prompt("Identity: ");
             string? password = ConsoleHelpers.Prompt("Password: ", true);
@@ -37,10 +40,16 @@ internal class Program
                 string? totpCode = ConsoleHelpers.Prompt("2FA code: ") ?? throw new Exception("You didn't enter a 2FA code");
                 var result = await UserController.UnlockTotp(totpCode);
 
-                if (!result.Success)
-                {
-                    throw new Exception(result.ErrorMessage);
-                }
+                if (!result.Success) throw new Exception(result.ErrorMessage);
+            }
+
+            var users = await AdminController.GetAllUsers();
+
+            if (!users.Success) throw new Exception(users.ErrorMessage);
+
+            foreach (var user in users.Result!)
+            {
+                Console.WriteLine($"{user._id} - {user.Username}");
             }
 
             Console.WriteLine($"{userInfoResult.Result!.Email} ({userInfoResult.Result._id})");
