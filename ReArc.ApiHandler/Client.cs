@@ -38,6 +38,7 @@ public class Client
         client = new()
         {
             BaseAddress = new Uri(_serverOption.Url),
+            Timeout = TimeSpan.FromSeconds(3)
         };
     }
 
@@ -54,17 +55,43 @@ public class Client
         return CommandResult<Client>.Ok(client);
     }
 
+    public static void Dispose()
+    {
+        if (_currentClient != null)
+        {
+            _currentClient.Connected = false;
+            _currentClient = null;
+        }
+    }
+
     public ServerInfo? ServerInfo => _serverInfo;
 
     public async Task<CommandResult<ServerInfo>> Ping()
     {
-        Connected = false;
-        var response = await client.GetFromJsonAsync<ServerInfo>("/ping");
-        if (response is null) return CommandResult<ServerInfo>.Error("Failed to connect to server");
+        var ct = new CancellationTokenSource();
+        ct.CancelAfter(1000);
 
-        _serverInfo = response;
-        Connected = true;
-        return CommandResult<ServerInfo>.Ok(_serverInfo);
+        try
+        {
+            Connected = false;
+            var response = await client.GetFromJsonAsync<ServerInfo>("/ping", ct.Token);
+            if (response is null) return CommandResult<ServerInfo>.Error("Failed to connect to server");
+
+            _serverInfo = response;
+            Connected = true;
+            return CommandResult<ServerInfo>.Ok(_serverInfo);
+        }
+        catch (Exception e)
+        {
+            if (ct.IsCancellationRequested) 
+            {
+                return CommandResult<ServerInfo>.Error("Connection timed out");
+            }
+            else
+            {
+                return CommandResult<ServerInfo>.Error(e.Message);
+            }
+        }
     }
 
     public async Task<CommandResult<HttpResponseMessage>> Post(string route, Dictionary<string, string> bodyParams)

@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="ReArc.ApiHandler/ReArc.ApiHandler.csproj" />
+  <Project Path="ReArc.Gui/ReArc.Gui.csproj" Id="77b70296-b675-45ae-beaf-f67d31739210" />
   <Project Path="ReArc.Shared/ReArc.Shared.csproj" />
   <Project Path="ReArc.TestClient/ReArc.TestClient.csproj" Id="a7fdbd76-5416-41d5-94e4-ba5c0d86ac65" />
 </Solution>
