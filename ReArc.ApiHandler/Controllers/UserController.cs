@@ -16,8 +16,13 @@ namespace ReArc.ApiHandler.Controllers
             get;
             private set => field = value;
         }
+        public static bool Restricted
+        {
+            get;
+            private set => field = value;
+        }
 
-        public static async Task<CommandResult<UserInfo>> GetUserInfo(string token)
+        public static async Task<CommandResult<UserInfo>> GetUserInfoForToken(string token)
         {
             var response = await Client.CurrentClient.GetJson<UserInfo>("/user/self", token);
             if (!response.Success) return CommandResult<UserInfo>.Error(response.ErrorMessage);
@@ -41,12 +46,35 @@ namespace ReArc.ApiHandler.Controllers
 
         public static async Task<CommandResult<UserInfo>> LoginUserWithToken(string token)
         {
-            var userInfoResult = await GetUserInfo(token);
-            if (!userInfoResult.Success) return CommandResult<UserInfo>.Error("Failed to obtain user information.");
+            if (UserInfo != null)
+            {
+                return CommandResult<UserInfo>.Error("Already authenticated as " + UserInfo.Username);
+            }
+
+            var userInfoResult = await GetUserInfoForToken(token);
+            if (!userInfoResult.Success) return CommandResult<UserInfo>.Error(userInfoResult.ErrorMessage);
 
             UserInfo = userInfoResult.Result!;
             Token = token;
+            Restricted = UserInfo.Restricted;
+
             return CommandResult<UserInfo>.Ok(userInfoResult.Result!);
+        }
+
+        public static async Task<CommandResult<bool>> UnlockTotp(string totpCode)
+        {
+            if (Token == null) return CommandResult<bool>.Error("Not logged in.");
+
+            var response = await Client.CurrentClient.Post("/totp/unlock", new()
+            {
+                { "code", totpCode }
+            });
+
+            if (!response.Success) return CommandResult<bool>.Error(response.ErrorMessage);
+
+            Restricted = false;
+
+            return CommandResult<bool>.Ok(true);
         }
 
         public static async Task<CommandResult<bool>> DiscontinueToken(string token)
@@ -66,6 +94,7 @@ namespace ReArc.ApiHandler.Controllers
             {
                 UserInfo = null;
                 Token = null;
+                Restricted = false;
             }
 
             return discontinuationResult;

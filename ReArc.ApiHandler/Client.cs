@@ -1,4 +1,5 @@
-﻿using ReArc.Shared;
+﻿using ReArc.ApiHandler.Extensions;
+using ReArc.Shared;
 using ReArc.Shared.Records.Configuration;
 using ReArc.Shared.Records.Responses;
 using System.Net;
@@ -47,7 +48,7 @@ public class Client
 
         if (!pingResult.Success)
         {
-            return CommandResult<Client>.Error(pingResult.ErrorMessage ?? "Failed to connect to server");\
+            return CommandResult<Client>.Error(pingResult.ErrorMessage ?? "Failed to connect to server");
         }
 
         return CommandResult<Client>.Ok(client);
@@ -80,10 +81,7 @@ public class Client
 
             var response = await client.PostAsync(route, content);
             if (response.StatusCode != HttpStatusCode.OK)
-            {
-                var errorJson = await response.Content.ReadFromJsonAsync<ErrorResponse>();
-                return CommandResult<HttpResponseMessage>.Error(errorJson?.E ?? "Unknown error");
-            }
+                return await HandleNotOkResponse<HttpResponseMessage>(response);
 
             return CommandResult<HttpResponseMessage>.Ok(response);
         }
@@ -105,24 +103,11 @@ public class Client
         return await NormalizeJsonResponse<T>(response.Result!);
     }
 
-    public async Task<CommandResult<T>> GetJson<T>(string route)
+    public async Task<CommandResult<T>> GetJson<T>(string route, string? token = null)
     {
         try
         {
-            var response = await client.GetAsync(route);
-            return await NormalizeJsonResponse<T>(response);
-        }
-        catch (Exception e)
-        {
-            return CommandResult<T>.Error(e.Message);
-        }
-    }
-
-    public async Task<CommandResult<T>> GetJson<T>(string route, string token)
-    {
-        try
-        {
-            var response = await client.AddTokenToHeader(token).GetAsync(route);
+            var response = token != null ? await client.AddTokenToHeader(token).GetAsync(route) : await client.GetAsync(route);
             return await NormalizeJsonResponse<T>(response);
         }
         catch (Exception e)
@@ -164,27 +149,11 @@ public class Client
         }
     }
 
-    public async Task<CommandResult<HttpResponseMessage>> Delete(string route)
+    public async Task<CommandResult<HttpResponseMessage>> Delete(string route, string? token = null)
     {
         try
         {
-            var response = await client.DeleteAsync(route);
-            if (response.StatusCode != HttpStatusCode.OK)
-                return await HandleNotOkResponse<HttpResponseMessage>(response);
-
-            return CommandResult<HttpResponseMessage>.Ok(response);
-        }
-        catch (Exception e)
-        {
-            return CommandResult<HttpResponseMessage>.Error(e.Message);
-        }
-    }
-
-    public async Task<CommandResult<HttpResponseMessage>> Delete(string route, string token)
-    {
-        try
-        {
-            var response = await client.AddTokenToHeader(token).DeleteAsync(route);
+            var response = token != null ? await client.AddTokenToHeader(token).DeleteAsync(route) : await client.DeleteAsync(route);
             if (response.StatusCode != HttpStatusCode.OK)
                 return await HandleNotOkResponse<HttpResponseMessage>(response);
 

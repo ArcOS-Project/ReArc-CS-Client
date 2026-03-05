@@ -14,6 +14,6 @@ public record class UserInfo(
     string _id,
 #pragma warning restore IDE1006
     string Email,
-    int StorageSize,
+    long StorageSize,
     int AccountNumber
 );
