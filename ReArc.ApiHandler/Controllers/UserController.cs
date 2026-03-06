@@ -33,7 +33,7 @@ namespace ReArc.ApiHandler.Controllers
         public static async Task<CommandResult<UserInfo>> LoginUser(string identity, string password)
         {
             var client = Client.CurrentClient;
-            var loginResult = await client.PostForJson<LoginResponse>("/login", new()
+            var loginResult = await client.PostForJson<LoginResponse>("/login", new Dictionary<string, string>()
             {
                 { "identity", identity },
                 { "password", password },
@@ -54,6 +54,11 @@ namespace ReArc.ApiHandler.Controllers
             var userInfoResult = await GetUserInfoForToken(token);
             if (!userInfoResult.Success) return CommandResult<UserInfo>.Error(userInfoResult.ErrorMessage);
 
+            if (!userInfoResult.Result!.Admin)
+            {
+                return CommandResult<UserInfo>.Error("You have to be an administrator to access this resource.");
+            }
+
             UserInfo = userInfoResult.Result!;
             Token = token;
             Restricted = UserInfo.Restricted;
@@ -65,7 +70,7 @@ namespace ReArc.ApiHandler.Controllers
         {
             if (Token == null) return CommandResult<bool>.Error("Not logged in.");
 
-            var response = await Client.CurrentClient.Post("/totp/unlock", new()
+            var response = await Client.CurrentClient.Post("/totp/unlock", new Dictionary<string, string>()
             {
                 { "code", totpCode }
             });
@@ -79,7 +84,7 @@ namespace ReArc.ApiHandler.Controllers
 
         public static async Task<CommandResult<bool>> DiscontinueToken(string token)
         {
-            var response = await Client.CurrentClient.Delete("/logout", token);
+            var response = await Client.CurrentClient.Post("/logout", token);
             if (!response.Success) return CommandResult<bool>.Error(response.ErrorMessage);
 
             return CommandResult<bool>.Ok(true);

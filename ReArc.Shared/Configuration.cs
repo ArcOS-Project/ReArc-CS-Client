@@ -1,5 +1,7 @@
 ﻿using ReArc.Shared.Records.Configuration;
+using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 namespace ReArc.Shared
@@ -9,12 +11,7 @@ namespace ReArc.Shared
         private static readonly string ConfigPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ReArcClient.json");
         public static ConfigurationSettings? Settings
         {
-            get; private set
-            {
-                if (value != null) _ = WriteConfiguration(value);
-
-                field = value;
-            }
+            get; private set => field = value;
         }
 
         public static async Task<CommandResult<ConfigurationSettings>> ReadConfiguration()
@@ -65,6 +62,7 @@ namespace ReArc.Shared
             if (idx < 0) return;
 
             Settings?.Servers.RemoveAt(idx);
+            _ = WriteConfiguration(Settings!);
         }
 
         public static void AddServer(string url, string? authCode, string? username, string? token)
@@ -79,6 +77,7 @@ namespace ReArc.Shared
                 Username = username,
                 Token = token
             });
+            _ = WriteConfiguration(Settings!);
         }
 
         public static void UpdateServer(Predicate<ServerOption> predicate, ServerOption update)
@@ -87,6 +86,7 @@ namespace ReArc.Shared
             if (idx < 0) return;
 
             Settings?.Servers[idx] = update;
+            _ = WriteConfiguration(Settings!);
         }
 
         public static void SetLastServer(string url)
@@ -94,6 +94,26 @@ namespace ReArc.Shared
             if (Settings == null) return;
 
             Settings.LastServer = url;
+            _ = WriteConfiguration(Settings!);
+        }
+
+        public static void RemoveTokenFrom(Predicate<ServerOption> predicate)
+        {
+            var idx = Settings?.Servers.FindIndex(predicate) ?? -1;
+            if (idx < 0) return;
+
+            Settings?.Servers[idx].Token = null;
+            _ = WriteConfiguration(Settings!);
+        }
+
+        public static void SetUserOf(Predicate<ServerOption> predicate, string username, string token)
+        {
+            var idx = Settings?.Servers.FindIndex(predicate) ?? -1;
+            if (idx < 0) return;
+
+            Settings?.Servers[idx].Token = token;
+            Settings?.Servers[idx].Username = username;
+            _ = WriteConfiguration(Settings!);
         }
     }
 }

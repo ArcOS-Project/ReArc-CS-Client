@@ -1,9 +1,13 @@
 using ReArc.ApiHandler;
+using ReArc.ApiHandler.Controllers;
+using ReArc.Gui.Account;
 using ReArc.Gui.Common;
+using ReArc.Gui.Helpers;
+using ReArc.Gui.Logic;
 using ReArc.Shared;
 using ReArc.Shared.Records.Configuration;
 
-namespace ReArc.Gui
+namespace ReArc.Gui.Server
 {
     public partial class SelectServerForm : Form
     {
@@ -18,6 +22,7 @@ namespace ReArc.Gui
         private void SelectServerForm_Load(object sender, EventArgs e)
         {
             UpdateServerList();
+            Focus();
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -30,6 +35,7 @@ namespace ReArc.Gui
         {
             if (ServerListBox.SelectedIndex >= 0 && ServerListBox.SelectedIndex < _servers.Count)
                 _selectedServer = _servers[ServerListBox.SelectedIndex];
+
             UpdateDisabledState();
         }
 
@@ -45,11 +51,13 @@ namespace ReArc.Gui
             EditButton.Enabled = _selectedServer != null;
         }
 
-        private void UpdateServerList()
+        public void UpdateServerList()
         {
-            _servers = Configuration.Settings?.Servers ?? new List<ServerOption>();
+            _servers = Configuration.Settings?.Servers ?? [];
 
             ServerListBox.Items.Clear();
+            _selectedServer = null;
+            UpdateDisabledState();
 
             foreach (var server in _servers)
             {
@@ -62,18 +70,17 @@ namespace ReArc.Gui
         {
             if (_selectedServer == null) return;
 
-            var loading = new LoadingDialog($"Connecting to {_selectedServer.Url}");
-            BeginInvoke(() => loading.ShowDialog(this));
+            BeginInvoke(() => LoadingDialog.ShowLoading(this, $"Connecting to {_selectedServer.Url}"));
+            await Task.Delay(100);
 
             Client.Dispose();
             var result = await Client.Initialize(_selectedServer);
 
-            await loading.Stop();
+            await LoadingDialog.Stop();
 
-            // TODO: this should probably be handled in a separate method for clarity
             if (!result.Success)
             {
-                DialogResult dialogResult = MessageBox.Show(this, $"Unable to connect to the requested server. It might be offline or the provided authorization code is incorrect.\n\nDetails: {result.ErrorMessage}", "Connection failed", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                DialogResult dialogResult = MessageBoxHelper.ServerConnectFailed(this, result, true);
                 if (dialogResult == DialogResult.Retry)
                 {
                     await DoConnect();
@@ -82,9 +89,49 @@ namespace ReArc.Gui
             }
             else
             {
-                // TEMPORARY
-                MessageBox.Show(this, $"Connection established to {_selectedServer.Url}", "Connected!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (_selectedServer.Username != null && _selectedServer.Token != null)
+                {
+                    await UserLogic.LoginExisting(this, _selectedServer);
+                    return;
+                }
+
+                Program.SetNextForm(new LoginForm());
+                Close();
             }
+        }
+
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+            AddServerForm form = new()
+            {
+                SelectServerForm = this
+            };
+
+            form.ShowDialog(this);
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            if (_selectedServer == null) return;
+
+            DialogResult confirm = MessageBox.Show(this, "Are you sure you want to delete this server from your list?", $"Delete {_selectedServer.Url}", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (confirm != DialogResult.Yes) return;
+
+            Configuration.DeleteServer((s) => s.Url == _selectedServer.Url);
+            UpdateServerList();
+        }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            if (_selectedServer == null) return;
+
+            EditServerForm form = new()
+            {
+                SelectServerForm = this,
+                ServerOption = _selectedServer
+            };
+
+            form.ShowDialog(this);
         }
     }
 }

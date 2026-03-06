@@ -4,6 +4,8 @@ using ReArc.Shared.Records.Configuration;
 using ReArc.Shared.Records.Responses;
 using System.Net;
 using System.Net.Http.Json;
+using System.Runtime.InteropServices;
+using System.Web;
 
 namespace ReArc.ApiHandler;
 
@@ -25,8 +27,13 @@ public class Client
         get;
         private set => field = value;
     }
+    public static bool ClientIsConnected
+    {
+        get => _currentClient?.Connected ?? false;
+    }
+
     private ServerInfo? _serverInfo = null;
-    private ServerOption _serverOption;
+    public ServerOption ServerOption { get; private set => field = value; }
     private readonly HttpClient client;
 
     public Client(ServerOption serverOption)
@@ -34,25 +41,53 @@ public class Client
         if (_currentClient != null) throw new Exception("A client has already been initialized. Dispose the client before creating a new one.");
 
         CurrentClient = this;
-        _serverOption = serverOption;
+        ServerOption = serverOption;
         client = new()
         {
-            BaseAddress = new Uri(_serverOption.Url),
+            BaseAddress = new Uri(ServerOption.Url),
             Timeout = TimeSpan.FromSeconds(3)
+        };
+    }
+
+    public static ServerOption CreateServerOption(string hostname, int port, string? authCode)
+    {
+        UriBuilder uri = new()
+        {
+            Host = hostname,
+            Scheme = port == 443 ? "https" : "http"
+        };
+
+        if (port != 80 && port != 443) uri.Port = port;
+
+        return new ServerOption()
+        {
+            Url = uri.ToString(),
+            AuthCode = authCode
         };
     }
 
     public static async Task<CommandResult<Client>> Initialize(ServerOption serverOption)
     {
-        var client = new Client(serverOption);
-        var pingResult = await client.Ping();
+        var validation = ValidateServerUrl(serverOption.Url);
+        if (!validation.Success) return CommandResult<Client>.Error(validation.ErrorMessage);
 
-        if (!pingResult.Success)
+        try
         {
-            return CommandResult<Client>.Error(pingResult.ErrorMessage ?? "Failed to connect to server");
+            var client = new Client(serverOption);
+            var pingResult = await client.Ping();
+
+            if (!pingResult.Success)
+            {
+                return CommandResult<Client>.Error(pingResult.ErrorMessage ?? "Failed to connect to server");
+            }
+
+            return CommandResult<Client>.Ok(client);
+        }
+        catch (Exception e)
+        {
+            return CommandResult<Client>.Error(e.Message);
         }
 
-        return CommandResult<Client>.Ok(client);
     }
 
     public static void Dispose()
@@ -74,7 +109,7 @@ public class Client
         try
         {
             Connected = false;
-            var response = await client.GetFromJsonAsync<ServerInfo>("/ping", ct.Token);
+            var response = await client.GetFromJsonAsync<ServerInfo>(CreateUrl("/ping"), ct.Token);
             if (response is null) return CommandResult<ServerInfo>.Error("Failed to connect to server");
 
             _serverInfo = response;
@@ -83,7 +118,7 @@ public class Client
         }
         catch (Exception e)
         {
-            if (ct.IsCancellationRequested) 
+            if (ct.IsCancellationRequested)
             {
                 return CommandResult<ServerInfo>.Error("Connection timed out");
             }
@@ -94,7 +129,7 @@ public class Client
         }
     }
 
-    public async Task<CommandResult<HttpResponseMessage>> Post(string route, Dictionary<string, string> bodyParams)
+    public async Task<CommandResult<HttpResponseMessage>> Post(string route, Dictionary<string, string> bodyParams, Dictionary<string, string>? parameters = null)
     {
         try
         {
@@ -106,7 +141,7 @@ public class Client
                 content.Add(new StringContent(value), key);
             }
 
-            var response = await client.PostAsync(route, content);
+            var response = await client.PostAsync(CreateUrl(route, parameters), content);
             if (response.StatusCode != HttpStatusCode.OK)
                 return await HandleNotOkResponse<HttpResponseMessage>(response);
 
@@ -118,10 +153,25 @@ public class Client
         }
     }
 
-    public async Task<CommandResult<T>> PostForJson<T>(string route, Dictionary<string, string> bodyParams)
+    public async Task<CommandResult<HttpResponseMessage>> Post(string route, string token)
     {
-        var response = await Post("/login", bodyParams);
+        try
+        {
+            var response = await client.WithToken(token).PostAsync(CreateUrl(route), null);
+            if (response.StatusCode != HttpStatusCode.OK)
+                return await HandleNotOkResponse<HttpResponseMessage>(response);
 
+            return CommandResult<HttpResponseMessage>.Ok(response);
+        }
+        catch (Exception e)
+        {
+            return CommandResult<HttpResponseMessage>.Error(e.Message);
+        }
+    }
+
+    public async Task<CommandResult<T>> PostForJson<T>(string route, Dictionary<string, string> bodyParams, Dictionary<string, string>? parameters = null)
+    {
+        var response = await Post(route, bodyParams, parameters);
         if (!response.Success)
         {
             return CommandResult<T>.Error(response.ErrorMessage ?? "Unknown error");
@@ -130,11 +180,25 @@ public class Client
         return await NormalizeJsonResponse<T>(response.Result!);
     }
 
-    public async Task<CommandResult<T>> GetJson<T>(string route, string? token = null)
+    public async Task<CommandResult<T>> PostForJson<T>(string route, string token)
+    {
+        var response = await Post(route, token);
+        if (!response.Success)
+        {
+            return CommandResult<T>.Error(response.ErrorMessage ?? "Unknown error");
+        }
+
+        return await NormalizeJsonResponse<T>(response.Result!);
+    }
+
+    public async Task<CommandResult<T>> GetJson<T>(string route, string? token = null, Dictionary<string, string>? parameters = null)
     {
         try
         {
-            var response = token != null ? await client.WithToken(token).GetAsync(route) : await client.GetAsync(route);
+            var response = token != null
+                ? await client.WithToken(token).GetAsync(CreateUrl(route, parameters))
+                : await client.GetAsync(CreateUrl(route, parameters));
+
             return await NormalizeJsonResponse<T>(response);
         }
         catch (Exception e)
@@ -176,11 +240,42 @@ public class Client
         }
     }
 
-    public async Task<CommandResult<HttpResponseMessage>> Delete(string route, string? token = null)
+    private string CreateUrl(string url, Dictionary<string, string>? parameters = null)
+    {
+        var query = HttpUtility.ParseQueryString(ServerOption.AuthCode != null ? $"authcode={ServerOption.AuthCode}" : string.Empty);
+
+        if (parameters != null)
+        {
+            foreach (string key in parameters.Keys)
+            {
+                query.Set(key, parameters[key]);
+            }
+        }
+
+        var queryString = query?.ToString() ?? "";
+        var uriBuilder = new UriBuilder(ServerOption.Url!)
+        {
+            Path = url,
+            Query = queryString
+        };
+        return uriBuilder.ToString();
+    }
+
+    public static CommandResult<string> ValidateServerUrl(string url)
+    {
+        var builder = new UriBuilder(url);
+
+        if (builder.Path != "/") return CommandResult<string>.Error("Server URLs may not have a path");
+        if (builder.Scheme == "https" && builder.Port != 443) return CommandResult<string>.Error("HTTPS on an irregular port is not allowed.");
+
+        return CommandResult<string>.Ok(url);
+    }
+
+    public async Task<CommandResult<HttpResponseMessage>> Delete(string route, string? token = null, Dictionary<string, string>? parameters = null)
     {
         try
         {
-            var response = token != null ? await client.WithToken(token).DeleteAsync(route) : await client.DeleteAsync(route);
+            var response = token != null ? await client.WithToken(token).DeleteAsync(CreateUrl(route, parameters)) : await client.DeleteAsync(route);
             if (response.StatusCode != HttpStatusCode.OK)
                 return await HandleNotOkResponse<HttpResponseMessage>(response);
 

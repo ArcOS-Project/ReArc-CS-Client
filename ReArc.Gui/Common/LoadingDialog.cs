@@ -2,6 +2,7 @@
 {
     public partial class LoadingDialog : Form
     {
+        private static LoadingDialog? _dialog;
         private bool _stop = false;
 
         public LoadingDialog(string caption)
@@ -14,7 +15,9 @@
         public static LoadingDialog ShowLoading(Form invocator, string caption)
         {
             var dialog = new LoadingDialog(caption);
-            dialog.ShowDialog(invocator);
+            invocator.BeginInvoke(() => dialog.ShowDialog(invocator));
+
+            _dialog = dialog;
 
             return dialog;
         }
@@ -24,11 +27,19 @@
             if (!_stop) e.Cancel = true;
         }
 
-        public async Task Stop()
+        public static async Task Stop()
         {
-            _stop = true;
-            Close();
-            await Task.Delay(100);
+            if (_dialog == null) return;
+
+            _dialog._stop = true;
+            _dialog.Close();
+            await Task.Delay(200);
+            _dialog = null;
+        }
+
+        private void LoadingDialog_Load(object sender, EventArgs e)
+        {
+            Focus();
         }
     }
 }

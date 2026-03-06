@@ -1,4 +1,4 @@
-﻿namespace ReArc.Gui
+﻿namespace ReArc.Gui.Server
 {
     partial class SelectServerForm
     {
@@ -36,12 +36,18 @@
             DeleteButton = new Button();
             AddButton = new Button();
             EditButton = new Button();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            panel1 = new Panel();
+            pictureBox1 = new PictureBox();
+            tableLayoutPanel1.SuspendLayout();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 9);
+            label1.Location = new Point(23, 20);
             label1.Name = "label1";
             label1.Size = new Size(256, 15);
             label1.TabIndex = 0;
@@ -50,16 +56,16 @@
             // ServerListBox
             // 
             ServerListBox.FormattingEnabled = true;
-            ServerListBox.Location = new Point(12, 34);
+            ServerListBox.Location = new Point(23, 50);
             ServerListBox.Name = "ServerListBox";
-            ServerListBox.Size = new Size(404, 169);
+            ServerListBox.Size = new Size(354, 184);
             ServerListBox.TabIndex = 1;
             ServerListBox.SelectedIndexChanged += ServerListBox_SelectedIndexChanged;
             // 
             // ConnectButton
             // 
             ConnectButton.Enabled = false;
-            ConnectButton.Location = new Point(341, 209);
+            ConnectButton.Location = new Point(302, 244);
             ConnectButton.Name = "ConnectButton";
             ConnectButton.Size = new Size(75, 23);
             ConnectButton.TabIndex = 2;
@@ -69,7 +75,7 @@
             // 
             // ExitButton
             // 
-            ExitButton.Location = new Point(260, 209);
+            ExitButton.Location = new Point(221, 244);
             ExitButton.Name = "ExitButton";
             ExitButton.Size = new Size(75, 23);
             ExitButton.TabIndex = 3;
@@ -80,44 +86,89 @@
             // DeleteButton
             // 
             DeleteButton.Enabled = false;
-            DeleteButton.Location = new Point(69, 209);
+            DeleteButton.Location = new Point(80, 244);
             DeleteButton.Name = "DeleteButton";
             DeleteButton.Size = new Size(52, 23);
             DeleteButton.TabIndex = 4;
             DeleteButton.Text = "Delete";
             DeleteButton.UseVisualStyleBackColor = true;
+            DeleteButton.Click += DeleteButton_Click;
             // 
             // AddButton
             // 
-            AddButton.Location = new Point(12, 209);
+            AddButton.Location = new Point(23, 244);
             AddButton.Name = "AddButton";
             AddButton.Size = new Size(51, 23);
             AddButton.TabIndex = 5;
             AddButton.Text = "Add...";
             AddButton.UseVisualStyleBackColor = true;
+            AddButton.Click += AddButton_Click;
             // 
             // EditButton
             // 
             EditButton.Enabled = false;
-            EditButton.Location = new Point(127, 209);
+            EditButton.Location = new Point(138, 244);
             EditButton.Name = "EditButton";
             EditButton.Size = new Size(42, 23);
             EditButton.TabIndex = 6;
             EditButton.Text = "Edit";
             EditButton.UseVisualStyleBackColor = true;
+            EditButton.Click += EditButton_Click;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.Controls.Add(panel1, 0, 1);
+            tableLayoutPanel1.Controls.Add(pictureBox1, 0, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle());
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new Size(400, 360);
+            tableLayoutPanel1.TabIndex = 7;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(EditButton);
+            panel1.Controls.Add(ServerListBox);
+            panel1.Controls.Add(AddButton);
+            panel1.Controls.Add(ConnectButton);
+            panel1.Controls.Add(DeleteButton);
+            panel1.Controls.Add(ExitButton);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 70);
+            panel1.Margin = new Padding(0);
+            panel1.Name = "panel1";
+            panel1.Padding = new Padding(20);
+            panel1.Size = new Size(400, 290);
+            panel1.TabIndex = 0;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Image = Properties.Resources.banner;
+            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Margin = new Padding(0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(400, 70);
+            pictureBox1.TabIndex = 1;
+            pictureBox1.TabStop = false;
             // 
             // SelectServerForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(428, 244);
-            Controls.Add(EditButton);
-            Controls.Add(AddButton);
-            Controls.Add(DeleteButton);
-            Controls.Add(ExitButton);
-            Controls.Add(ConnectButton);
-            Controls.Add(ServerListBox);
-            Controls.Add(label1);
+            ClientSize = new Size(400, 360);
+            Controls.Add(tableLayoutPanel1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
@@ -126,8 +177,11 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Choose Server";
             Load += SelectServerForm_Load;
+            tableLayoutPanel1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -139,5 +193,8 @@
         private Button DeleteButton;
         private Button AddButton;
         private Button EditButton;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Panel panel1;
+        private PictureBox pictureBox1;
     }
 }
