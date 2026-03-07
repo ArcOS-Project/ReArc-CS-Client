@@ -49,5 +49,10 @@ namespace ReArc.Gui.Views
             if (hour < 18) return $"Good afternoon, {displayName}!";
             return $"Good evening, {displayName}!";
         }
+
+        private void UsersButton_Click(object sender, EventArgs e)
+        {
+            _ = MainForm!.SwitchView(new Users(), "Users");
+        }
     }
 }

@@ -114,7 +114,7 @@ partial class LoginForm
         AbortButton.Name = "AbortButton";
         AbortButton.Size = new Size(75, 23);
         AbortButton.TabIndex = 4;
-        AbortButton.Text = "Cancel";
+        AbortButton.Text = "Exit";
         AbortButton.UseVisualStyleBackColor = true;
         AbortButton.Click += AbortButton_click;
         // 

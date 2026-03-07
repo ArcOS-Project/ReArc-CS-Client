@@ -183,6 +183,16 @@ namespace ReArc.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap dashboardbg {
+            get {
+                object obj = ResourceManager.GetObject("dashboardbg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap dashboardstatbg {
             get {
                 object obj = ResourceManager.GetObject("dashboardstatbg", resourceCulture);

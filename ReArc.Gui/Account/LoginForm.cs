@@ -100,6 +100,7 @@ public partial class LoginForm : Form
         PasswordBox.Enabled = false;
         LogoutButton.Enabled = true;
         LoginButton.Enabled = true;
+        LoginButton.Focus();
     }
 
     private void LogoutButton_Click(object sender, EventArgs e)

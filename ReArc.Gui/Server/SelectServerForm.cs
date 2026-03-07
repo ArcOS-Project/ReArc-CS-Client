@@ -22,6 +22,10 @@ namespace ReArc.Gui.Server
         private void SelectServerForm_Load(object sender, EventArgs e)
         {
             UpdateServerList();
+            if (!string.IsNullOrEmpty(Configuration.Settings?.LastServer))
+            {
+                ServerListBox.SelectedIndex = _servers.FindIndex((s) => s.Url == Configuration.Settings.LastServer);
+            }
             Focus();
         }
 
@@ -89,6 +93,7 @@ namespace ReArc.Gui.Server
             }
             else
             {
+                Configuration.SetLastServer(_selectedServer.Url);
                 Program.SetNextForm(new LoginForm());
                 Close();
             }

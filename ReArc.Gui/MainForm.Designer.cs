@@ -300,7 +300,7 @@
             ClientSize = new Size(1084, 641);
             Controls.Add(tableLayoutPanel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MinimumSize = new Size(800, 620);
+            MinimumSize = new Size(1100, 680);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ArcOS Administrative Toolbox";

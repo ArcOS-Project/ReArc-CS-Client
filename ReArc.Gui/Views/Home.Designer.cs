@@ -49,30 +49,32 @@
             label7 = new Label();
             ApprovalsLabel = new Label();
             panel2 = new Panel();
+            pictureBox1 = new PictureBox();
+            groupBox4 = new GroupBox();
+            LogsButton = new Button();
+            AuditLogButton = new Button();
+            ScopesButton = new Button();
+            BugReportButton = new Button();
+            groupBox3 = new GroupBox();
+            AppStoreButton = new Button();
+            SharesButton = new Button();
+            FilesystemsButton = new Button();
+            groupBox2 = new GroupBox();
+            ActivitiesButton = new Button();
+            TokensButton = new Button();
+            UsersButton = new Button();
             LoggedInAsLabel = new Label();
             ProfilePictureBox = new PictureBox();
             GreetingBox = new Label();
-            groupBox2 = new GroupBox();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            groupBox3 = new GroupBox();
-            button4 = new Button();
-            button5 = new Button();
-            button6 = new Button();
-            groupBox4 = new GroupBox();
-            button7 = new Button();
-            button8 = new Button();
-            button9 = new Button();
-            button10 = new Button();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             groupBox1.SuspendLayout();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)ProfilePictureBox).BeginInit();
-            groupBox2.SuspendLayout();
-            groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox4.SuspendLayout();
+            groupBox3.SuspendLayout();
+            groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)ProfilePictureBox).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -296,6 +298,7 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(pictureBox1);
             panel2.Controls.Add(groupBox4);
             panel2.Controls.Add(groupBox3);
             panel2.Controls.Add(groupBox2);
@@ -309,6 +312,197 @@
             panel2.Padding = new Padding(25);
             panel2.Size = new Size(634, 546);
             panel2.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            pictureBox1.Image = Properties.Resources.dashboardbg;
+            pictureBox1.Location = new Point(0, 320);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(250, 226);
+            pictureBox1.TabIndex = 9;
+            pictureBox1.TabStop = false;
+            // 
+            // groupBox4
+            // 
+            groupBox4.Controls.Add(LogsButton);
+            groupBox4.Controls.Add(AuditLogButton);
+            groupBox4.Controls.Add(ScopesButton);
+            groupBox4.Controls.Add(BugReportButton);
+            groupBox4.Location = new Point(311, 89);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Padding = new Padding(10);
+            groupBox4.Size = new Size(142, 165);
+            groupBox4.TabIndex = 8;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Administration";
+            // 
+            // LogsButton
+            // 
+            LogsButton.BackgroundImageLayout = ImageLayout.Zoom;
+            LogsButton.Image = Properties.Resources.event16;
+            LogsButton.ImageAlign = ContentAlignment.TopLeft;
+            LogsButton.Location = new Point(13, 123);
+            LogsButton.Name = "LogsButton";
+            LogsButton.Padding = new Padding(2, 2, 10, 2);
+            LogsButton.Size = new Size(116, 27);
+            LogsButton.TabIndex = 7;
+            LogsButton.Text = "Logs";
+            LogsButton.TextAlign = ContentAlignment.MiddleRight;
+            LogsButton.UseVisualStyleBackColor = true;
+            // 
+            // AuditLogButton
+            // 
+            AuditLogButton.BackgroundImageLayout = ImageLayout.Zoom;
+            AuditLogButton.Image = Properties.Resources.cabinet1;
+            AuditLogButton.ImageAlign = ContentAlignment.TopLeft;
+            AuditLogButton.Location = new Point(13, 90);
+            AuditLogButton.Name = "AuditLogButton";
+            AuditLogButton.Padding = new Padding(2, 2, 10, 2);
+            AuditLogButton.Size = new Size(116, 27);
+            AuditLogButton.TabIndex = 6;
+            AuditLogButton.Text = "Audit Log";
+            AuditLogButton.TextAlign = ContentAlignment.MiddleRight;
+            AuditLogButton.UseVisualStyleBackColor = true;
+            // 
+            // ScopesButton
+            // 
+            ScopesButton.BackgroundImageLayout = ImageLayout.Zoom;
+            ScopesButton.Image = Properties.Resources.elevate16;
+            ScopesButton.ImageAlign = ContentAlignment.TopLeft;
+            ScopesButton.Location = new Point(13, 57);
+            ScopesButton.Name = "ScopesButton";
+            ScopesButton.Padding = new Padding(2, 2, 10, 2);
+            ScopesButton.Size = new Size(116, 27);
+            ScopesButton.TabIndex = 5;
+            ScopesButton.Text = "Scopes";
+            ScopesButton.TextAlign = ContentAlignment.MiddleRight;
+            ScopesButton.UseVisualStyleBackColor = true;
+            // 
+            // BugReportButton
+            // 
+            BugReportButton.BackgroundImageLayout = ImageLayout.Zoom;
+            BugReportButton.Image = Properties.Resources.crash16;
+            BugReportButton.ImageAlign = ContentAlignment.TopLeft;
+            BugReportButton.Location = new Point(13, 24);
+            BugReportButton.Name = "BugReportButton";
+            BugReportButton.Padding = new Padding(2, 2, 10, 2);
+            BugReportButton.Size = new Size(116, 27);
+            BugReportButton.TabIndex = 4;
+            BugReportButton.Text = "Bug Reports";
+            BugReportButton.TextAlign = ContentAlignment.MiddleRight;
+            BugReportButton.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(AppStoreButton);
+            groupBox3.Controls.Add(SharesButton);
+            groupBox3.Controls.Add(FilesystemsButton);
+            groupBox3.Location = new Point(163, 89);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Padding = new Padding(10);
+            groupBox3.Size = new Size(142, 165);
+            groupBox3.TabIndex = 7;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Content";
+            // 
+            // AppStoreButton
+            // 
+            AppStoreButton.BackgroundImageLayout = ImageLayout.Zoom;
+            AppStoreButton.Image = Properties.Resources.installer16;
+            AppStoreButton.ImageAlign = ContentAlignment.TopLeft;
+            AppStoreButton.Location = new Point(13, 90);
+            AppStoreButton.Name = "AppStoreButton";
+            AppStoreButton.Padding = new Padding(2, 2, 10, 2);
+            AppStoreButton.Size = new Size(116, 27);
+            AppStoreButton.TabIndex = 6;
+            AppStoreButton.Text = "App Store";
+            AppStoreButton.TextAlign = ContentAlignment.MiddleRight;
+            AppStoreButton.UseVisualStyleBackColor = true;
+            // 
+            // SharesButton
+            // 
+            SharesButton.BackgroundImageLayout = ImageLayout.Zoom;
+            SharesButton.Image = Properties.Resources.share16;
+            SharesButton.ImageAlign = ContentAlignment.TopLeft;
+            SharesButton.Location = new Point(13, 57);
+            SharesButton.Name = "SharesButton";
+            SharesButton.Padding = new Padding(2, 2, 10, 2);
+            SharesButton.Size = new Size(116, 27);
+            SharesButton.TabIndex = 5;
+            SharesButton.Text = "Shares";
+            SharesButton.TextAlign = ContentAlignment.MiddleRight;
+            SharesButton.UseVisualStyleBackColor = true;
+            // 
+            // FilesystemsButton
+            // 
+            FilesystemsButton.BackgroundImageLayout = ImageLayout.Zoom;
+            FilesystemsButton.Image = Properties.Resources.keyfs16;
+            FilesystemsButton.ImageAlign = ContentAlignment.TopLeft;
+            FilesystemsButton.Location = new Point(13, 24);
+            FilesystemsButton.Name = "FilesystemsButton";
+            FilesystemsButton.Padding = new Padding(2, 2, 10, 2);
+            FilesystemsButton.Size = new Size(116, 27);
+            FilesystemsButton.TabIndex = 4;
+            FilesystemsButton.Text = "Filesystems";
+            FilesystemsButton.TextAlign = ContentAlignment.MiddleRight;
+            FilesystemsButton.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(ActivitiesButton);
+            groupBox2.Controls.Add(TokensButton);
+            groupBox2.Controls.Add(UsersButton);
+            groupBox2.Location = new Point(28, 89);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Padding = new Padding(10);
+            groupBox2.Size = new Size(129, 165);
+            groupBox2.TabIndex = 3;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Users && Security";
+            // 
+            // ActivitiesButton
+            // 
+            ActivitiesButton.BackgroundImageLayout = ImageLayout.Zoom;
+            ActivitiesButton.Image = Properties.Resources.flag16;
+            ActivitiesButton.ImageAlign = ContentAlignment.TopLeft;
+            ActivitiesButton.Location = new Point(14, 90);
+            ActivitiesButton.Name = "ActivitiesButton";
+            ActivitiesButton.Padding = new Padding(2, 2, 10, 2);
+            ActivitiesButton.Size = new Size(102, 27);
+            ActivitiesButton.TabIndex = 6;
+            ActivitiesButton.Text = "Activities";
+            ActivitiesButton.TextAlign = ContentAlignment.MiddleRight;
+            ActivitiesButton.UseVisualStyleBackColor = true;
+            // 
+            // TokensButton
+            // 
+            TokensButton.BackgroundImageLayout = ImageLayout.Zoom;
+            TokensButton.Image = Properties.Resources.keys16;
+            TokensButton.ImageAlign = ContentAlignment.TopLeft;
+            TokensButton.Location = new Point(13, 57);
+            TokensButton.Name = "TokensButton";
+            TokensButton.Padding = new Padding(2, 2, 10, 2);
+            TokensButton.Size = new Size(102, 27);
+            TokensButton.TabIndex = 5;
+            TokensButton.Text = "Tokens";
+            TokensButton.TextAlign = ContentAlignment.MiddleRight;
+            TokensButton.UseVisualStyleBackColor = true;
+            // 
+            // UsersButton
+            // 
+            UsersButton.BackgroundImageLayout = ImageLayout.Zoom;
+            UsersButton.Image = Properties.Resources.users16;
+            UsersButton.ImageAlign = ContentAlignment.TopLeft;
+            UsersButton.Location = new Point(13, 24);
+            UsersButton.Name = "UsersButton";
+            UsersButton.Padding = new Padding(2, 2, 10, 2);
+            UsersButton.Size = new Size(102, 27);
+            UsersButton.TabIndex = 4;
+            UsersButton.Text = "Users";
+            UsersButton.TextAlign = ContentAlignment.MiddleRight;
+            UsersButton.UseVisualStyleBackColor = true;
+            UsersButton.Click += UsersButton_Click;
             // 
             // LoggedInAsLabel
             // 
@@ -341,186 +535,6 @@
             GreetingBox.TabIndex = 0;
             GreetingBox.Text = "Good afternoon, username!";
             // 
-            // groupBox2
-            // 
-            groupBox2.Controls.Add(button3);
-            groupBox2.Controls.Add(button2);
-            groupBox2.Controls.Add(button1);
-            groupBox2.Location = new Point(28, 89);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new Padding(10);
-            groupBox2.Size = new Size(129, 146);
-            groupBox2.TabIndex = 3;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Users && Security";
-            // 
-            // button1
-            // 
-            button1.BackgroundImageLayout = ImageLayout.Zoom;
-            button1.Image = Properties.Resources.users16;
-            button1.ImageAlign = ContentAlignment.TopLeft;
-            button1.Location = new Point(13, 24);
-            button1.Name = "button1";
-            button1.Padding = new Padding(0, 0, 10, 0);
-            button1.Size = new Size(102, 23);
-            button1.TabIndex = 4;
-            button1.Text = "Users";
-            button1.TextAlign = ContentAlignment.MiddleRight;
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.BackgroundImageLayout = ImageLayout.Zoom;
-            button2.Image = Properties.Resources.keys16;
-            button2.ImageAlign = ContentAlignment.TopLeft;
-            button2.Location = new Point(13, 53);
-            button2.Name = "button2";
-            button2.Padding = new Padding(0, 0, 10, 0);
-            button2.Size = new Size(102, 23);
-            button2.TabIndex = 5;
-            button2.Text = "Tokens";
-            button2.TextAlign = ContentAlignment.MiddleRight;
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            button3.BackgroundImageLayout = ImageLayout.Zoom;
-            button3.Image = Properties.Resources.flag16;
-            button3.ImageAlign = ContentAlignment.TopLeft;
-            button3.Location = new Point(13, 80);
-            button3.Name = "button3";
-            button3.Padding = new Padding(0, 0, 10, 0);
-            button3.Size = new Size(102, 23);
-            button3.TabIndex = 6;
-            button3.Text = "Activities";
-            button3.TextAlign = ContentAlignment.MiddleRight;
-            button3.UseVisualStyleBackColor = true;
-            // 
-            // groupBox3
-            // 
-            groupBox3.Controls.Add(button4);
-            groupBox3.Controls.Add(button5);
-            groupBox3.Controls.Add(button6);
-            groupBox3.Location = new Point(163, 89);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Padding = new Padding(10);
-            groupBox3.Size = new Size(142, 146);
-            groupBox3.TabIndex = 7;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Content";
-            // 
-            // button4
-            // 
-            button4.BackgroundImageLayout = ImageLayout.Zoom;
-            button4.Image = Properties.Resources.installer16;
-            button4.ImageAlign = ContentAlignment.TopLeft;
-            button4.Location = new Point(13, 80);
-            button4.Name = "button4";
-            button4.Padding = new Padding(0, 0, 10, 0);
-            button4.Size = new Size(116, 23);
-            button4.TabIndex = 6;
-            button4.Text = "App Store";
-            button4.TextAlign = ContentAlignment.MiddleRight;
-            button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            button5.BackgroundImageLayout = ImageLayout.Zoom;
-            button5.Image = Properties.Resources.share16;
-            button5.ImageAlign = ContentAlignment.TopLeft;
-            button5.Location = new Point(13, 53);
-            button5.Name = "button5";
-            button5.Padding = new Padding(0, 0, 10, 0);
-            button5.Size = new Size(116, 23);
-            button5.TabIndex = 5;
-            button5.Text = "Shares";
-            button5.TextAlign = ContentAlignment.MiddleRight;
-            button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            button6.BackgroundImageLayout = ImageLayout.Zoom;
-            button6.Image = Properties.Resources.keyfs16;
-            button6.ImageAlign = ContentAlignment.TopLeft;
-            button6.Location = new Point(13, 24);
-            button6.Name = "button6";
-            button6.Padding = new Padding(0, 0, 10, 0);
-            button6.Size = new Size(116, 23);
-            button6.TabIndex = 4;
-            button6.Text = "Filesystems";
-            button6.TextAlign = ContentAlignment.MiddleRight;
-            button6.UseVisualStyleBackColor = true;
-            // 
-            // groupBox4
-            // 
-            groupBox4.Controls.Add(button10);
-            groupBox4.Controls.Add(button7);
-            groupBox4.Controls.Add(button8);
-            groupBox4.Controls.Add(button9);
-            groupBox4.Location = new Point(311, 89);
-            groupBox4.Name = "groupBox4";
-            groupBox4.Padding = new Padding(10);
-            groupBox4.Size = new Size(142, 146);
-            groupBox4.TabIndex = 8;
-            groupBox4.TabStop = false;
-            groupBox4.Text = "Administration";
-            // 
-            // button7
-            // 
-            button7.BackgroundImageLayout = ImageLayout.Zoom;
-            button7.Image = Properties.Resources.cabinet1;
-            button7.ImageAlign = ContentAlignment.TopLeft;
-            button7.Location = new Point(13, 80);
-            button7.Name = "button7";
-            button7.Padding = new Padding(0, 0, 10, 0);
-            button7.Size = new Size(116, 23);
-            button7.TabIndex = 6;
-            button7.Text = "Audit Log";
-            button7.TextAlign = ContentAlignment.MiddleRight;
-            button7.UseVisualStyleBackColor = true;
-            // 
-            // button8
-            // 
-            button8.BackgroundImageLayout = ImageLayout.Zoom;
-            button8.Image = Properties.Resources.elevate16;
-            button8.ImageAlign = ContentAlignment.TopLeft;
-            button8.Location = new Point(13, 53);
-            button8.Name = "button8";
-            button8.Padding = new Padding(0, 0, 10, 0);
-            button8.Size = new Size(116, 23);
-            button8.TabIndex = 5;
-            button8.Text = "Scopes";
-            button8.TextAlign = ContentAlignment.MiddleRight;
-            button8.UseVisualStyleBackColor = true;
-            // 
-            // button9
-            // 
-            button9.BackgroundImageLayout = ImageLayout.Zoom;
-            button9.Image = Properties.Resources.crash16;
-            button9.ImageAlign = ContentAlignment.TopLeft;
-            button9.Location = new Point(13, 24);
-            button9.Name = "button9";
-            button9.Padding = new Padding(0, 0, 10, 0);
-            button9.Size = new Size(116, 23);
-            button9.TabIndex = 4;
-            button9.Text = "Bug Reports";
-            button9.TextAlign = ContentAlignment.MiddleRight;
-            button9.UseVisualStyleBackColor = true;
-            // 
-            // button10
-            // 
-            button10.BackgroundImageLayout = ImageLayout.Zoom;
-            button10.Image = Properties.Resources.event16;
-            button10.ImageAlign = ContentAlignment.TopLeft;
-            button10.Location = new Point(13, 109);
-            button10.Name = "button10";
-            button10.Padding = new Padding(0, 0, 10, 0);
-            button10.Size = new Size(116, 23);
-            button10.TabIndex = 7;
-            button10.Text = "Logs";
-            button10.TextAlign = ContentAlignment.MiddleRight;
-            button10.UseVisualStyleBackColor = true;
-            // 
             // Home
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -534,10 +548,11 @@
             groupBox1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)ProfilePictureBox).EndInit();
-            groupBox2.ResumeLayout(false);
-            groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             groupBox4.ResumeLayout(false);
+            groupBox3.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)ProfilePictureBox).EndInit();
             ResumeLayout(false);
         }
 
@@ -567,17 +582,18 @@
         private PictureBox ProfilePictureBox;
         private Label GreetingBox;
         private GroupBox groupBox2;
-        private Button button3;
-        private Button button2;
-        private Button button1;
+        private Button ActivitiesButton;
+        private Button TokensButton;
+        private Button UsersButton;
         private GroupBox groupBox3;
-        private Button button4;
-        private Button button5;
-        private Button button6;
+        private Button AppStoreButton;
+        private Button SharesButton;
+        private Button FilesystemsButton;
         private GroupBox groupBox4;
-        private Button button10;
-        private Button button7;
-        private Button button8;
-        private Button button9;
+        private Button LogsButton;
+        private Button AuditLogButton;
+        private Button ScopesButton;
+        private Button BugReportButton;
+        private PictureBox pictureBox1;
     }
 }

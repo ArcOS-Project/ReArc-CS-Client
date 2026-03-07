@@ -79,7 +79,7 @@
             ExitButton.Name = "ExitButton";
             ExitButton.Size = new Size(75, 23);
             ExitButton.TabIndex = 3;
-            ExitButton.Text = "Cancel";
+            ExitButton.Text = "Exit";
             ExitButton.UseVisualStyleBackColor = true;
             ExitButton.Click += CancelButton_Click;
             // 
@@ -165,8 +165,10 @@
             // 
             // SelectServerForm
             // 
+            AcceptButton = ConnectButton;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = ExitButton;
             ClientSize = new Size(400, 360);
             Controls.Add(tableLayoutPanel1);
             FormBorderStyle = FormBorderStyle.FixedDialog;

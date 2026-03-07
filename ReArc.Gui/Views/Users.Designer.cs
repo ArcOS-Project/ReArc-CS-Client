@@ -44,7 +44,7 @@
             // 
             UserListView.AllowUserToAddRows = false;
             UserListView.AllowUserToDeleteRows = false;
-            UserListView.BackgroundColor = SystemColors.Control;
+            UserListView.BackgroundColor = Color.White;
             UserListView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             UserListView.Columns.AddRange(new DataGridViewColumn[] { ProfilePicture, Username, Email, Created, Approved, Admin, View, Copy });
             UserListView.Dock = DockStyle.Fill;
@@ -52,7 +52,7 @@
             UserListView.Name = "UserListView";
             UserListView.ReadOnly = true;
             UserListView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            UserListView.Size = new Size(647, 267);
+            UserListView.Size = new Size(884, 546);
             UserListView.TabIndex = 0;
             UserListView.CellClick += UserListView_CellContentClick;
             // 
@@ -139,7 +139,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(UserListView);
             Name = "Users";
-            Size = new Size(647, 267);
+            Size = new Size(884, 546);
             ((System.ComponentModel.ISupportInitialize)UserListView).EndInit();
             ResumeLayout(false);
         }
