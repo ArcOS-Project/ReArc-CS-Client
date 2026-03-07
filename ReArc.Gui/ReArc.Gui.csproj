@@ -6,7 +6,12 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>server 1.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="server 1.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ReArc.ApiHandler\ReArc.ApiHandler.csproj" />

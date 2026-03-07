@@ -95,7 +95,7 @@ partial class EditServerForm
         label5.AutoSize = true;
         label5.Location = new Point(10, 112);
         label5.Name = "label5";
-        label5.Size = new Size(38, 15);
+        label5.Size = new Size(39, 15);
         label5.TabIndex = 9;
         label5.Text = "Token";
         // 

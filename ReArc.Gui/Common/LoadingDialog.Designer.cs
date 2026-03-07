@@ -33,9 +33,11 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             panel1 = new Panel();
             pictureBox1 = new PictureBox();
+            pictureBox2 = new PictureBox();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // StatusLabel
@@ -52,7 +54,7 @@
             progressBar1.Location = new Point(23, 59);
             progressBar1.MarqueeAnimationSpeed = 20;
             progressBar1.Name = "progressBar1";
-            progressBar1.Size = new Size(454, 23);
+            progressBar1.Size = new Size(406, 23);
             progressBar1.Style = ProgressBarStyle.Marquee;
             progressBar1.TabIndex = 1;
             // 
@@ -73,6 +75,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(pictureBox2);
             panel1.Controls.Add(StatusLabel);
             panel1.Controls.Add(progressBar1);
             panel1.Dock = DockStyle.Fill;
@@ -93,6 +96,16 @@
             pictureBox1.Size = new Size(500, 70);
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = Properties.Resources.hourglass32;
+            pictureBox2.Location = new Point(448, 53);
+            pictureBox2.Margin = new Padding(0);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(32, 32);
+            pictureBox2.TabIndex = 2;
+            pictureBox2.TabStop = false;
             // 
             // LoadingDialog
             // 
@@ -116,6 +129,7 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
         }
 
@@ -126,5 +140,6 @@
         private TableLayoutPanel tableLayoutPanel1;
         private Panel panel1;
         private PictureBox pictureBox1;
+        private PictureBox pictureBox2;
     }
 }

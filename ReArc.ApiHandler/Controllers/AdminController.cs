@@ -1,5 +1,6 @@
 ﻿using ReArc.Shared;
 using ReArc.Shared.Records.Database;
+using ReArc.Shared.Records.Responses.Admin;
 
 namespace ReArc.ApiHandler.Controllers
 {
@@ -11,6 +12,14 @@ namespace ReArc.ApiHandler.Controllers
             if (!response.Success) return CommandResult<List<ArcUser>>.Error(response.ErrorMessage);
 
             return CommandResult<List<ArcUser>>.Ok(response.Result!);
+        }
+
+        public static async Task<CommandResult<Statistics>> GetStatistics()
+        {
+            var response = await Client.CurrentClient.GetJson<Statistics>("/admin/stats", UserController.Token);
+            if (!response.Success) return CommandResult<Statistics>.Error(response.ErrorMessage);
+
+            return CommandResult<Statistics>.Ok(response.Result!);
         }
     }
 }

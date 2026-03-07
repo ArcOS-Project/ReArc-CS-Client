@@ -11,5 +11,7 @@ public record class ArcUser(
 #pragma warning restore IDE1006
     string Email,
     long StorageSize,
-    int AccountNumber
+    int AccountNumber,
+    string CreatedAt,
+    string UpdatedAt
 );

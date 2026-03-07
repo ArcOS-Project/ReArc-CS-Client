@@ -20,7 +20,7 @@ public static class UserLogic
 
         if (!loginResult.Success)
         {
-            MessageBox.Show($"The saved token for user {serverOption.Username} on {serverOption.Url} is invalid. Please log in again.", "");
+            MessageBox.Show($"The saved token for user {serverOption.Username} on {serverOption.Url} is invalid. Please log in again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             Configuration.RemoveTokenFrom((s) => s.Url == serverOption.Url);
 
             Program.SetNextForm(new LoginForm());
@@ -29,7 +29,7 @@ public static class UserLogic
         }
 
         await Task.Delay(100);
-        
+
         if (UserController.Restricted)
         {
             Program.SetNextForm(new TotpUnlockForm());
@@ -37,7 +37,7 @@ public static class UserLogic
             return;
         }
 
-        MessageBox.Show("from server selector: Thing goes here");
+        Program.SetNextForm(new MainForm());
         form.Close();
         return;
 
@@ -58,7 +58,7 @@ public static class UserLogic
             return;
         }
 
-        MessageBox.Show("The thing goes here");
+        Program.SetNextForm(new MainForm());
         form.Close();
     }
 
@@ -105,7 +105,5 @@ public static class UserLogic
             Program.SetNextForm(new TotpUnlockForm());
             form.Close();
         }
-
-        MessageBox.Show("The thing goes here");
     }
 }

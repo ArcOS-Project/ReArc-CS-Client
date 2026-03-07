@@ -4,7 +4,6 @@ using ReArc.Shared.Records.Configuration;
 using ReArc.Shared.Records.Responses;
 using System.Net;
 using System.Net.Http.Json;
-using System.Runtime.InteropServices;
 using System.Web;
 
 namespace ReArc.ApiHandler;
@@ -30,6 +29,10 @@ public class Client
     public static bool ClientIsConnected
     {
         get => _currentClient?.Connected ?? false;
+    }
+    public static string? Hostname
+    {
+        get => _currentClient?.Connected == true ? new Uri(_currentClient?.ServerOption.Url!).Host : null;
     }
 
     private ServerInfo? _serverInfo = null;
@@ -78,7 +81,7 @@ public class Client
 
             if (!pingResult.Success)
             {
-                return CommandResult<Client>.Error(pingResult.ErrorMessage ?? "Failed to connect to server");
+                return CommandResult<Client>.Error(pingResult.ErrorMessage);
             }
 
             return CommandResult<Client>.Ok(client);
@@ -174,7 +177,7 @@ public class Client
         var response = await Post(route, bodyParams, parameters);
         if (!response.Success)
         {
-            return CommandResult<T>.Error(response.ErrorMessage ?? "Unknown error");
+            return CommandResult<T>.Error(response.ErrorMessage);
         }
 
         return await NormalizeJsonResponse<T>(response.Result!);
@@ -185,7 +188,7 @@ public class Client
         var response = await Post(route, token);
         if (!response.Success)
         {
-            return CommandResult<T>.Error(response.ErrorMessage ?? "Unknown error");
+            return CommandResult<T>.Error(response.ErrorMessage);
         }
 
         return await NormalizeJsonResponse<T>(response.Result!);
@@ -207,7 +210,7 @@ public class Client
         }
     }
 
-    private async Task<CommandResult<T>> NormalizeJsonResponse<T>(HttpResponseMessage response)
+    private static async Task<CommandResult<T>> NormalizeJsonResponse<T>(HttpResponseMessage response)
     {
         try
         {
@@ -225,18 +228,17 @@ public class Client
         }
     }
 
-    private async Task<CommandResult<T>> HandleNotOkResponse<T>(HttpResponseMessage response)
+    private static async Task<CommandResult<T>> HandleNotOkResponse<T>(HttpResponseMessage response)
     {
         try
         {
-            var responseJson = await response.Content.ReadFromJsonAsync<ErrorResponse>();
-            if (responseJson == null) return CommandResult<T>.Error("An error occurred, but the server didn't say what happened.");
+            var responseJson = (await response.Content.ReadFromJsonAsync<ErrorResponse>()) ?? throw new Exception();
 
-            return CommandResult<T>.Error(responseJson.E ?? "Unknown error");
+            return CommandResult<T>.Error(responseJson.E);
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            return CommandResult<T>.Error(e.Message);
+            return CommandResult<T>.Error("An error occurred, but the server didn't say what happened.");
         }
     }
 

@@ -31,10 +31,11 @@ partial class LoginForm
         pictureBox1 = new PictureBox();
         tableLayoutPanel1 = new TableLayoutPanel();
         panel1 = new Panel();
+        LogoutButton = new Button();
         AbortButton = new Button();
         LoginButton = new Button();
         pictureBox2 = new PictureBox();
-        label4 = new Label();
+        StatusLabel = new Label();
         PasswordBox = new TextBox();
         label3 = new Label();
         SwitchServerButton = new Button();
@@ -76,10 +77,11 @@ partial class LoginForm
         // 
         // panel1
         // 
+        panel1.Controls.Add(LogoutButton);
         panel1.Controls.Add(AbortButton);
         panel1.Controls.Add(LoginButton);
         panel1.Controls.Add(pictureBox2);
-        panel1.Controls.Add(label4);
+        panel1.Controls.Add(StatusLabel);
         panel1.Controls.Add(PasswordBox);
         panel1.Controls.Add(label3);
         panel1.Controls.Add(SwitchServerButton);
@@ -95,12 +97,23 @@ partial class LoginForm
         panel1.Size = new Size(400, 253);
         panel1.TabIndex = 1;
         // 
+        // LogoutButton
+        // 
+        LogoutButton.Enabled = false;
+        LogoutButton.Location = new Point(225, 171);
+        LogoutButton.Name = "LogoutButton";
+        LogoutButton.Size = new Size(75, 23);
+        LogoutButton.TabIndex = 9;
+        LogoutButton.Text = "Log out";
+        LogoutButton.UseVisualStyleBackColor = true;
+        LogoutButton.Click += LogoutButton_Click;
+        // 
         // AbortButton
         // 
-        AbortButton.Location = new Point(225, 171);
+        AbortButton.Location = new Point(144, 171);
         AbortButton.Name = "AbortButton";
         AbortButton.Size = new Size(75, 23);
-        AbortButton.TabIndex = 10;
+        AbortButton.TabIndex = 4;
         AbortButton.Text = "Cancel";
         AbortButton.UseVisualStyleBackColor = true;
         AbortButton.Click += AbortButton_click;
@@ -110,7 +123,7 @@ partial class LoginForm
         LoginButton.Location = new Point(306, 171);
         LoginButton.Name = "LoginButton";
         LoginButton.Size = new Size(75, 23);
-        LoginButton.TabIndex = 9;
+        LoginButton.TabIndex = 5;
         LoginButton.Text = "Log in";
         LoginButton.UseVisualStyleBackColor = true;
         LoginButton.Click += LoginButton_Click;
@@ -125,20 +138,21 @@ partial class LoginForm
         pictureBox2.TabIndex = 8;
         pictureBox2.TabStop = false;
         // 
-        // label4
+        // StatusLabel
         // 
-        label4.Location = new Point(52, 123);
-        label4.Name = "label4";
-        label4.Size = new Size(325, 33);
-        label4.TabIndex = 7;
-        label4.Text = "Please enter your credentials to log in. Note that you must be an administrator to be able to access this resource.";
+        StatusLabel.Location = new Point(52, 123);
+        StatusLabel.Name = "StatusLabel";
+        StatusLabel.Size = new Size(325, 33);
+        StatusLabel.TabIndex = 7;
+        StatusLabel.Text = "Please enter your credentials to log in. Note that you must be an administrator to be able to access this resource.";
         // 
         // PasswordBox
         // 
+        PasswordBox.AcceptsReturn = true;
         PasswordBox.Location = new Point(177, 81);
         PasswordBox.Name = "PasswordBox";
         PasswordBox.Size = new Size(200, 23);
-        PasswordBox.TabIndex = 6;
+        PasswordBox.TabIndex = 3;
         PasswordBox.UseSystemPasswordChar = true;
         PasswordBox.TextChanged += PasswordBox_TextChanged;
         // 
@@ -157,7 +171,7 @@ partial class LoginForm
         SwitchServerButton.Margin = new Padding(0);
         SwitchServerButton.Name = "SwitchServerButton";
         SwitchServerButton.Size = new Size(29, 23);
-        SwitchServerButton.TabIndex = 4;
+        SwitchServerButton.TabIndex = 6;
         SwitchServerButton.Text = "...";
         SwitchServerButton.UseVisualStyleBackColor = true;
         SwitchServerButton.Click += SwitchServerButton_Click;
@@ -167,7 +181,7 @@ partial class LoginForm
         UsernameBox.Location = new Point(177, 52);
         UsernameBox.Name = "UsernameBox";
         UsernameBox.Size = new Size(200, 23);
-        UsernameBox.TabIndex = 3;
+        UsernameBox.TabIndex = 2;
         UsernameBox.TextChanged += UsernameBox_TextChanged;
         // 
         // label2
@@ -186,7 +200,7 @@ partial class LoginForm
         ServerBox.Name = "ServerBox";
         ServerBox.ReadOnly = true;
         ServerBox.Size = new Size(166, 23);
-        ServerBox.TabIndex = 1;
+        ServerBox.TabIndex = 0;
         // 
         // label1
         // 
@@ -199,8 +213,10 @@ partial class LoginForm
         // 
         // LoginForm
         // 
+        AcceptButton = LoginButton;
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
+        CancelButton = AbortButton;
         ClientSize = new Size(400, 285);
         Controls.Add(tableLayoutPanel1);
         FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -229,10 +245,11 @@ partial class LoginForm
     private TextBox PasswordBox;
     private Label label1;
     private PictureBox pictureBox2;
-    private Label label4;
+    private Label StatusLabel;
     private TextBox ServerBox;
     private Label label3;
     private Button SwitchServerButton;
     private Button AbortButton;
     private Button LoginButton;
+    private Button LogoutButton;
 }

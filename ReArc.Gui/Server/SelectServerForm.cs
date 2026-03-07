@@ -89,12 +89,6 @@ namespace ReArc.Gui.Server
             }
             else
             {
-                if (_selectedServer.Username != null && _selectedServer.Token != null)
-                {
-                    await UserLogic.LoginExisting(this, _selectedServer);
-                    return;
-                }
-
                 Program.SetNextForm(new LoginForm());
                 Close();
             }

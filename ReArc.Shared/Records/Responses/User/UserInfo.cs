@@ -4,9 +4,9 @@ public record class UserInfo(
     string UpdatedAt,
     string CreatedAt,
     bool? HasTotp,
-    bool Restricted,
+    bool? Restricted,
     string Username,
-    object Preferences,
+    UserPreferences Preferences,
     bool Admin,
     string[] AdminScopes,
     bool Approved,
@@ -16,4 +16,13 @@ public record class UserInfo(
     string Email,
     long StorageSize,
     int AccountNumber
+);
+
+public record class UserPreferences(
+    AccountInfo Account
+);
+
+public record class AccountInfo(
+    string? LoginBackground,
+    string? DisplayName
 );

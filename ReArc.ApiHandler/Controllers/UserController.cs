@@ -1,4 +1,5 @@
-﻿using ReArc.Shared;
+﻿using MimeKit;
+using ReArc.Shared;
 using ReArc.Shared.Records.Responses;
 using ReArc.Shared.Records.Responses.User;
 
@@ -11,12 +12,21 @@ namespace ReArc.ApiHandler.Controllers
             get;
             private set => field = value;
         }
+        public static string? DisplayName
+        {
+            get => UserInfo?.Preferences.Account.DisplayName ?? UserInfo?.Username;
+        }
         public static string? Token
         {
             get;
             private set => field = value;
         }
         public static bool Restricted
+        {
+            get;
+            private set => field = value;
+        }
+        public static string? ProfilePicture
         {
             get;
             private set => field = value;
@@ -32,8 +42,7 @@ namespace ReArc.ApiHandler.Controllers
 
         public static async Task<CommandResult<UserInfo>> LoginUser(string identity, string password)
         {
-            var client = Client.CurrentClient;
-            var loginResult = await client.PostForJson<LoginResponse>("/login", new Dictionary<string, string>()
+            var loginResult = await Client.CurrentClient.PostForJson<LoginResponse>("/login", new Dictionary<string, string>()
             {
                 { "identity", identity },
                 { "password", password },
@@ -61,7 +70,10 @@ namespace ReArc.ApiHandler.Controllers
 
             UserInfo = userInfoResult.Result!;
             Token = token;
-            Restricted = UserInfo.Restricted;
+            Restricted = UserInfo.Restricted ?? false;
+
+            var profilePictureResult = await DownloadProfilePicture(UserInfo._id);
+            if (profilePictureResult.Success) ProfilePicture = profilePictureResult.Result!;
 
             return CommandResult<UserInfo>.Ok(userInfoResult.Result!);
         }
@@ -100,9 +112,55 @@ namespace ReArc.ApiHandler.Controllers
                 UserInfo = null;
                 Token = null;
                 Restricted = false;
+                ProfilePicture = null;
             }
 
             return discontinuationResult;
+        }
+
+        public static void Reset()
+        {
+            UserInfo = null;
+            Token = null;
+            Restricted = false;
+            ProfilePicture = null;
+        }
+
+        public static void SetToken(string token)
+        {
+            Token = token;
+        }
+
+        public static async Task<CommandResult<string>> DownloadProfilePicture(string userId)
+        {
+            var uri = new UriBuilder(Client.CurrentClient.ServerOption.Url)
+            {
+                Path = $"/user/pfp/{userId}",
+                Query = $"authcode={Client.CurrentClient.ServerOption.AuthCode ?? ""}"
+            };
+            var url = uri.ToString();
+            var client = new HttpClient();
+
+            try
+            {
+                var response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                MimeTypes.TryGetExtension(response.Content.Headers.ContentType?.MediaType ?? "image/png", out var extension);
+                var path = Path.Join(Configuration.Temp.FullName, Guid.NewGuid().ToString() + extension);
+
+                var stream = await response.Content.ReadAsStreamAsync();
+                var fileStream = new FileStream(path, FileMode.Create);
+                await stream.CopyToAsync(fileStream);
+
+                fileStream.Close();
+
+                return CommandResult<string>.Ok(path);
+            }
+            catch (Exception e)
+            {
+                return CommandResult<string>.Error(e.Message);
+            }
         }
     }
 }

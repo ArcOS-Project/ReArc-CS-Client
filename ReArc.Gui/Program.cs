@@ -12,6 +12,7 @@ namespace ReArc.Gui
         {
             await Configuration.ReadConfiguration();
 
+            Application.EnableVisualStyles();
             ApplicationConfiguration.Initialize();
             Application.Run(new SelectServerForm());
 

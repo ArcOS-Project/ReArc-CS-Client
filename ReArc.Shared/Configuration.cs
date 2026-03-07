@@ -8,6 +8,7 @@ namespace ReArc.Shared
 {
     public static class Configuration
     {
+        public static readonly DirectoryInfo Temp = Directory.CreateTempSubdirectory();
         private static readonly string ConfigPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ReArcClient.json");
         public static ConfigurationSettings? Settings
         {
@@ -52,7 +53,7 @@ namespace ReArc.Shared
             return new ConfigurationSettings()
             {
                 Servers = [],
-                LastServer = null
+                LastServer = null,
             };
         }
 
