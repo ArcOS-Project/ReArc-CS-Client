@@ -1,4 +1,5 @@
 ﻿using ReArc.ApiHandler.Controllers;
+using ReArc.Gui.Common;
 using ReArc.Shared;
 using ReArc.Shared.Records.Database;
 using ReArc.Shared.Records.Responses.Admin;
@@ -27,24 +28,34 @@ namespace ReArc.Gui.Views
         {
             foreach (var user in _users)
             {
-                int idx = UserListView.Rows.Add([Properties.Resources.user, user.Username, user.Email, user.CreatedAt, user.Approved, user.Admin]);
+                var createdDate = DateTime.Parse(user.CreatedAt).ToString("dd-MM-yyyy, HH:mm:ss");
+
+                UserListView.Rows.Add([Properties.Resources.user, user.Username, user.Email, createdDate, user.Approved, user.Admin]);
             }
 
             UserListView.AutoResizeColumns();
         }
 
+        [STAThread]
         private void UserListView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var rowIndex = e.RowIndex;
             var columnIndex = e.ColumnIndex;
+            var columnName = ((DataGridView)sender).Columns[columnIndex].Name;
 
-            if (columnIndex == 6)
+            var user = _users[rowIndex];
+
+            switch (columnName)
             {
-                var user = _users[rowIndex];
+                case "View":
+                    _ = MainForm!.SwitchView(new ViewUser(), $"View {user.Username}", new Dictionary<string, object>() {
+                        { "User", user! }
+                    });
+                    break;
 
-                _ = MainForm!.SwitchView(new ViewUser(), $"View {user.Username}", new Dictionary<string, object>() {
-                    { "User", user! }
-                });
+                case "Copy":
+                    CopyDialog.ShowCopyDialog(MainForm!, user._id);
+                    break;
             }
         }
     }

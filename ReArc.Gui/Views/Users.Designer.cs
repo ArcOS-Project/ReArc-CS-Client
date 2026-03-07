@@ -36,6 +36,7 @@
             Approved = new DataGridViewCheckBoxColumn();
             Admin = new DataGridViewCheckBoxColumn();
             View = new DataGridViewImageColumn();
+            Copy = new DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)UserListView).BeginInit();
             SuspendLayout();
             // 
@@ -45,7 +46,7 @@
             UserListView.AllowUserToDeleteRows = false;
             UserListView.BackgroundColor = SystemColors.Control;
             UserListView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            UserListView.Columns.AddRange(new DataGridViewColumn[] { ProfilePicture, Username, Email, Created, Approved, Admin, View });
+            UserListView.Columns.AddRange(new DataGridViewColumn[] { ProfilePicture, Username, Email, Created, Approved, Admin, View, Copy });
             UserListView.Dock = DockStyle.Fill;
             UserListView.Location = new Point(0, 0);
             UserListView.Name = "UserListView";
@@ -118,7 +119,19 @@
             View.Name = "View";
             View.ReadOnly = true;
             View.Resizable = DataGridViewTriState.False;
+            View.ToolTipText = "View User";
             View.Width = 24;
+            // 
+            // Copy
+            // 
+            Copy.HeaderText = "";
+            Copy.Image = Properties.Resources.copy16;
+            Copy.MinimumWidth = 16;
+            Copy.Name = "Copy";
+            Copy.ReadOnly = true;
+            Copy.Resizable = DataGridViewTriState.False;
+            Copy.ToolTipText = "Copy...";
+            Copy.Width = 24;
             // 
             // Users
             // 
@@ -137,9 +150,10 @@
         private DataGridViewImageColumn ProfilePicture;
         private DataGridViewTextBoxColumn Username;
         private DataGridViewTextBoxColumn Email;
-        private new DataGridViewTextBoxColumn Created;
+        private DataGridViewTextBoxColumn Created;
         private DataGridViewCheckBoxColumn Approved;
         private DataGridViewCheckBoxColumn Admin;
         private DataGridViewImageColumn View;
+        private DataGridViewImageColumn Copy;
     }
 }
