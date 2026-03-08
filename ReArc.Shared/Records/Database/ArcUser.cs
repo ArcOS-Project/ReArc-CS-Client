@@ -1,8 +1,10 @@
-﻿namespace ReArc.Shared.Records.Database;
+﻿using ReArc.Shared.Records.Database.User;
+
+namespace ReArc.Shared.Records.Database;
 
 public record class ArcUser(
     string Username,
-    object Preferences,
+    UserPreferences Preferences,
     bool Admin,
     string[] AdminScopes,
     bool Approved,

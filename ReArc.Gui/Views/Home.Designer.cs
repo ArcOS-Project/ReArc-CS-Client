@@ -187,10 +187,11 @@
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(label7);
             groupBox1.Controls.Add(ApprovalsLabel);
-            groupBox1.Location = new Point(18, 18);
+            groupBox1.Location = new Point(15, 15);
+            groupBox1.Margin = new Padding(0);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(8);
-            groupBox1.Size = new Size(214, 510);
+            groupBox1.Size = new Size(220, 516);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Server Statistics";

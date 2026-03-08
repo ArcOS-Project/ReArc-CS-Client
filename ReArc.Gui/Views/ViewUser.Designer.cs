@@ -28,77 +28,662 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewUser));
+            tableLayoutPanel2 = new TableLayoutPanel();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            panel1 = new Panel();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            groupBox2 = new GroupBox();
+            pictureBox1 = new PictureBox();
+            FilesystemPercentageLabel = new Label();
+            ByteUsageLabel = new Label();
+            FilesystemQuotaBar = new ProgressBar();
             groupBox1 = new GroupBox();
-            ProfilePictureBox = new PictureBox();
-            UsernameLabel = new Label();
+            UserIdLabel = new Label();
             EmailLabel = new Label();
+            UsernameLabel = new Label();
+            ProfilePictureBox = new PictureBox();
+            tabPage2 = new TabPage();
+            tabPage3 = new TabPage();
+            tabPage4 = new TabPage();
+            tabPage5 = new TabPage();
+            tabPage6 = new TabPage();
+            tabPage7 = new TabPage();
+            panel2 = new Panel();
+            groupBox3 = new GroupBox();
+            label1 = new Label();
+            TokensLabel = new Label();
+            SharesLabel = new Label();
+            label4 = new Label();
+            label11 = new Label();
+            label6 = new Label();
+            MessagesLabel = new Label();
+            ActivitiesLabel = new Label();
+            label9 = new Label();
+            BugHuntsLabel = new Label();
+            IndexingsLabel = new Label();
+            label3 = new Label();
+            label7 = new Label();
+            AccessorsLabel = new Label();
+            toolStrip1 = new ToolStrip();
+            toolStripDropDownButton1 = new ToolStripDropDownButton();
+            ChangeUsernameAction = new ToolStripMenuItem();
+            ChangeEmailAction = new ToolStripMenuItem();
+            ChangePasswordAction = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
+            Manage2faAction = new ToolStripMenuItem();
+            toolStripSeparator2 = new ToolStripSeparator();
+            LogOutAction = new ToolStripMenuItem();
+            toolStripDropDownButton2 = new ToolStripDropDownButton();
+            ApprovedAction = new ToolStripMenuItem();
+            AdministratorAction = new ToolStripMenuItem();
+            tableLayoutPanel2.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            panel1.SuspendLayout();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ProfilePictureBox).BeginInit();
+            panel2.SuspendLayout();
+            groupBox3.SuspendLayout();
+            toolStrip1.SuspendLayout();
             SuspendLayout();
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 1;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.Controls.Add(tableLayoutPanel1, 0, 1);
+            tableLayoutPanel2.Controls.Add(toolStrip1, 0, 0);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(0, 0);
+            tableLayoutPanel2.Margin = new Padding(0);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 2;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.Size = new Size(854, 476);
+            tableLayoutPanel2.TabIndex = 2;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
+            tableLayoutPanel1.Controls.Add(panel1, 0, 0);
+            tableLayoutPanel1.Controls.Add(panel2, 1, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 25);
+            tableLayoutPanel1.Margin = new Padding(0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(854, 451);
+            tableLayoutPanel1.TabIndex = 1;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(tabControl1);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(0);
+            panel1.Name = "panel1";
+            panel1.Padding = new Padding(15, 15, 0, 15);
+            panel1.Size = new Size(604, 451);
+            panel1.TabIndex = 0;
+            // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Controls.Add(tabPage3);
+            tabControl1.Controls.Add(tabPage4);
+            tabControl1.Controls.Add(tabPage5);
+            tabControl1.Controls.Add(tabPage6);
+            tabControl1.Controls.Add(tabPage7);
+            tabControl1.Dock = DockStyle.Fill;
+            tabControl1.Location = new Point(15, 15);
+            tabControl1.Margin = new Padding(0);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(589, 421);
+            tabControl1.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            tabPage1.Controls.Add(groupBox2);
+            tabPage1.Controls.Add(groupBox1);
+            tabPage1.Location = new Point(4, 24);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(10);
+            tabPage1.Size = new Size(581, 393);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Overview";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            groupBox2.Controls.Add(pictureBox1);
+            groupBox2.Controls.Add(FilesystemPercentageLabel);
+            groupBox2.Controls.Add(ByteUsageLabel);
+            groupBox2.Controls.Add(FilesystemQuotaBar);
+            groupBox2.Location = new Point(310, 13);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Padding = new Padding(10);
+            groupBox2.Size = new Size(258, 106);
+            groupBox2.TabIndex = 1;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Filesystem";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.keyfs32;
+            pictureBox1.Location = new Point(213, 61);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(32, 32);
+            pictureBox1.TabIndex = 3;
+            pictureBox1.TabStop = false;
+            // 
+            // FilesystemPercentageLabel
+            // 
+            FilesystemPercentageLabel.AutoSize = true;
+            FilesystemPercentageLabel.ForeColor = SystemColors.ControlDark;
+            FilesystemPercentageLabel.Location = new Point(10, 78);
+            FilesystemPercentageLabel.Name = "FilesystemPercentageLabel";
+            FilesystemPercentageLabel.Size = new Size(23, 15);
+            FilesystemPercentageLabel.TabIndex = 2;
+            FilesystemPercentageLabel.Text = "0%";
+            // 
+            // ByteUsageLabel
+            // 
+            ByteUsageLabel.AutoSize = true;
+            ByteUsageLabel.Font = new Font("Segoe UI", 9F);
+            ByteUsageLabel.Location = new Point(10, 54);
+            ByteUsageLabel.Margin = new Padding(0);
+            ByteUsageLabel.Name = "ByteUsageLabel";
+            ByteUsageLabel.Size = new Size(92, 15);
+            ByteUsageLabel.TabIndex = 1;
+            ByteUsageLabel.Text = "0 bytes / 0 bytes";
+            // 
+            // FilesystemQuotaBar
+            // 
+            FilesystemQuotaBar.Location = new Point(10, 26);
+            FilesystemQuotaBar.Margin = new Padding(0);
+            FilesystemQuotaBar.Name = "FilesystemQuotaBar";
+            FilesystemQuotaBar.Size = new Size(235, 23);
+            FilesystemQuotaBar.Style = ProgressBarStyle.Continuous;
+            FilesystemQuotaBar.TabIndex = 0;
+            FilesystemQuotaBar.Value = 50;
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.Controls.Add(UserIdLabel);
             groupBox1.Controls.Add(EmailLabel);
             groupBox1.Controls.Add(UsernameLabel);
             groupBox1.Controls.Add(ProfilePictureBox);
-            groupBox1.Location = new Point(13, 13);
+            groupBox1.Location = new Point(10, 13);
             groupBox1.Margin = new Padding(0);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(8);
-            groupBox1.Size = new Size(318, 130);
+            groupBox1.Padding = new Padding(10);
+            groupBox1.Size = new Size(287, 106);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "User Information";
+            // 
+            // UserIdLabel
+            // 
+            UserIdLabel.AutoSize = true;
+            UserIdLabel.BackColor = Color.Transparent;
+            UserIdLabel.ForeColor = SystemColors.ControlDark;
+            UserIdLabel.Location = new Point(83, 78);
+            UserIdLabel.Name = "UserIdLabel";
+            UserIdLabel.Size = new Size(39, 15);
+            UserIdLabel.TabIndex = 3;
+            UserIdLabel.Text = "userid";
+            // 
+            // EmailLabel
+            // 
+            EmailLabel.AutoSize = true;
+            EmailLabel.Location = new Point(83, 49);
+            EmailLabel.Name = "EmailLabel";
+            EmailLabel.Size = new Size(36, 15);
+            EmailLabel.TabIndex = 2;
+            EmailLabel.Text = "email";
+            // 
+            // UsernameLabel
+            // 
+            UsernameLabel.AutoSize = true;
+            UsernameLabel.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            UsernameLabel.Location = new Point(83, 29);
+            UsernameLabel.Name = "UsernameLabel";
+            UsernameLabel.Size = new Size(78, 20);
+            UsernameLabel.TabIndex = 1;
+            UsernameLabel.Text = "username";
             // 
             // ProfilePictureBox
             // 
             ProfilePictureBox.ErrorImage = Properties.Resources.error;
             ProfilePictureBox.InitialImage = Properties.Resources.user;
-            ProfilePictureBox.Location = new Point(11, 27);
+            ProfilePictureBox.Location = new Point(13, 29);
             ProfilePictureBox.Name = "ProfilePictureBox";
             ProfilePictureBox.Size = new Size(64, 64);
             ProfilePictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             ProfilePictureBox.TabIndex = 0;
             ProfilePictureBox.TabStop = false;
             // 
-            // UsernameLabel
+            // tabPage2
             // 
-            UsernameLabel.AutoSize = true;
-            UsernameLabel.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            UsernameLabel.Location = new Point(81, 27);
-            UsernameLabel.Name = "UsernameLabel";
-            UsernameLabel.Size = new Size(78, 20);
-            UsernameLabel.TabIndex = 1;
-            UsernameLabel.Text = "username";
+            tabPage2.Location = new Point(4, 24);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(581, 393);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Bug Reports";
+            tabPage2.UseVisualStyleBackColor = true;
             // 
-            // EmailLabel
+            // tabPage3
             // 
-            EmailLabel.AutoSize = true;
-            EmailLabel.Location = new Point(81, 47);
-            EmailLabel.Name = "EmailLabel";
-            EmailLabel.Size = new Size(36, 15);
-            EmailLabel.TabIndex = 2;
-            EmailLabel.Text = "email";
+            tabPage3.Location = new Point(4, 24);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new Padding(3);
+            tabPage3.Size = new Size(581, 393);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "Shares";
+            tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            tabPage4.Location = new Point(4, 24);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Padding = new Padding(3);
+            tabPage4.Size = new Size(581, 393);
+            tabPage4.TabIndex = 3;
+            tabPage4.Text = "Accessors";
+            tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            tabPage5.Location = new Point(4, 24);
+            tabPage5.Name = "tabPage5";
+            tabPage5.Padding = new Padding(3);
+            tabPage5.Size = new Size(581, 393);
+            tabPage5.TabIndex = 4;
+            tabPage5.Text = "Tokens";
+            tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // tabPage6
+            // 
+            tabPage6.Location = new Point(4, 24);
+            tabPage6.Name = "tabPage6";
+            tabPage6.Padding = new Padding(3);
+            tabPage6.Size = new Size(581, 393);
+            tabPage6.TabIndex = 5;
+            tabPage6.Text = "Indexes";
+            tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // tabPage7
+            // 
+            tabPage7.Location = new Point(4, 24);
+            tabPage7.Name = "tabPage7";
+            tabPage7.Padding = new Padding(3);
+            tabPage7.Size = new Size(581, 393);
+            tabPage7.TabIndex = 6;
+            tabPage7.Text = "Store Items";
+            tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // panel2
+            // 
+            panel2.BackgroundImage = Properties.Resources.dashboardstatbg2;
+            panel2.BackgroundImageLayout = ImageLayout.None;
+            panel2.Controls.Add(groupBox3);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(604, 0);
+            panel2.Margin = new Padding(0);
+            panel2.Name = "panel2";
+            panel2.Padding = new Padding(15);
+            panel2.Size = new Size(250, 451);
+            panel2.TabIndex = 1;
+            // 
+            // groupBox3
+            // 
+            groupBox3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox3.BackColor = Color.Transparent;
+            groupBox3.Controls.Add(label1);
+            groupBox3.Controls.Add(TokensLabel);
+            groupBox3.Controls.Add(SharesLabel);
+            groupBox3.Controls.Add(label4);
+            groupBox3.Controls.Add(label11);
+            groupBox3.Controls.Add(label6);
+            groupBox3.Controls.Add(MessagesLabel);
+            groupBox3.Controls.Add(ActivitiesLabel);
+            groupBox3.Controls.Add(label9);
+            groupBox3.Controls.Add(BugHuntsLabel);
+            groupBox3.Controls.Add(IndexingsLabel);
+            groupBox3.Controls.Add(label3);
+            groupBox3.Controls.Add(label7);
+            groupBox3.Controls.Add(AccessorsLabel);
+            groupBox3.Location = new Point(18, 18);
+            groupBox3.Margin = new Padding(0);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Padding = new Padding(10);
+            groupBox3.Size = new Size(214, 418);
+            groupBox3.TabIndex = 0;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Statistics";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = Color.Navy;
+            label1.Location = new Point(13, 26);
+            label1.Name = "label1";
+            label1.Size = new Size(88, 15);
+            label1.TabIndex = 16;
+            label1.Text = "Login Activities";
+            // 
+            // TokensLabel
+            // 
+            TokensLabel.AutoSize = true;
+            TokensLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            TokensLabel.Location = new Point(13, 97);
+            TokensLabel.Name = "TokensLabel";
+            TokensLabel.Size = new Size(25, 32);
+            TokensLabel.TabIndex = 19;
+            TokensLabel.Text = "?";
+            // 
+            // SharesLabel
+            // 
+            SharesLabel.AutoSize = true;
+            SharesLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            SharesLabel.Location = new Point(13, 377);
+            SharesLabel.Name = "SharesLabel";
+            SharesLabel.Size = new Size(25, 32);
+            SharesLabel.TabIndex = 29;
+            SharesLabel.Text = "?";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.ForeColor = Color.Navy;
+            label4.Location = new Point(13, 82);
+            label4.Name = "label4";
+            label4.Size = new Size(44, 15);
+            label4.TabIndex = 18;
+            label4.Text = "Tokens";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.ForeColor = Color.Navy;
+            label11.Location = new Point(13, 362);
+            label11.Name = "label11";
+            label11.Size = new Size(78, 15);
+            label11.TabIndex = 28;
+            label11.Text = "Shared Drives";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.ForeColor = Color.Navy;
+            label6.Location = new Point(13, 138);
+            label6.Name = "label6";
+            label6.Size = new Size(71, 15);
+            label6.TabIndex = 20;
+            label6.Text = "Bug Reports";
+            // 
+            // MessagesLabel
+            // 
+            MessagesLabel.AutoSize = true;
+            MessagesLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            MessagesLabel.Location = new Point(13, 321);
+            MessagesLabel.Name = "MessagesLabel";
+            MessagesLabel.Size = new Size(25, 32);
+            MessagesLabel.TabIndex = 27;
+            MessagesLabel.Text = "?";
+            // 
+            // ActivitiesLabel
+            // 
+            ActivitiesLabel.AutoSize = true;
+            ActivitiesLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            ActivitiesLabel.Location = new Point(13, 41);
+            ActivitiesLabel.Name = "ActivitiesLabel";
+            ActivitiesLabel.Size = new Size(25, 32);
+            ActivitiesLabel.TabIndex = 17;
+            ActivitiesLabel.Text = "?";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.ForeColor = Color.Navy;
+            label9.Location = new Point(13, 306);
+            label9.Name = "label9";
+            label9.Size = new Size(58, 15);
+            label9.TabIndex = 26;
+            label9.Text = "Messages";
+            // 
+            // BugHuntsLabel
+            // 
+            BugHuntsLabel.AutoSize = true;
+            BugHuntsLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            BugHuntsLabel.Location = new Point(13, 153);
+            BugHuntsLabel.Name = "BugHuntsLabel";
+            BugHuntsLabel.Size = new Size(25, 32);
+            BugHuntsLabel.TabIndex = 21;
+            BugHuntsLabel.Text = "?";
+            // 
+            // IndexingsLabel
+            // 
+            IndexingsLabel.AutoSize = true;
+            IndexingsLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            IndexingsLabel.Location = new Point(13, 265);
+            IndexingsLabel.Name = "IndexingsLabel";
+            IndexingsLabel.Size = new Size(25, 32);
+            IndexingsLabel.TabIndex = 25;
+            IndexingsLabel.Text = "?";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.ForeColor = Color.Navy;
+            label3.Location = new Point(13, 194);
+            label3.Name = "label3";
+            label3.Size = new Size(117, 15);
+            label3.TabIndex = 22;
+            label3.Text = "Filesystem Accessors";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.ForeColor = Color.Navy;
+            label7.Location = new Point(13, 250);
+            label7.Name = "label7";
+            label7.Size = new Size(115, 15);
+            label7.TabIndex = 24;
+            label7.Text = "Filesystem Indexings";
+            // 
+            // AccessorsLabel
+            // 
+            AccessorsLabel.AutoSize = true;
+            AccessorsLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            AccessorsLabel.Location = new Point(13, 209);
+            AccessorsLabel.Name = "AccessorsLabel";
+            AccessorsLabel.Size = new Size(25, 32);
+            AccessorsLabel.TabIndex = 23;
+            AccessorsLabel.Text = "?";
+            // 
+            // toolStrip1
+            // 
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, toolStripDropDownButton2 });
+            toolStrip1.Location = new Point(0, 0);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Size = new Size(854, 25);
+            toolStrip1.TabIndex = 2;
+            toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripDropDownButton1
+            // 
+            toolStripDropDownButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { ChangeUsernameAction, ChangeEmailAction, ChangePasswordAction, toolStripSeparator1, Manage2faAction, toolStripSeparator2, LogOutAction });
+            toolStripDropDownButton1.Image = (Image)resources.GetObject("toolStripDropDownButton1.Image");
+            toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
+            toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            toolStripDropDownButton1.Size = new Size(79, 22);
+            toolStripDropDownButton1.Text = "Credentials";
+            // 
+            // ChangeUsernameAction
+            // 
+            ChangeUsernameAction.Image = Properties.Resources.id16;
+            ChangeUsernameAction.Name = "ChangeUsernameAction";
+            ChangeUsernameAction.Size = new Size(179, 22);
+            ChangeUsernameAction.Text = "Change username...";
+            // 
+            // ChangeEmailAction
+            // 
+            ChangeEmailAction.Image = Properties.Resources.mail16;
+            ChangeEmailAction.Name = "ChangeEmailAction";
+            ChangeEmailAction.Size = new Size(179, 22);
+            ChangeEmailAction.Text = "Change email...";
+            // 
+            // ChangePasswordAction
+            // 
+            ChangePasswordAction.Image = Properties.Resources.keys16;
+            ChangePasswordAction.Name = "ChangePasswordAction";
+            ChangePasswordAction.Size = new Size(179, 22);
+            ChangePasswordAction.Text = "Reset password...";
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(176, 6);
+            // 
+            // Manage2faAction
+            // 
+            Manage2faAction.Image = Properties.Resources.biometrics16;
+            Manage2faAction.Name = "Manage2faAction";
+            Manage2faAction.Size = new Size(179, 22);
+            Manage2faAction.Text = "Manage 2FA";
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(176, 6);
+            // 
+            // LogOutAction
+            // 
+            LogOutAction.Image = Properties.Resources.logout16;
+            LogOutAction.Name = "LogOutAction";
+            LogOutAction.Size = new Size(179, 22);
+            LogOutAction.Text = "Log out everywhere";
+            // 
+            // toolStripDropDownButton2
+            // 
+            toolStripDropDownButton2.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripDropDownButton2.DropDownItems.AddRange(new ToolStripItem[] { ApprovedAction, AdministratorAction });
+            toolStripDropDownButton2.Image = (Image)resources.GetObject("toolStripDropDownButton2.Image");
+            toolStripDropDownButton2.ImageTransparentColor = Color.Magenta;
+            toolStripDropDownButton2.Name = "toolStripDropDownButton2";
+            toolStripDropDownButton2.Size = new Size(53, 22);
+            toolStripDropDownButton2.Text = "Rights";
+            // 
+            // ApprovedAction
+            // 
+            ApprovedAction.Image = Properties.Resources.lock16;
+            ApprovedAction.Name = "ApprovedAction";
+            ApprovedAction.Size = new Size(180, 22);
+            ApprovedAction.Text = "Approved";
+            ApprovedAction.Click += ApprovedAction_Click;
+            // 
+            // AdministratorAction
+            // 
+            AdministratorAction.Image = Properties.Resources.elevate16;
+            AdministratorAction.Name = "AdministratorAction";
+            AdministratorAction.Size = new Size(180, 22);
+            AdministratorAction.Text = "Administrator";
+            AdministratorAction.Click += AdministratorAction_Click;
             // 
             // ViewUser
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(groupBox1);
+            BackColor = Color.White;
+            Controls.Add(tableLayoutPanel2);
+            Margin = new Padding(0);
             Name = "ViewUser";
-            Padding = new Padding(10);
-            Size = new Size(643, 282);
+            Size = new Size(854, 476);
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)ProfilePictureBox).EndInit();
+            panel2.ResumeLayout(false);
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
-
+        private TableLayoutPanel tableLayoutPanel2;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Panel panel1;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
         private GroupBox groupBox1;
-        private PictureBox ProfilePictureBox;
-        private Label UsernameLabel;
+        private Label UserIdLabel;
         private Label EmailLabel;
+        private Label UsernameLabel;
+        private PictureBox ProfilePictureBox;
+        private TabPage tabPage2;
+        private TabPage tabPage3;
+        private TabPage tabPage4;
+        private TabPage tabPage5;
+        private TabPage tabPage6;
+        private TabPage tabPage7;
+        private Panel panel2;
+        private ToolStrip toolStrip1;
+        private ToolStripDropDownButton toolStripDropDownButton1;
+        private ToolStripMenuItem ChangeUsernameAction;
+        private ToolStripMenuItem ChangeEmailAction;
+        private ToolStripMenuItem ChangePasswordAction;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem Manage2faAction;
+        private ToolStripDropDownButton toolStripDropDownButton2;
+        private GroupBox groupBox2;
+        private Label FilesystemPercentageLabel;
+        private Label ByteUsageLabel;
+        private ProgressBar FilesystemQuotaBar;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripMenuItem LogOutAction;
+        private ToolStripMenuItem ApprovedAction;
+        private ToolStripMenuItem AdministratorAction;
+        private PictureBox pictureBox1;
+        private GroupBox groupBox3;
+        private Label label1;
+        private Label TokensLabel;
+        private Label SharesLabel;
+        private Label label4;
+        private Label label11;
+        private Label label6;
+        private Label MessagesLabel;
+        private Label ActivitiesLabel;
+        private Label label9;
+        private Label BugHuntsLabel;
+        private Label IndexingsLabel;
+        private Label label3;
+        private Label label7;
+        private Label AccessorsLabel;
     }
 }

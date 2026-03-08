@@ -9,7 +9,7 @@ namespace ReArc.Gui.Views
 
         public Page()
         {
-
+        
         }
 
         public async Task Setup(string name, Dictionary<string, object>? props = null)
@@ -19,14 +19,16 @@ namespace ReArc.Gui.Views
 
             var result = await LoadData(props);
 
+            LoadingDialog.ChangeCaption($"Done loading {name}");
             await LoadingDialog.Stop();
 
             if (!result.Success)
             {
-                MessageBox.Show(MainForm, $"An error occurred while trying to load data for the {name} page. {result.ErrorMessage}", name, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(MainForm, $"An error occurred while trying to load data for this page. {result.ErrorMessage}", name, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
+            
             Render();
             Show();
         }

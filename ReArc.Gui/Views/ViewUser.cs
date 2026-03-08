@@ -1,13 +1,19 @@
-﻿using ReArc.ApiHandler.Controllers;
+﻿using MimeKit.Cryptography;
+using ReArc.ApiHandler.Controllers;
+using ReArc.Gui.Common;
 using ReArc.Shared;
+using ReArc.Shared.Helpers;
 using ReArc.Shared.Records.Database;
+using ReArc.Shared.Records.Responses.User;
 
 namespace ReArc.Gui.Views
 {
     public partial class ViewUser : Page
     {
         private List<ArcUser> _users = [];
+        private UserQuota? _quota;
         private ArcUser? _user;
+        private UserStatistics? _stats;
         private string _profilePicture = string.Empty;
         public ViewUser()
         {
@@ -20,16 +26,26 @@ namespace ReArc.Gui.Views
             {
                 _user = user as ArcUser;
 
-                var response = await AdminController.GetAllUsers();
-                if (!response.Success) return CommandResult<bool>.Error(response.ErrorMessage);
+                LoadingDialog.ChangeCaption("Retrieving users");
+                var usersResult = await AdminController.GetAllUsers();
+                if (!usersResult.Success) return CommandResult<bool>.Error(usersResult.ErrorMessage);
 
+                LoadingDialog.ChangeCaption("Downloading profile picture");
                 var pfpResult = await UserController.DownloadProfilePicture(_user!._id);
-                if (pfpResult.Success)
-                {
-                    _profilePicture = pfpResult.Result!;
-                }
+                if (pfpResult.Success) _profilePicture = pfpResult.Result!;
 
-                _users = response.Result!;
+                LoadingDialog.ChangeCaption("Getting filesystem quota");
+                var quotaResult = await AdminController.GetQuotaOf(_user!.Username);
+                if (!quotaResult.Success) return CommandResult<bool>.Error(quotaResult.ErrorMessage);
+
+                LoadingDialog.ChangeCaption("Getting user statistics");
+                var statisticsResult = await AdminController.GetStatisticsOf(_user!._id);
+                if (!statisticsResult.Success) return CommandResult<bool>.Error(statisticsResult.ErrorMessage);
+
+                _users = usersResult.Result!;
+                _quota = quotaResult.Result!;
+                _stats = statisticsResult.Result!;
+
                 return CommandResult<bool>.Ok(true);
             }
 
@@ -45,6 +61,91 @@ namespace ReArc.Gui.Views
 
             UsernameLabel.Text = _user!.Username;
             EmailLabel.Text = _user!.Email;
+            FilesystemQuotaBar.Maximum = 100;
+            FilesystemQuotaBar.Value = (int)_quota!.Percentage;
+            FilesystemPercentageLabel.Text = $"{_quota!.Percentage:F2}%";
+            ByteUsageLabel.Text = $"{ByteHelpers.FormatBytes(_quota.Used)} / {ByteHelpers.FormatBytes(_quota.Max)}";
+            UserIdLabel.Text = _user!._id;
+
+            ActivitiesLabel.Text = _stats!.Activities.ToString();
+            TokensLabel.Text = _stats!.Tokens.ToString();
+            BugHuntsLabel.Text = _stats!.Bughunts.ToString();
+            AccessorsLabel.Text = _stats!.Fsaccesses.ToString();
+            IndexingsLabel.Text = _stats!.Indexings.ToString();
+            MessagesLabel.Text = _stats!.Messages.ToString();
+            SharesLabel.Text = _stats!.Shares.ToString();
+
+            ApprovedAction.Checked = _user!.Approved;
+            AdministratorAction.Checked = _user!.Admin;
+            LogOutAction.Enabled = _user._id != UserController.UserInfo!._id;
+        }
+
+        private void ApprovedAction_Click(object sender, EventArgs e)
+        {
+            var approved = _user!.Approved;
+            DialogResult confirm = MessageBox.Show(MainForm,
+                approved
+                    ? $"Are you sure you want to disapprove {_user.Username}? They won't be able to log in anymore."
+                    : $"Are you sure you want to manually approve {_user.Username}?",
+                approved
+                    ? $"Disapprove {_user.Username}"
+                    : $"Approve {_user.Username}",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Exclamation);
+
+            if (confirm is DialogResult.Yes)
+            {
+                _ = ToggleApproved();
+            }
+        }
+
+        private async Task ToggleApproved()
+        {
+            var approved = _user!.Approved;
+            var result = approved
+                ? await AdminController.DisapproveUser(_user!.Username)
+                : await AdminController.ApproveUser(_user!.Username);
+
+            if (!result.Success)
+            {
+                MessageBox.Show($"The operation did not complete successfully. {result.ErrorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            ApprovedAction.Checked = !approved;
+        }
+
+        private void AdministratorAction_Click(object sender, EventArgs e)
+        {
+            var granted = _user!.Admin;
+            DialogResult confirm = MessageBox.Show(MainForm,
+                granted
+                    ? $"Are you sure you want to revoke administrative privileges from {_user.Username}?"
+                    : $"Are you sure you want to grant administrative privileges to {_user.Username}?",
+                $"Administrative privileges for {_user.Username}",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Exclamation);
+
+            if (confirm is DialogResult.Yes)
+            {
+                _ = ToggleAdmin();
+            }
+        }
+
+        private async Task ToggleAdmin()
+        {
+            var granted = _user!.Admin;
+            var result = granted
+                ? await AdminController.RevokeAdmin(_user!.Username)
+                : await AdminController.GrantAdmin(_user!.Username);
+
+            if (!result.Success)
+            {
+                MessageBox.Show($"The operation did not complete successfully. {result.ErrorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            AdministratorAction.Checked = !granted;
         }
     }
 }

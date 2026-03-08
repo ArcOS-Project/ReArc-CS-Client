@@ -1,4 +1,6 @@
-﻿namespace ReArc.Shared.Records.Responses.User;
+﻿using ReArc.Shared.Records.Database.User;
+
+namespace ReArc.Shared.Records.Responses.User;
 
 public record class UserInfo(
     string UpdatedAt,
@@ -16,13 +18,4 @@ public record class UserInfo(
     string Email,
     long StorageSize,
     int AccountNumber
-);
-
-public record class UserPreferences(
-    AccountInfo Account
-);
-
-public record class AccountInfo(
-    string? LoginBackground,
-    string? DisplayName
 );

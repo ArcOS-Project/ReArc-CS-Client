@@ -22,6 +22,12 @@
             return dialog;
         }
 
+        public static void ChangeCaption(string caption)
+        {
+            if (_dialog == null) return;
+            _dialog.StatusLabel.Text = caption;
+        }
+
         private void LoadingDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!_stop) e.Cancel = true;

@@ -37,7 +37,14 @@
             Admin = new DataGridViewCheckBoxColumn();
             View = new DataGridViewImageColumn();
             Copy = new DataGridViewImageColumn();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            panel1 = new Panel();
+            FilterDropdown = new ComboBox();
+            SearchButton = new Button();
+            SearchBox = new TextBox();
             ((System.ComponentModel.ISupportInitialize)UserListView).BeginInit();
+            tableLayoutPanel1.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // UserListView
@@ -48,11 +55,13 @@
             UserListView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             UserListView.Columns.AddRange(new DataGridViewColumn[] { ProfilePicture, Username, Email, Created, Approved, Admin, View, Copy });
             UserListView.Dock = DockStyle.Fill;
-            UserListView.Location = new Point(0, 0);
+            UserListView.Location = new Point(15, 55);
+            UserListView.Margin = new Padding(15, 0, 15, 15);
             UserListView.Name = "UserListView";
             UserListView.ReadOnly = true;
+            UserListView.RowHeadersVisible = false;
             UserListView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            UserListView.Size = new Size(884, 546);
+            UserListView.Size = new Size(854, 476);
             UserListView.TabIndex = 0;
             UserListView.CellClick += UserListView_CellContentClick;
             // 
@@ -116,6 +125,7 @@
             // 
             View.HeaderText = "";
             View.Image = Properties.Resources.id16;
+            View.MinimumWidth = 16;
             View.Name = "View";
             View.ReadOnly = true;
             View.Resizable = DataGridViewTriState.False;
@@ -133,20 +143,90 @@
             Copy.ToolTipText = "Copy...";
             Copy.Width = 24;
             // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(UserListView, 0, 1);
+            tableLayoutPanel1.Controls.Add(panel1, 0, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 55F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(884, 546);
+            tableLayoutPanel1.TabIndex = 1;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(FilterDropdown);
+            panel1.Controls.Add(SearchButton);
+            panel1.Controls.Add(SearchBox);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(0);
+            panel1.Name = "panel1";
+            panel1.Padding = new Padding(15);
+            panel1.Size = new Size(884, 55);
+            panel1.TabIndex = 1;
+            // 
+            // FilterDropdown
+            // 
+            FilterDropdown.DropDownStyle = ComboBoxStyle.DropDownList;
+            FilterDropdown.FormattingEnabled = true;
+            FilterDropdown.Items.AddRange(new object[] { "All", "Regular", "Admins", "Approved", "Disapproved" });
+            FilterDropdown.Location = new Point(748, 18);
+            FilterDropdown.Margin = new Padding(0);
+            FilterDropdown.Name = "FilterDropdown";
+            FilterDropdown.Size = new Size(121, 23);
+            FilterDropdown.TabIndex = 2;
+            FilterDropdown.SelectedIndexChanged += FilterDropdown_SelectedIndexChanged;
+            // 
+            // SearchButton
+            // 
+            SearchButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SearchButton.Image = Properties.Resources.search16;
+            SearchButton.Location = new Point(716, 17);
+            SearchButton.Margin = new Padding(0);
+            SearchButton.Name = "SearchButton";
+            SearchButton.Size = new Size(25, 25);
+            SearchButton.TabIndex = 1;
+            SearchButton.UseVisualStyleBackColor = true;
+            SearchButton.Click += SearchButton_Click;
+            // 
+            // SearchBox
+            // 
+            SearchBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            SearchBox.CharacterCasing = CharacterCasing.Lower;
+            SearchBox.Location = new Point(15, 18);
+            SearchBox.Name = "SearchBox";
+            SearchBox.Size = new Size(695, 23);
+            SearchBox.TabIndex = 0;
+            SearchBox.KeyDown += SearchBox_KeyDown;
+            // 
             // Users
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(UserListView);
+            Controls.Add(tableLayoutPanel1);
             Name = "Users";
             Size = new Size(884, 546);
             ((System.ComponentModel.ISupportInitialize)UserListView).EndInit();
+            tableLayoutPanel1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
         private DataGridView UserListView;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Panel panel1;
+        private Button SearchButton;
+        private TextBox SearchBox;
+        private ComboBox FilterDropdown;
         private DataGridViewImageColumn ProfilePicture;
         private DataGridViewTextBoxColumn Username;
         private DataGridViewTextBoxColumn Email;

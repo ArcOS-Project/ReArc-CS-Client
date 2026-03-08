@@ -1,36 +1,17 @@
 ﻿using ReArc.ApiHandler;
 using ReArc.ApiHandler.Controllers;
+using ReArc.Gui.Common;
 using ReArc.Gui.Logic;
 using ReArc.Gui.Server;
 using ReArc.Gui.Views;
 using System.Reflection;
+using static ReArc.Gui.Common.PageStore;
 
 namespace ReArc.Gui
 {
-    record ToolboxPage
-    {
-        public required string Name { get; set; }
-        public required Func<Page> Page { get; set; }
-        public required Image? Image { get; set; }
-    }
-
     public partial class MainForm : Form
     {
-        private readonly List<ToolboxPage> Pages =
-        [
-            new()
-            {
-                Name = "Dashboard",
-                Image = Properties.Resources.dashboard,
-                Page = () => new Home()
-            },
-            new()
-            {
-                Name = "Users",
-                Image = Properties.Resources.users,
-                Page = () => new Users()
-            }
-        ];
+        private readonly List<ToolboxPage> Pages = PageStore.Pages;
 
         public MainForm()
         {
@@ -39,24 +20,25 @@ namespace ReArc.Gui
 
         public async Task SwitchView(Page newView, string name, Dictionary<string, object>? props = null)
         {
-            if (PagePanel.Controls.Count > 0 && PagePanel.Controls[0] is Page oldView)
+            if (BetterPagePanel.Controls.Count > 0 && BetterPagePanel.Controls[0] is Page oldView)
             {
-                PagePanel.Controls.Remove(oldView);
+                BetterPagePanel.Controls.Remove(oldView);
                 oldView.Dispose();
             }
 
             newView.Hide();
-            PagePanel.Controls.Add(newView);
+            BetterPagePanel.Controls.Add(newView);
             newView.Dock = DockStyle.Fill;
             newView.MainForm = this;
             _ = newView.Setup(name, props);
+            CurrentPageLabel.Text = name;
+            CurrentPageLabel.Image = Pages.Find((p) => p.Name == name)?.Image ?? Properties.Resources.presenter;
+            PopulateSidebarItems(name);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             _ = SwitchView(new Home() { MainForm = this }, "Dashboard");
-
-            PopulateSidebarItems();
 
             UsernameButton.Text = UserController.DisplayName ?? "Stranger";
             usernameToolStripMenuItem.Text = UserController.UserInfo!.Username;
@@ -70,8 +52,10 @@ namespace ReArc.Gui
                 UsernameButton.Image = Image.FromFile(UserController.ProfilePicture!);
         }
 
-        private void PopulateSidebarItems()
+        private void PopulateSidebarItems(string? selectedPageName = null)
         {
+            SideMenuStrip.Items.Clear();
+
             foreach (var page in Pages)
             {
                 ToolStripMenuItem item = new()
@@ -87,6 +71,20 @@ namespace ReArc.Gui
 
                 item.Click += PageItem_Click;
                 SideMenuStrip.Items.Add(item);
+
+                if (selectedPageName != null && page.Name == selectedPageName)
+                {
+                    item.BackColor = Color.SkyBlue;
+                }
+
+                if (page.Separator == true)
+                {
+                    SideMenuStrip.Items.Add(new ToolStripStatusLabel()
+                    {
+                        Text = " ",
+                        Margin = new Padding(0)
+                    });
+                }
             }
         }
 
@@ -112,25 +110,12 @@ namespace ReArc.Gui
             _ = SwitchView(instance, page.Name);
         }
 
-        private void LogoutToolbarAction_Click(object sender, EventArgs e)
-        {
-            DialogResult confirm = MessageBox.Show("Are you sure you want to log out?", "Log out", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (confirm == DialogResult.No) return;
-
-            _ = UserLogic.LogoutCurrentUser(this);
-        }
-
         private void LogOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult confirm = MessageBox.Show("Are you sure you want to log out?", "Log out", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm == DialogResult.No) return;
 
             _ = UserLogic.LogoutCurrentUser(this);
-        }
-
-        private void ExitToolstripAction_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void DisconnectToolStripMenuItem_Click(object sender, EventArgs e)

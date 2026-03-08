@@ -93,6 +93,16 @@ namespace ReArc.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap biometrics16 {
+            get {
+                object obj = ResourceManager.GetObject("biometrics16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap bluecheck {
             get {
                 object obj = ResourceManager.GetObject("bluecheck", resourceCulture);
@@ -206,6 +216,16 @@ namespace ReArc.Gui.Properties {
         internal static System.Drawing.Bitmap dashboardstatbg1 {
             get {
                 object obj = ResourceManager.GetObject("dashboardstatbg1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dashboardstatbg2 {
+            get {
+                object obj = ResourceManager.GetObject("dashboardstatbg2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -433,6 +453,16 @@ namespace ReArc.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap keyfs32 {
+            get {
+                object obj = ResourceManager.GetObject("keyfs32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap keys16 {
             get {
                 object obj = ResourceManager.GetObject("keys16", resourceCulture);
@@ -543,6 +573,16 @@ namespace ReArc.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mail16 {
+            get {
+                object obj = ResourceManager.GetObject("mail16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mainbanner {
             get {
                 object obj = ResourceManager.GetObject("mainbanner", resourceCulture);
@@ -616,6 +656,16 @@ namespace ReArc.Gui.Properties {
         internal static System.Drawing.Bitmap search {
             get {
                 object obj = ResourceManager.GetObject("search", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap search16 {
+            get {
+                object obj = ResourceManager.GetObject("search16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
