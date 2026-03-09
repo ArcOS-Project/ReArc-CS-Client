@@ -54,5 +54,15 @@ namespace ReArc.Gui.Views
         {
             _ = MainForm!.SwitchView(new Users(), "Users");
         }
+
+        private void SharesButton_Click(object sender, EventArgs e)
+        {
+            _ = MainForm!.SwitchView(new Shares(), "Shares");
+        }
+
+        private void BugReportButton_Click(object sender, EventArgs e)
+        {
+            _ = MainForm!.SwitchView(new BugReports(), "Bug Reports");
+        }
     }
 }

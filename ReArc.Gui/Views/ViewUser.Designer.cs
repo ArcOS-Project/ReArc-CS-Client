@@ -698,6 +698,5 @@
         private Label label7;
         private Label AccessorsLabel;
         private ToolStripDropDownButton QuickSwitcher;
-        private ToolStripMenuItem toolStripMenuItem1;
     }
 }

@@ -69,12 +69,14 @@ namespace ReArc.Gui
                     Text = page.Name
                 };
 
-                item.Click += PageItem_Click;
                 SideMenuStrip.Items.Add(item);
 
                 if (selectedPageName != null && page.Name == selectedPageName)
                 {
                     item.BackColor = Color.SkyBlue;
+                } else
+                {
+                    item.Click += PageItem_Click;
                 }
 
                 if (page.Separator == true)

@@ -38,7 +38,7 @@ namespace ReArc.Gui.Common
             {
                 Name = "Shares",
                 Image = Properties.Resources.share16,
-                Page = () => new Users()
+                Page = () => new Shares()
             },
             new()
             {

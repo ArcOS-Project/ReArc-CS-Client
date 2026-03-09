@@ -393,6 +393,7 @@
             BugReportButton.Text = "Bug Reports";
             BugReportButton.TextAlign = ContentAlignment.MiddleRight;
             BugReportButton.UseVisualStyleBackColor = true;
+            BugReportButton.Click += BugReportButton_Click;
             // 
             // groupBox3
             // 
@@ -434,6 +435,7 @@
             SharesButton.Text = "Shares";
             SharesButton.TextAlign = ContentAlignment.MiddleRight;
             SharesButton.UseVisualStyleBackColor = true;
+            SharesButton.Click += SharesButton_Click;
             // 
             // FilesystemsButton
             // 

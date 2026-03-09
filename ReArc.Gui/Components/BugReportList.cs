@@ -1,108 +1,78 @@
-﻿using ReArc.Shared.Records.Database;
+﻿using ReArc.Gui.Helpers;
+using ReArc.Shared.Records.Database;
 using ReArc.Shared.Records.Responses;
-using System.Data;
 
-namespace ReArc.Gui.Components;
-
-public partial class BugReportList : UserControl
+namespace ReArc.Gui.Components
 {
-    public List<BugReport> Reports = [];
-    public List<ArcUser> Users = [];
-    public MainForm? MainForm;
-    private string _filter { get => FilterBox.Text; }
-    private string _query { get => SearchBox.Text; }
-    private List<BugReport> _filteredReports = [];
-    
-    public BugReportList()
+    public partial class BugReportList : BaseList<BugReport>
     {
-        InitializeComponent();
-
-        FilterBox.SelectedIndex = 0;
-    }
-
-
-    public void FilterReports()
-    {
-        var comparison = StringComparison.InvariantCultureIgnoreCase;
-
-        if (_filter == string.Empty && _query == string.Empty)
+        public List<ArcUser> Users = [];
+        protected override List<string> FilterOptions() => ["All", "System", "Apps", "Opened", "Closed", "With user data", "No user data"];
+        protected override List<DataGridViewColumn> Columns()
         {
-            _filteredReports = Reports;
-            return;
+            return [
+                TableHelpers.ImageColumn(Properties.Resources.user, "Icon"),
+                TableHelpers.TextColumn("Timestamp", "Timestamp"),
+                TableHelpers.TextColumn("Title", "Title", DataGridViewAutoSizeColumnMode.Fill),
+                TableHelpers.TextColumn("Author", "Author"),
+                TableHelpers.CheckboxColumn("Opened", "Opened"),
+                TableHelpers.CheckboxColumn("UserData", "User Data?"),
+            ];
         }
 
-        _filteredReports = [.. Reports.Where(
-                (u) => _query == string.Empty ||
-                       (u.Body?.Contains(_query, comparison) ?? false) ||
-                       (u.Title?.Contains(_query, comparison) ?? false) ||
-                       (u.UserAgent?.Contains(_query, comparison) ?? false) ||
-                       u._id == _query)];
-
-        _filteredReports = [.. _filteredReports.Where(
-                (u) => _filter switch {
-                        "All" => true,
-                        "System" => u.IsAppReport != true,
-                        "Apps" => u.IsAppReport == true,
-                        "Closed" => u.Closed,
-                        "Opened" => !u.Closed,
-                        "With user data" => u.UserData != null,
-                        "No user data" => u.UserData == null,
-                        _ => true})];
-    }
-
-    public void PopulateList()
-    {
-        GridView.Rows.Clear();
-
-        foreach (var report in _filteredReports)
+        public override bool QueryFilterCallback(string query, BugReport item)
         {
-            var createdDate = DateTime.Parse(report.CreatedAt).ToString("dd-MM-yyyy, HH:mm:ss");
-            var author = Users.Find((u) => u._id == report.AuthorId)?.Username ?? "Stranger";
+            var comparison = StringComparison.InvariantCultureIgnoreCase;
 
-            GridView.Rows.Add([Properties.Resources.crash16, createdDate, report.Title, author, !report.Closed, report.UserData != null]);
+            return query == string.Empty ||
+                   (item.Body?.Contains(query, comparison) ?? false) ||
+                   (item.Title?.Contains(query, comparison) ?? false) ||
+                   (item.UserAgent?.Contains(query, comparison) ?? false) ||
+                   item._id == query;
         }
 
-        GridView.AutoResizeColumns();
-    }
-
-    private void SearchBox_KeyDown(object sender, KeyEventArgs e)
-    {
-        if (e.KeyData == Keys.Enter)
+        public override bool FilterCallback(string filter, BugReport item)
         {
-            e.SuppressKeyPress = true;
-            FilterReports();
-            PopulateList();
-        }
-    }
-
-    private void FilterDropdown_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        FilterReports();
-        PopulateList();
-    }
-
-    private void SearchButton_Click(object sender, EventArgs e)
-    {
-        FilterReports();
-        PopulateList();
-    }
-
-    public static void Create(MainForm MainForm, Control target, List<ArcUser> users, List<BugReport> reports)
-    {
-        MainForm.BeginInvoke(() =>
-        {
-            var reportsList = new BugReportList()
+            return filter switch
             {
-                Dock = DockStyle.Fill,
-                Users = users,
-                MainForm = MainForm,
-                Reports = reports
+                "All" => true,
+                "System" => item.IsAppReport != true,
+                "Apps" => item.IsAppReport == true,
+                "Closed" => item.Closed,
+                "Opened" => !item.Closed,
+                "With user data" => item.UserData != null,
+                "No user data" => item.UserData == null,
+                _ => true
             };
+        }
 
-            target.Controls.Add(reportsList);
-            reportsList.FilterReports();
-            reportsList.PopulateList();
-        });
+        public override object[] GetGridRow(BugReport item)
+        {
+            var createdDate = DateTime.Parse(item.CreatedAt).ToString("dd-MM-yyyy, HH:mm:ss");
+            var author = Users.Find((u) => u._id == item.AuthorId)?.Username ?? "Stranger";
 
+            return [Properties.Resources.crash16, createdDate, item.Title, author, !item.Closed, item.UserData != null];
+        }
+
+        public override void OnCellClicked(object sender, DataGridViewCellEventArgs e)
+        { }
+
+        public static void Create(MainForm MainForm, Control target, List<ArcUser> users, List<BugReport> reports)
+        {
+            MainForm.BeginInvoke(() =>
+            {
+                var reportsList = new BugReportList()
+                {
+                    Dock = DockStyle.Fill,
+                    Users = users,
+                    MainForm = MainForm,
+                    Items = reports
+                };
+
+                target.Controls.Add(reportsList);
+                reportsList.FilterItems();
+                reportsList.PopulateList();
+            });
+        }
     }
 }

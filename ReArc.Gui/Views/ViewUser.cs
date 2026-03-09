@@ -205,12 +205,34 @@ namespace ReArc.Gui.Views
             BugReportList.Create(MainForm!, BugReportsTab, _users!, reports);
         }
 
+        private async Task PopulateSharesTab()
+        {
+            SharesTab.Controls.Clear();
+
+            MainForm!.BeginInvoke(() => LoadingDialog.ShowLoading(MainForm!, "Loading shares"));
+            await Task.Delay(100);
+
+            var sharesResult = await AdminController.GetSharesOf(_user!._id);
+            await LoadingDialog.Stop();
+
+            if (!sharesResult.Success)
+            {
+                MessageBox.Show($"An error occurred while obtaining shared drives. {sharesResult.ErrorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            ShareList.Create(MainForm!, SharesTab, _users!, sharesResult.Result!);
+        }
+
         private void TabControl_IndexChanged(object sender, EventArgs e)
         {
             switch (Tabs.SelectedIndex)
             {
                 case 1: // bug reports
                     _ = PopulateReportsTab();
+                    break;
+                case 2: // shares
+                    _ = PopulateSharesTab();
                     break;
             }
         }

@@ -1,19 +1,15 @@
-﻿using Microsoft.VisualBasic.ApplicationServices;
-using ReArc.ApiHandler.Controllers;
+﻿using ReArc.ApiHandler.Controllers;
+using ReArc.Gui.Common;
+using ReArc.Gui.Components;
 using ReArc.Shared;
+using ReArc.Shared.Records.Database;
 using ReArc.Shared.Records.Responses;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 
 namespace ReArc.Gui.Views;
 
 public partial class Shares : Page
 {
+    private List<ArcUser> _users = [];
     private List<SharedDrive> _shares = [];
 
     public Shares()
@@ -23,10 +19,21 @@ public partial class Shares : Page
 
     public override async Task<CommandResult<bool>> LoadData(Dictionary<string, object>? props = null)
     {
-        var response = await AdminController.GetAllShares();
-        if (!response.Success) return CommandResult<bool>.Error(response.ErrorMessage);
+        LoadingDialog.ChangeCaption("Retrieving shared drives");
+        var sharesResult = await AdminController.GetAllShares();
+        if (!sharesResult.Success) return CommandResult<bool>.Error(sharesResult.ErrorMessage);
 
-        _shares = response.Result!;
+        LoadingDialog.ChangeCaption("Retrieving user list");
+        var usersResult = await AdminController.GetAllUsers();
+        if (!usersResult.Success) return CommandResult<bool>.Error(usersResult.ErrorMessage);
+
+        _shares = sharesResult.Result!;
+        _users = usersResult.Result!;
         return CommandResult<bool>.Ok(true);
+    }
+
+    public override void Render()
+    {
+        ShareList.Create(MainForm!, this, _users!, _shares!);
     }
 }
