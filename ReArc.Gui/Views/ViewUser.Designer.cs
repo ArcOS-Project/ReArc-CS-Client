@@ -32,8 +32,8 @@
             tableLayoutPanel2 = new TableLayoutPanel();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel1 = new Panel();
-            tabControl1 = new TabControl();
-            tabPage1 = new TabPage();
+            Tabs = new TabControl();
+            OverviewTab = new TabPage();
             groupBox2 = new GroupBox();
             pictureBox1 = new PictureBox();
             FilesystemPercentageLabel = new Label();
@@ -44,12 +44,12 @@
             EmailLabel = new Label();
             UsernameLabel = new Label();
             ProfilePictureBox = new PictureBox();
-            tabPage2 = new TabPage();
-            tabPage3 = new TabPage();
-            tabPage4 = new TabPage();
-            tabPage5 = new TabPage();
-            tabPage6 = new TabPage();
-            tabPage7 = new TabPage();
+            BugReportsTab = new TabPage();
+            SharesTab = new TabPage();
+            AccessorsTab = new TabPage();
+            TokensTab = new TabPage();
+            IndexesTab = new TabPage();
+            StoreItemsTab = new TabPage();
             panel2 = new Panel();
             groupBox3 = new GroupBox();
             label1 = new Label();
@@ -78,11 +78,12 @@
             toolStripDropDownButton2 = new ToolStripDropDownButton();
             ApprovedAction = new ToolStripMenuItem();
             AdministratorAction = new ToolStripMenuItem();
+            QuickSwitcher = new ToolStripDropDownButton();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
-            tabControl1.SuspendLayout();
-            tabPage1.SuspendLayout();
+            Tabs.SuspendLayout();
+            OverviewTab.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox1.SuspendLayout();
@@ -126,7 +127,7 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(tabControl1);
+            panel1.Controls.Add(Tabs);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(0);
@@ -135,34 +136,35 @@
             panel1.Size = new Size(604, 451);
             panel1.TabIndex = 0;
             // 
-            // tabControl1
+            // Tabs
             // 
-            tabControl1.Controls.Add(tabPage1);
-            tabControl1.Controls.Add(tabPage2);
-            tabControl1.Controls.Add(tabPage3);
-            tabControl1.Controls.Add(tabPage4);
-            tabControl1.Controls.Add(tabPage5);
-            tabControl1.Controls.Add(tabPage6);
-            tabControl1.Controls.Add(tabPage7);
-            tabControl1.Dock = DockStyle.Fill;
-            tabControl1.Location = new Point(15, 15);
-            tabControl1.Margin = new Padding(0);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(589, 421);
-            tabControl1.TabIndex = 0;
+            Tabs.Controls.Add(OverviewTab);
+            Tabs.Controls.Add(BugReportsTab);
+            Tabs.Controls.Add(SharesTab);
+            Tabs.Controls.Add(AccessorsTab);
+            Tabs.Controls.Add(TokensTab);
+            Tabs.Controls.Add(IndexesTab);
+            Tabs.Controls.Add(StoreItemsTab);
+            Tabs.Dock = DockStyle.Fill;
+            Tabs.Location = new Point(15, 15);
+            Tabs.Margin = new Padding(0);
+            Tabs.Name = "Tabs";
+            Tabs.SelectedIndex = 0;
+            Tabs.Size = new Size(589, 421);
+            Tabs.TabIndex = 0;
+            Tabs.SelectedIndexChanged += TabControl_IndexChanged;
             // 
-            // tabPage1
+            // OverviewTab
             // 
-            tabPage1.Controls.Add(groupBox2);
-            tabPage1.Controls.Add(groupBox1);
-            tabPage1.Location = new Point(4, 24);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(10);
-            tabPage1.Size = new Size(581, 393);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "Overview";
-            tabPage1.UseVisualStyleBackColor = true;
+            OverviewTab.Controls.Add(groupBox2);
+            OverviewTab.Controls.Add(groupBox1);
+            OverviewTab.Location = new Point(4, 24);
+            OverviewTab.Name = "OverviewTab";
+            OverviewTab.Padding = new Padding(10);
+            OverviewTab.Size = new Size(581, 393);
+            OverviewTab.TabIndex = 0;
+            OverviewTab.Text = "Overview";
+            OverviewTab.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -276,65 +278,64 @@
             ProfilePictureBox.TabIndex = 0;
             ProfilePictureBox.TabStop = false;
             // 
-            // tabPage2
+            // BugReportsTab
             // 
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(581, 393);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "Bug Reports";
-            tabPage2.UseVisualStyleBackColor = true;
+            BugReportsTab.Location = new Point(4, 24);
+            BugReportsTab.Name = "BugReportsTab";
+            BugReportsTab.Size = new Size(581, 393);
+            BugReportsTab.TabIndex = 1;
+            BugReportsTab.Text = "Bug Reports";
+            BugReportsTab.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // SharesTab
             // 
-            tabPage3.Location = new Point(4, 24);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(581, 393);
-            tabPage3.TabIndex = 2;
-            tabPage3.Text = "Shares";
-            tabPage3.UseVisualStyleBackColor = true;
+            SharesTab.Location = new Point(4, 24);
+            SharesTab.Name = "SharesTab";
+            SharesTab.Padding = new Padding(3);
+            SharesTab.Size = new Size(581, 393);
+            SharesTab.TabIndex = 2;
+            SharesTab.Text = "Shares";
+            SharesTab.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
+            // AccessorsTab
             // 
-            tabPage4.Location = new Point(4, 24);
-            tabPage4.Name = "tabPage4";
-            tabPage4.Padding = new Padding(3);
-            tabPage4.Size = new Size(581, 393);
-            tabPage4.TabIndex = 3;
-            tabPage4.Text = "Accessors";
-            tabPage4.UseVisualStyleBackColor = true;
+            AccessorsTab.Location = new Point(4, 24);
+            AccessorsTab.Name = "AccessorsTab";
+            AccessorsTab.Padding = new Padding(3);
+            AccessorsTab.Size = new Size(581, 393);
+            AccessorsTab.TabIndex = 3;
+            AccessorsTab.Text = "Accessors";
+            AccessorsTab.UseVisualStyleBackColor = true;
             // 
-            // tabPage5
+            // TokensTab
             // 
-            tabPage5.Location = new Point(4, 24);
-            tabPage5.Name = "tabPage5";
-            tabPage5.Padding = new Padding(3);
-            tabPage5.Size = new Size(581, 393);
-            tabPage5.TabIndex = 4;
-            tabPage5.Text = "Tokens";
-            tabPage5.UseVisualStyleBackColor = true;
+            TokensTab.Location = new Point(4, 24);
+            TokensTab.Name = "TokensTab";
+            TokensTab.Padding = new Padding(3);
+            TokensTab.Size = new Size(581, 393);
+            TokensTab.TabIndex = 4;
+            TokensTab.Text = "Tokens";
+            TokensTab.UseVisualStyleBackColor = true;
             // 
-            // tabPage6
+            // IndexesTab
             // 
-            tabPage6.Location = new Point(4, 24);
-            tabPage6.Name = "tabPage6";
-            tabPage6.Padding = new Padding(3);
-            tabPage6.Size = new Size(581, 393);
-            tabPage6.TabIndex = 5;
-            tabPage6.Text = "Indexes";
-            tabPage6.UseVisualStyleBackColor = true;
+            IndexesTab.Location = new Point(4, 24);
+            IndexesTab.Name = "IndexesTab";
+            IndexesTab.Padding = new Padding(3);
+            IndexesTab.Size = new Size(581, 393);
+            IndexesTab.TabIndex = 5;
+            IndexesTab.Text = "Indexes";
+            IndexesTab.UseVisualStyleBackColor = true;
             // 
-            // tabPage7
+            // StoreItemsTab
             // 
-            tabPage7.Location = new Point(4, 24);
-            tabPage7.Name = "tabPage7";
-            tabPage7.Padding = new Padding(3);
-            tabPage7.Size = new Size(581, 393);
-            tabPage7.TabIndex = 6;
-            tabPage7.Text = "Store Items";
-            tabPage7.UseVisualStyleBackColor = true;
+            StoreItemsTab.Location = new Point(4, 24);
+            StoreItemsTab.Name = "StoreItemsTab";
+            StoreItemsTab.Padding = new Padding(3);
+            StoreItemsTab.Size = new Size(581, 393);
+            StoreItemsTab.TabIndex = 6;
+            StoreItemsTab.Text = "Store Items";
+            StoreItemsTab.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -374,7 +375,7 @@
             groupBox3.Size = new Size(214, 418);
             groupBox3.TabIndex = 0;
             groupBox3.TabStop = false;
-            groupBox3.Text = "Statistics";
+            groupBox3.Text = "User Statistics";
             // 
             // label1
             // 
@@ -412,7 +413,7 @@
             label4.ForeColor = Color.Navy;
             label4.Location = new Point(13, 82);
             label4.Name = "label4";
-            label4.Size = new Size(44, 15);
+            label4.Size = new Size(43, 15);
             label4.TabIndex = 18;
             label4.Text = "Tokens";
             // 
@@ -502,7 +503,7 @@
             label7.ForeColor = Color.Navy;
             label7.Location = new Point(13, 250);
             label7.Name = "label7";
-            label7.Size = new Size(115, 15);
+            label7.Size = new Size(116, 15);
             label7.TabIndex = 24;
             label7.Text = "Filesystem Indexings";
             // 
@@ -518,7 +519,9 @@
             // 
             // toolStrip1
             // 
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, toolStripDropDownButton2 });
+            toolStrip1.BackColor = Color.FromArgb(207, 241, 255);
+            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, toolStripDropDownButton2, QuickSwitcher });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(854, 25);
@@ -594,7 +597,7 @@
             // 
             ApprovedAction.Image = Properties.Resources.lock16;
             ApprovedAction.Name = "ApprovedAction";
-            ApprovedAction.Size = new Size(180, 22);
+            ApprovedAction.Size = new Size(147, 22);
             ApprovedAction.Text = "Approved";
             ApprovedAction.Click += ApprovedAction_Click;
             // 
@@ -602,9 +605,18 @@
             // 
             AdministratorAction.Image = Properties.Resources.elevate16;
             AdministratorAction.Name = "AdministratorAction";
-            AdministratorAction.Size = new Size(180, 22);
+            AdministratorAction.Size = new Size(147, 22);
             AdministratorAction.Text = "Administrator";
             AdministratorAction.Click += AdministratorAction_Click;
+            // 
+            // QuickSwitcher
+            // 
+            QuickSwitcher.Alignment = ToolStripItemAlignment.Right;
+            QuickSwitcher.Image = Properties.Resources.users16;
+            QuickSwitcher.ImageTransparentColor = Color.Magenta;
+            QuickSwitcher.Name = "QuickSwitcher";
+            QuickSwitcher.Size = new Size(88, 22);
+            QuickSwitcher.Text = "username";
             // 
             // ViewUser
             // 
@@ -619,8 +631,8 @@
             tableLayoutPanel2.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);
-            tabControl1.ResumeLayout(false);
-            tabPage1.ResumeLayout(false);
+            Tabs.ResumeLayout(false);
+            OverviewTab.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -639,19 +651,19 @@
         private TableLayoutPanel tableLayoutPanel2;
         private TableLayoutPanel tableLayoutPanel1;
         private Panel panel1;
-        private TabControl tabControl1;
-        private TabPage tabPage1;
+        private TabControl Tabs;
+        private TabPage OverviewTab;
         private GroupBox groupBox1;
         private Label UserIdLabel;
         private Label EmailLabel;
         private Label UsernameLabel;
         private PictureBox ProfilePictureBox;
-        private TabPage tabPage2;
-        private TabPage tabPage3;
-        private TabPage tabPage4;
-        private TabPage tabPage5;
-        private TabPage tabPage6;
-        private TabPage tabPage7;
+        private TabPage BugReportsTab;
+        private TabPage SharesTab;
+        private TabPage AccessorsTab;
+        private TabPage TokensTab;
+        private TabPage IndexesTab;
+        private TabPage StoreItemsTab;
         private Panel panel2;
         private ToolStrip toolStrip1;
         private ToolStripDropDownButton toolStripDropDownButton1;
@@ -685,5 +697,7 @@
         private Label label3;
         private Label label7;
         private Label AccessorsLabel;
+        private ToolStripDropDownButton QuickSwitcher;
+        private ToolStripMenuItem toolStripMenuItem1;
     }
 }

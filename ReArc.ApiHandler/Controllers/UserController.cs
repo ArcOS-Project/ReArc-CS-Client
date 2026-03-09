@@ -7,30 +7,11 @@ namespace ReArc.ApiHandler.Controllers
 {
     public static class UserController
     {
-        public static UserInfo? UserInfo
-        {
-            get;
-            private set => field = value;
-        }
-        public static string? DisplayName
-        {
-            get => UserInfo?.Preferences.Account.DisplayName ?? UserInfo?.Username;
-        }
-        public static string? Token
-        {
-            get;
-            private set => field = value;
-        }
-        public static bool Restricted
-        {
-            get;
-            private set => field = value;
-        }
-        public static string? ProfilePicture
-        {
-            get;
-            private set => field = value;
-        }
+        public static UserInfo? UserInfo { get; private set => field = value; }
+        public static string? ProfilePicture { get; private set => field = value; }
+        public static string? Token { get; private set => field = value; }
+        public static bool Restricted { get; private set => field = value; }
+        public static string? DisplayName { get => UserInfo?.Preferences.Account.DisplayName ?? UserInfo?.Username; }
 
         public static async Task<CommandResult<UserInfo>> GetUserInfoForToken(string token)
         {
@@ -61,16 +42,13 @@ namespace ReArc.ApiHandler.Controllers
             }
 
             var userInfoResult = await GetUserInfoForToken(token);
+
             if (!userInfoResult.Success) return CommandResult<UserInfo>.Error(userInfoResult.ErrorMessage);
+            if (!userInfoResult.Result!.Admin) return CommandResult<UserInfo>.Error("You have to be an administrator to access this resource.");
 
-            if (!userInfoResult.Result!.Admin)
-            {
-                return CommandResult<UserInfo>.Error("You have to be an administrator to access this resource.");
-            }
-
-            UserInfo = userInfoResult.Result!;
             Token = token;
-            Restricted = UserInfo.Restricted ?? false;
+            UserInfo = userInfoResult.Result!;
+            Restricted = (UserInfo.HasTotp ?? false) && (UserInfo.Restricted ?? false);
 
             var profilePictureResult = await DownloadProfilePicture(UserInfo._id);
             if (profilePictureResult.Success) ProfilePicture = profilePictureResult.Result!;

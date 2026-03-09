@@ -173,6 +173,7 @@
             // 
             // FilterDropdown
             // 
+            FilterDropdown.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             FilterDropdown.DropDownStyle = ComboBoxStyle.DropDownList;
             FilterDropdown.FormattingEnabled = true;
             FilterDropdown.Items.AddRange(new object[] { "All", "Regular", "Admins", "Approved", "Disapproved" });
@@ -187,8 +188,7 @@
             // 
             SearchButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SearchButton.Image = Properties.Resources.search16;
-            SearchButton.Location = new Point(716, 17);
-            SearchButton.Margin = new Padding(0);
+            SearchButton.Location = new Point(720, 17);
             SearchButton.Name = "SearchButton";
             SearchButton.Size = new Size(25, 25);
             SearchButton.TabIndex = 1;
@@ -200,8 +200,9 @@
             SearchBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             SearchBox.CharacterCasing = CharacterCasing.Lower;
             SearchBox.Location = new Point(15, 18);
+            SearchBox.Margin = new Padding(0);
             SearchBox.Name = "SearchBox";
-            SearchBox.Size = new Size(695, 23);
+            SearchBox.Size = new Size(702, 23);
             SearchBox.TabIndex = 0;
             SearchBox.KeyDown += SearchBox_KeyDown;
             // 

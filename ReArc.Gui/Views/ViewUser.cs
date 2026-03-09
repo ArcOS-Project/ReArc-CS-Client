@@ -1,6 +1,6 @@
-﻿using MimeKit.Cryptography;
-using ReArc.ApiHandler.Controllers;
+﻿using ReArc.ApiHandler.Controllers;
 using ReArc.Gui.Common;
+using ReArc.Gui.Components;
 using ReArc.Shared;
 using ReArc.Shared.Helpers;
 using ReArc.Shared.Records.Database;
@@ -78,6 +78,42 @@ namespace ReArc.Gui.Views
             ApprovedAction.Checked = _user!.Approved;
             AdministratorAction.Checked = _user!.Admin;
             LogOutAction.Enabled = _user._id != UserController.UserInfo!._id;
+
+            PopulateQuickSwitcher();
+            QuickSwitcher.Text = _user!.Username;
+        }
+
+        private void PopulateQuickSwitcher()
+        {
+            QuickSwitcher.DropDownItems.Clear();
+
+            foreach (var user in _users!)
+            {
+                var MenuItem = new ToolStripMenuItem()
+                {
+                    Text = user.Username,
+                    Image = Properties.Resources.user,
+                    ImageScaling = ToolStripItemImageScaling.SizeToFit
+                };
+
+                MenuItem.Click += QuickSwitchItem_Click;
+                QuickSwitcher.DropDownItems.Add(MenuItem);
+            }
+        }
+
+        private void QuickSwitchItem_Click(object? sender, EventArgs e)
+        {
+            if (sender is not ToolStripMenuItem) return;
+
+            var username = ((ToolStripMenuItem)sender).Text;
+            var user = _users.Find((u) => u.Username == username);
+
+            if (user == null) return;
+
+            _ = MainForm!.SwitchView(new ViewUser(), $"View {username}", new Dictionary<string, object>
+            {
+                {"User", user }
+            });
         }
 
         private void ApprovedAction_Click(object sender, EventArgs e)
@@ -146,6 +182,37 @@ namespace ReArc.Gui.Views
             }
 
             AdministratorAction.Checked = !granted;
+        }
+
+        private async Task PopulateReportsTab()
+        {
+            BugReportsTab.Controls.Clear();
+
+            MainForm!.BeginInvoke(() => LoadingDialog.ShowLoading(MainForm!, "Loading bug reports"));
+            await Task.Delay(100);
+
+            var reportResult = await AdminController.GetAllBugReports();
+            await LoadingDialog.Stop();
+
+            if (!reportResult.Success)
+            {
+                MessageBox.Show($"An error occurred while obtaining bug reports. {reportResult.ErrorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var reports = reportResult.Result!.Where((r) => r.AuthorId == _user!._id).ToList();
+
+            BugReportList.Create(MainForm!, BugReportsTab, _users!, reports);
+        }
+
+        private void TabControl_IndexChanged(object sender, EventArgs e)
+        {
+            switch (Tabs.SelectedIndex)
+            {
+                case 1: // bug reports
+                    _ = PopulateReportsTab();
+                    break;
+            }
         }
     }
 }
