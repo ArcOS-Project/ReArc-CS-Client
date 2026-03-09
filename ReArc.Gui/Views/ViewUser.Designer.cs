@@ -519,11 +519,11 @@
             // 
             // toolStrip1
             // 
-            toolStrip1.BackColor = Color.FromArgb(207, 241, 255);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, toolStripDropDownButton2, QuickSwitcher });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
+            toolStrip1.RenderMode = ToolStripRenderMode.Professional;
             toolStrip1.Size = new Size(854, 25);
             toolStrip1.TabIndex = 2;
             toolStrip1.Text = "toolStrip1";

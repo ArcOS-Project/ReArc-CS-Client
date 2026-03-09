@@ -94,5 +94,21 @@ namespace ReArc.ApiHandler.Controllers
             if (!response.Success) return CommandResult<bool>.Error(response.ErrorMessage);
             return CommandResult<bool>.Ok(true);
         }
+
+        public static async Task<CommandResult<List<SharedDrive>>> GetAllShares()
+        {
+            var response = await Client.CurrentClient.GetJson<List<SharedDrive>>($"/admin/share/list", UserController.Token);
+            if (!response.Success) return CommandResult<List<SharedDrive>>.Error(response.ErrorMessage);
+
+            return CommandResult<List<SharedDrive>>.Ok(response.Result!);
+        }
+
+        public static async Task<CommandResult<List<SharedDrive>>> GetSharesOf(string userId)
+        {
+            var response = await Client.CurrentClient.GetJson<List<SharedDrive>>($"/admin/share/list/{userId}", UserController.Token);
+            if (!response.Success) return CommandResult<List<SharedDrive>>.Error(response.ErrorMessage);
+
+            return CommandResult<List<SharedDrive>>.Ok(response.Result!);
+        }
     }
 }
