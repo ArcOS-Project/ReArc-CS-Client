@@ -50,6 +50,8 @@
             Timestamp = new DataGridViewTextBoxColumn();
             Title = new DataGridViewTextBoxColumn();
             Author = new DataGridViewTextBoxColumn();
+            Opened = new DataGridViewCheckBoxColumn();
+            UserData = new DataGridViewCheckBoxColumn();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -165,7 +167,7 @@
             label3.ForeColor = Color.Navy;
             label3.Location = new Point(11, 136);
             label3.Name = "label3";
-            label3.Size = new Size(76, 15);
+            label3.Size = new Size(75, 15);
             label3.TabIndex = 16;
             label3.Text = "Total Reports";
             // 
@@ -233,7 +235,7 @@
             FilterDropdown.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             FilterDropdown.DropDownStyle = ComboBoxStyle.DropDownList;
             FilterDropdown.FormattingEnabled = true;
-            FilterDropdown.Items.AddRange(new object[] { "All", "System", "Apps", "Opened", "Closed" });
+            FilterDropdown.Items.AddRange(new object[] { "All", "System", "Apps", "Opened", "Closed", "With user data", "No user data" });
             FilterDropdown.Location = new Point(510, 18);
             FilterDropdown.Name = "FilterDropdown";
             FilterDropdown.Size = new Size(121, 23);
@@ -266,7 +268,7 @@
             ReportListView.AllowUserToDeleteRows = false;
             ReportListView.BackgroundColor = Color.White;
             ReportListView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ReportListView.Columns.AddRange(new DataGridViewColumn[] { Logo, Timestamp, Title, Author });
+            ReportListView.Columns.AddRange(new DataGridViewColumn[] { Logo, Timestamp, Title, Author, Opened, UserData });
             ReportListView.Dock = DockStyle.Fill;
             ReportListView.Location = new Point(15, 55);
             ReportListView.Margin = new Padding(15, 0, 0, 15);
@@ -293,21 +295,38 @@
             Timestamp.Name = "Timestamp";
             Timestamp.ReadOnly = true;
             Timestamp.SortMode = DataGridViewColumnSortMode.NotSortable;
-            Timestamp.Width = 73;
+            Timestamp.Width = 72;
             // 
             // Title
             // 
-            Title.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Title.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Title.HeaderText = "Title";
             Title.Name = "Title";
             Title.ReadOnly = true;
-            Title.Width = 55;
             // 
             // Author
             // 
             Author.HeaderText = "Author";
             Author.Name = "Author";
             Author.ReadOnly = true;
+            // 
+            // Opened
+            // 
+            Opened.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Opened.HeaderText = "Opened";
+            Opened.Name = "Opened";
+            Opened.ReadOnly = true;
+            Opened.Width = 55;
+            // 
+            // UserData
+            // 
+            UserData.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            UserData.HeaderText = "User Data?";
+            UserData.Name = "UserData";
+            UserData.ReadOnly = true;
+            UserData.Resizable = DataGridViewTriState.True;
+            UserData.SortMode = DataGridViewColumnSortMode.Automatic;
+            UserData.Width = 87;
             // 
             // BugReports
             // 
@@ -353,5 +372,7 @@
         private DataGridViewTextBoxColumn Timestamp;
         private DataGridViewTextBoxColumn Title;
         private DataGridViewTextBoxColumn Author;
+        private DataGridViewCheckBoxColumn Opened;
+        private DataGridViewCheckBoxColumn UserData;
     }
 }

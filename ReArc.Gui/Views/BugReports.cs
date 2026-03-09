@@ -54,6 +54,7 @@ namespace ReArc.Gui.Views
                 (u) => _query == string.Empty ||
                        (u.Body?.Contains(_query, comparison) ?? false) ||
                        (u.Title?.Contains(_query, comparison) ?? false) ||
+                       (u.UserAgent?.Contains(_query, comparison) ?? false) ||
                        u._id == _query)];
 
             _filteredReports = [.. _filteredReports.Where(
@@ -63,6 +64,8 @@ namespace ReArc.Gui.Views
                         "Apps" => u.IsAppReport == true,
                         "Closed" => u.Closed,
                         "Opened" => !u.Closed,
+                        "With user data" => u.UserData != null,
+                        "No user data" => u.UserData == null,
                         _ => true})];
         }
 
@@ -70,13 +73,12 @@ namespace ReArc.Gui.Views
         {
             ReportListView.Rows.Clear();
 
-
             foreach (var report in _filteredReports)
             {
                 var createdDate = DateTime.Parse(report.CreatedAt).ToString("dd-MM-yyyy, HH:mm:ss");
                 var author = _users.Find((u) => u._id == report.AuthorId)?.Username ?? "Stranger";
 
-                ReportListView.Rows.Add([Properties.Resources.crash16, createdDate, report.Title, author]);
+                ReportListView.Rows.Add([Properties.Resources.crash16, createdDate, report.Title, author, !report.Closed, report.UserData != null]);
             }
 
             ReportListView.AutoResizeColumns();
