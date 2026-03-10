@@ -145,7 +145,7 @@
             // usernameToolStripMenuItem
             // 
             usernameToolStripMenuItem.Enabled = false;
-            usernameToolStripMenuItem.Image = Properties.Resources.user;
+            usernameToolStripMenuItem.Image = Properties.Resources.user16;
             usernameToolStripMenuItem.Name = "usernameToolStripMenuItem";
             usernameToolStripMenuItem.Size = new Size(134, 22);
             usernameToolStripMenuItem.Text = "(username)";

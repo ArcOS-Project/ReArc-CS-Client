@@ -97,7 +97,7 @@ namespace ReArc.Gui.Views
                 var MenuItem = new ToolStripMenuItem()
                 {
                     Text = user.Username,
-                    Image = Properties.Resources.user,
+                    Image = Properties.Resources.user16,
                     ImageScaling = ToolStripItemImageScaling.SizeToFit
                 };
 

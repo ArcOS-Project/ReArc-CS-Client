@@ -355,7 +355,7 @@
             // AuditLogButton
             // 
             AuditLogButton.BackgroundImageLayout = ImageLayout.Zoom;
-            AuditLogButton.Image = Properties.Resources.cabinet1;
+            AuditLogButton.Image = Properties.Resources.cabinet16;
             AuditLogButton.ImageAlign = ContentAlignment.TopLeft;
             AuditLogButton.Location = new Point(13, 90);
             AuditLogButton.Name = "AuditLogButton";
@@ -519,7 +519,7 @@
             // ProfilePictureBox
             // 
             ProfilePictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            ProfilePictureBox.BackgroundImage = Properties.Resources.user;
+            ProfilePictureBox.BackgroundImage = Properties.Resources.user16;
             ProfilePictureBox.BackgroundImageLayout = ImageLayout.Zoom;
             ProfilePictureBox.Location = new Point(478, 28);
             ProfilePictureBox.Name = "ProfilePictureBox";

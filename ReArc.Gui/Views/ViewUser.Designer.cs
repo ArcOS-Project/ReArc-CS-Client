@@ -271,8 +271,7 @@
             // 
             // ProfilePictureBox
             // 
-            ProfilePictureBox.ErrorImage = Properties.Resources.error;
-            ProfilePictureBox.InitialImage = Properties.Resources.user;
+            ProfilePictureBox.InitialImage = Properties.Resources.user16;
             ProfilePictureBox.Location = new Point(13, 29);
             ProfilePictureBox.Name = "ProfilePictureBox";
             ProfilePictureBox.Size = new Size(64, 64);
@@ -341,7 +340,7 @@
             // 
             // panel2
             // 
-            panel2.BackgroundImage = Properties.Resources.dashboardstatbg2;
+            panel2.BackgroundImage = Properties.Resources.dashboardstatbg;
             panel2.BackgroundImageLayout = ImageLayout.None;
             panel2.Controls.Add(groupBox3);
             panel2.Dock = DockStyle.Fill;

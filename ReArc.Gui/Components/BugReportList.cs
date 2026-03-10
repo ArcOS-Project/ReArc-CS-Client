@@ -11,7 +11,7 @@ namespace ReArc.Gui.Components
         protected override List<DataGridViewColumn> Columns()
         {
             return [
-                TableHelpers.ImageColumn(Properties.Resources.user, "Icon"),
+                TableHelpers.ImageColumn(Properties.Resources.user16, "Icon"),
                 TableHelpers.TextColumn("Timestamp", "Timestamp"),
                 TableHelpers.TextColumn("Title", "Title", DataGridViewAutoSizeColumnMode.Fill),
                 TableHelpers.TextColumn("Author", "Author"),

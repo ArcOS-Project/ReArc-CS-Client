@@ -17,7 +17,7 @@ namespace ReArc.Gui.Common
             new()
             {
                 Name = "Dashboard",
-                Image = Properties.Resources.dashboard,
+                Image = Properties.Resources.dashboard16,
                 Page = () => new Home()
             },
             new()
@@ -30,7 +30,7 @@ namespace ReArc.Gui.Common
             new()
             {
                 Name = "Users",
-                Image = Properties.Resources.users,
+                Image = Properties.Resources.users16,
                 Page = () => new Users(),
                 Separator = true
             },
@@ -75,7 +75,7 @@ namespace ReArc.Gui.Common
             new()
             {
                 Name = "Audit Log",
-                Image = Properties.Resources.cabinet,
+                Image = Properties.Resources.cabinet16,
                 Page = () => new Users()
             },
             new()

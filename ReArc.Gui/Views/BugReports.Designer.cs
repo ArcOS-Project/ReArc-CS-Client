@@ -62,7 +62,7 @@
             // 
             // panel1
             // 
-            panel1.BackgroundImage = Properties.Resources.dashboardstatbg2;
+            panel1.BackgroundImage = Properties.Resources.dashboardstatbg;
             panel1.BackgroundImageLayout = ImageLayout.None;
             panel1.Controls.Add(groupBox1);
             panel1.Dock = DockStyle.Fill;
