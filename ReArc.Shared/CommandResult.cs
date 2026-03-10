@@ -64,6 +64,15 @@
                 errorMessage = errorMessage ?? "Unknown error"
             });
         }
+
+
+        public static CommandResult<T> Error(string? errorMessage, T value)
+        {
+            return new CommandResult<T>(value, new CommandResultOptions
+            {
+                errorMessage = errorMessage ?? "Unknown error",
+            });
+        }
     }
 
     public record CommandResultOptions

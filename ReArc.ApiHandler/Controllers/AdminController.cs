@@ -4,6 +4,7 @@ using ReArc.Shared.Records.Database;
 using ReArc.Shared.Records.Responses;
 using ReArc.Shared.Records.Responses.Admin;
 using ReArc.Shared.Records.Responses.User;
+using System.Runtime.InteropServices;
 
 namespace ReArc.ApiHandler.Controllers
 {
@@ -109,6 +110,17 @@ namespace ReArc.ApiHandler.Controllers
             if (!response.Success) return CommandResult<List<SharedDrive>>.Error(response.ErrorMessage);
 
             return CommandResult<List<SharedDrive>>.Ok(response.Result!);
+        }
+
+        public static async Task<CommandResult<byte[]>> ReadFile(string username, string path)
+        {
+            var response = await Client.CurrentClient.Get($"/admin/fs/{username}/{path}", UserController.Token!);
+            if (!response.Success) return CommandResult<byte[]>.Error(response.ErrorMessage);
+
+            var data = await response.Result!.Content!.ReadAsByteArrayAsync();
+            if (data == null) return CommandResult<byte[]>.Error("Failed to read");
+
+            return CommandResult<byte[]>.Ok(data);
         }
     }
 }

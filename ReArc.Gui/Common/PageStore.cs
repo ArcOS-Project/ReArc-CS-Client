@@ -44,7 +44,7 @@ namespace ReArc.Gui.Common
             {
                 Name = "Filesystems",
                 Image = Properties.Resources.keyfs16,
-                Page = () => new Users()
+                Page = () => new Filesystems()
             },
             new()
             {

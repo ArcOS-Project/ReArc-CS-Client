@@ -98,6 +98,8 @@ namespace ReArc.Gui.Components
 
         private void Internal_OnCellClicked(object sender, DataGridViewCellEventArgs e)
         {
+            // TODO: reordering the list using the DataGridView sorting makes it so that
+            // the order of _filteredItems no longer matches what is displayed in the grid.
             var rowIndex = e.RowIndex;
             var columnIndex = e.ColumnIndex;
             var columnName = _columns[columnIndex].Name;

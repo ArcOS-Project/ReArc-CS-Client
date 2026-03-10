@@ -14,6 +14,12 @@
 
         public static LoadingDialog ShowLoading(Form invocator, string caption)
         {
+            if (_dialog != null)
+            {
+                ChangeCaption(caption);
+                return _dialog;
+            }
+
             var dialog = new LoadingDialog(caption);
             invocator.BeginInvoke(() => dialog.ShowDialog(invocator));
 

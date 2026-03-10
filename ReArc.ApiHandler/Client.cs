@@ -191,6 +191,40 @@ public class Client
         }
     }
 
+
+    public async Task<CommandResult<HttpResponseMessage>> Get(string route, Dictionary<string, string>? parameters = null)
+    {
+        try
+        {
+            var response = await client.GetAsync(CreateUrl(route, parameters));
+            if (response.StatusCode != HttpStatusCode.OK)
+                return await HandleNotOkResponse<HttpResponseMessage>(response);
+
+            return CommandResult<HttpResponseMessage>.Ok(response);
+        }
+        catch (Exception e)
+        {
+            return CommandResult<HttpResponseMessage>.Error(e.Message);
+        }
+    }
+
+    public async Task<CommandResult<HttpResponseMessage>> Get(string route, string token)
+    {
+        try
+        {
+            var response = await client.WithToken(token).GetAsync(CreateUrl(route));
+            if (response.StatusCode != HttpStatusCode.OK)
+                return await HandleNotOkResponse<HttpResponseMessage>(response);
+
+            return CommandResult<HttpResponseMessage>.Ok(response);
+        }
+        catch (Exception e)
+        {
+            return CommandResult<HttpResponseMessage>.Error(e.Message);
+        }
+    }
+
+
     public async Task<CommandResult<HttpResponseMessage>> Delete(string route, string? token = null, Dictionary<string, string>? parameters = null)
     {
         try
@@ -209,7 +243,7 @@ public class Client
             return CommandResult<HttpResponseMessage>.Error(e.Message);
         }
     }
-    
+
     #endregion
 
     #region Utilities
