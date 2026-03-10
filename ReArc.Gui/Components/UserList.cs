@@ -22,7 +22,7 @@ public partial class UserList : BaseList<ArcUser>
         ];
     }
 
-    public override bool QueryFilterCallback(string query, ArcUser item)
+    protected override bool QueryFilterCallback(string query, ArcUser item)
     {
         var comparison = StringComparison.InvariantCultureIgnoreCase;
 
@@ -33,7 +33,7 @@ public partial class UserList : BaseList<ArcUser>
                item._id == query;
     }
 
-    public override bool FilterCallback(string filter, ArcUser item)
+    protected override bool FilterCallback(string filter, ArcUser item)
     {
         return filter switch
         {
@@ -46,29 +46,41 @@ public partial class UserList : BaseList<ArcUser>
         };
     }
 
-    public override object[] GetGridRow(ArcUser item)
+    protected override object[] GetGridRow(ArcUser item)
     {
         var createdDate = DateTime.Parse(item.CreatedAt).ToString("dd-MM-yyyy, HH:mm:ss");
 
         return [Properties.Resources.user16, item.Username, item.Email, createdDate, item.Approved, item.Admin];
     }
 
-    public override void OnCellClicked(object sender, DataGridViewCellEventArgs e)
+    protected override void OnCellClicked(string columnName, ArcUser item, int row, int column)
     {
-        var columnName = ((DataGridView)sender).Columns[e.ColumnIndex].Name;
-        var user = _filteredItems[e.RowIndex];
-
         switch (columnName)
         {
             case "View":
-                _ = MainForm!.SwitchView(new ViewUser(), $"View {user.Username}", new Dictionary<string, object>() {
-                        { "User", user! }
-                    });
+                _ = MainForm!.SwitchView(new ViewUser(),
+                                         $"View {item.Username}",
+                                         new Dictionary<string, object>() { { "User", item } });
+                break;
+
+            case "Username":
+                CopyDialog.ShowCopyDialog(MainForm!, item.Username);
+                break;
+
+            case "Email":
+                CopyDialog.ShowCopyDialog(MainForm!, item.Email);
                 break;
 
             case "Copy":
-                CopyDialog.ShowCopyDialog(MainForm!, user._id);
+                CopyDialog.ShowCopyDialog(MainForm!, item._id);
                 break;
         }
+    }
+
+    protected override void HandleSingleItemResult(ArcUser item, string query, string filter)
+    {
+        _ = MainForm!.SwitchView(new ViewUser(),
+                         $"View {item.Username}",
+                         new Dictionary<string, object>() { { "User", item } });
     }
 }

@@ -7,10 +7,10 @@ namespace ReArc.ApiHandler.Controllers
 {
     public static class UserController
     {
-        public static UserInfo? UserInfo { get; private set => field = value; }
-        public static string? ProfilePicture { get; private set => field = value; }
-        public static string? Token { get; private set => field = value; }
-        public static bool Restricted { get; private set => field = value; }
+        public static UserInfo? UserInfo { get; private set; }
+        public static string? ProfilePicture { get; private set; }
+        public static string? Token { get; private set; }
+        public static bool Restricted { get; private set; }
         public static string? DisplayName { get => UserInfo?.Preferences.Account.DisplayName ?? UserInfo?.Username; }
 
         public static async Task<CommandResult<UserInfo>> GetUserInfoForToken(string token)

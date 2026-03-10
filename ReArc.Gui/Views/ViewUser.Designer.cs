@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewUser));
             tableLayoutPanel2 = new TableLayoutPanel();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -79,6 +80,7 @@
             ApprovedAction = new ToolStripMenuItem();
             AdministratorAction = new ToolStripMenuItem();
             QuickSwitcher = new ToolStripDropDownButton();
+            imageList1 = new ImageList(components);
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
@@ -618,6 +620,19 @@
             QuickSwitcher.Size = new Size(88, 22);
             QuickSwitcher.Text = "username";
             // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "cabinet1.png");
+            imageList1.Images.SetKeyName(1, "crash16.png");
+            imageList1.Images.SetKeyName(2, "id48.png");
+            imageList1.Images.SetKeyName(3, "installer16.png");
+            imageList1.Images.SetKeyName(4, "keys16.png");
+            imageList1.Images.SetKeyName(5, "lock16.png");
+            imageList1.Images.SetKeyName(6, "share16.png");
+            // 
             // ViewUser
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -698,5 +713,6 @@
         private Label label7;
         private Label AccessorsLabel;
         private ToolStripDropDownButton QuickSwitcher;
+        private ImageList imageList1;
     }
 }

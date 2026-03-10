@@ -10,6 +10,7 @@ namespace ReArc.Gui.Views
 {
     public partial class ViewUser : Page
     {
+        private readonly ImageList _tabImages = new();
         private List<ArcUser> _users = [];
         private UserQuota? _quota;
         private ArcUser? _user;
@@ -17,6 +18,10 @@ namespace ReArc.Gui.Views
         private string _profilePicture = string.Empty;
         public ViewUser()
         {
+            _tabImages.Images.Add(Properties.Resources.exit16);
+            _tabImages.Images.Add(Properties.Resources.search16);
+            _tabImages.Images.Add(Properties.Resources.biometrics16);
+            _tabImages.Images.Add(Properties.Resources.elevate16);
             InitializeComponent();
         }
 

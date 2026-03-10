@@ -36,7 +36,6 @@ namespace ReArc.Gui.Views
                 };
 
                 Controls.Add(reportsList);
-                reportsList.FilterItems();
                 reportsList.PopulateList();
             });
         }

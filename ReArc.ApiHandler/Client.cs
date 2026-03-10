@@ -21,11 +21,7 @@ public class Client
         }
         set => _currentClient = value;
     }
-    public bool Connected
-    {
-        get;
-        private set => field = value;
-    }
+    public bool Connected { get; private set; }
     public static bool ClientIsConnected
     {
         get => _currentClient?.Connected ?? false;
@@ -36,8 +32,11 @@ public class Client
     }
 
     private ServerInfo? _serverInfo = null;
-    public ServerOption ServerOption { get; private set => field = value; }
+    public ServerInfo? ServerInfo => _serverInfo;
+    public ServerOption ServerOption { get; private set; }
     private readonly HttpClient client;
+
+    #region Initialization
 
     public Client(ServerOption serverOption)
     {
@@ -49,23 +48,6 @@ public class Client
         {
             BaseAddress = new Uri(ServerOption.Url),
             Timeout = TimeSpan.FromSeconds(3)
-        };
-    }
-
-    public static ServerOption CreateServerOption(string hostname, int port, string? authCode)
-    {
-        UriBuilder uri = new()
-        {
-            Host = hostname,
-            Scheme = port == 443 ? "https" : "http"
-        };
-
-        if (port != 80 && port != 443) uri.Port = port;
-
-        return new ServerOption()
-        {
-            Url = uri.ToString(),
-            AuthCode = authCode
         };
     }
 
@@ -95,14 +77,13 @@ public class Client
 
     public static void Dispose()
     {
-        if (_currentClient != null)
-        {
-            _currentClient.Connected = false;
-            _currentClient = null;
-        }
+        _currentClient?.Connected = false;
+        _currentClient = null;
     }
 
-    public ServerInfo? ServerInfo => _serverInfo;
+    #endregion
+
+    #region HTTP Methods
 
     public async Task<CommandResult<ServerInfo>> Ping()
     {
@@ -210,6 +191,46 @@ public class Client
         }
     }
 
+    public async Task<CommandResult<HttpResponseMessage>> Delete(string route, string? token = null, Dictionary<string, string>? parameters = null)
+    {
+        try
+        {
+            var response = token != null
+                ? await client.WithToken(token).DeleteAsync(CreateUrl(route, parameters))
+                : await client.DeleteAsync(route);
+
+            if (response.StatusCode != HttpStatusCode.OK)
+                return await HandleNotOkResponse<HttpResponseMessage>(response);
+
+            return CommandResult<HttpResponseMessage>.Ok(response);
+        }
+        catch (Exception e)
+        {
+            return CommandResult<HttpResponseMessage>.Error(e.Message);
+        }
+    }
+    
+    #endregion
+
+    #region Utilities
+
+    public static ServerOption CreateServerOption(string hostname, int port, string? authCode)
+    {
+        UriBuilder uri = new()
+        {
+            Host = hostname,
+            Scheme = port == 443 ? "https" : "http"
+        };
+
+        if (port != 80 && port != 443) uri.Port = port;
+
+        return new ServerOption()
+        {
+            Url = uri.ToString(),
+            AuthCode = authCode
+        };
+    }
+
     private static async Task<CommandResult<T>> NormalizeJsonResponse<T>(HttpResponseMessage response)
     {
         try
@@ -273,19 +294,5 @@ public class Client
         return CommandResult<string>.Ok(url);
     }
 
-    public async Task<CommandResult<HttpResponseMessage>> Delete(string route, string? token = null, Dictionary<string, string>? parameters = null)
-    {
-        try
-        {
-            var response = token != null ? await client.WithToken(token).DeleteAsync(CreateUrl(route, parameters)) : await client.DeleteAsync(route);
-            if (response.StatusCode != HttpStatusCode.OK)
-                return await HandleNotOkResponse<HttpResponseMessage>(response);
-
-            return CommandResult<HttpResponseMessage>.Ok(response);
-        }
-        catch (Exception e)
-        {
-            return CommandResult<HttpResponseMessage>.Error(e.Message);
-        }
-    }
+    #endregion
 }

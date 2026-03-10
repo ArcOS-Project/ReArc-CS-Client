@@ -10,10 +10,7 @@ namespace ReArc.Shared
     {
         public static readonly DirectoryInfo Temp = Directory.CreateTempSubdirectory();
         private static readonly string ConfigPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ReArcClient.json");
-        public static ConfigurationSettings? Settings
-        {
-            get; private set => field = value;
-        }
+        public static ConfigurationSettings? Settings { get; private set; }
 
         public static async Task<CommandResult<ConfigurationSettings>> ReadConfiguration()
         {

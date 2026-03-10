@@ -25,7 +25,8 @@
                 Name = name,
                 HeaderText = headerText,
                 AutoSizeMode = autoSizeMode,
-                ReadOnly = true
+                ReadOnly = true,
+                Resizable = DataGridViewTriState.True
             };
         }
 

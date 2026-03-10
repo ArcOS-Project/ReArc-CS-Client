@@ -101,7 +101,7 @@
             GridView.RowHeadersVisible = false;
             GridView.Size = new Size(854, 368);
             GridView.TabIndex = 0;
-            GridView.CellContentClick += OnCellClicked;
+            GridView.CellContentClick += Internal_OnCellClicked;
             GridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             AutoScaleDimensions = new SizeF(7F, 15F);

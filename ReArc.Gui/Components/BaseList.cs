@@ -12,6 +12,7 @@ namespace ReArc.Gui.Components
         protected List<T> _filteredItems = [];
         private string _filter { get => FilterBox.Text; }
         private string _query { get => SearchBox.Text; }
+        private bool _isReady = false;
         public MainForm? MainForm;
 
 
@@ -22,9 +23,10 @@ namespace ReArc.Gui.Components
             InitializeComponent();
 
             FilterBox.SelectedIndex = 0;
+            _isReady = true;
         }
 
-        public void FilterItems()
+        private void FilterItems()
         {
             if (_filter == string.Empty && _query == string.Empty)
             {
@@ -36,18 +38,28 @@ namespace ReArc.Gui.Components
                 .Where((i) => QueryFilterCallback(_query, i))
                 .Where((i) => FilterCallback(_filter, i))
                 .ToList();
+
+            if (_filteredItems.Count == 1 && _isReady)
+            {
+                HandleSingleItemResult(_filteredItems[0], _query, _filter);
+            }
         }
 
         public void PopulateList()
         {
-            GridView.Rows.Clear();
+            FilterItems();
 
-            foreach (var item in _filteredItems)
+            if (GridView.Columns.Count > 0 && !GridView.IsDisposed)
             {
-                GridView.Rows.Add(GetGridRow(item));
-            }
+                GridView.Rows.Clear();
 
-            GridView.AutoResizeColumns();
+                foreach (var item in _filteredItems)
+                {
+                    GridView.Rows.Add(GetGridRow(item));
+                }
+
+                GridView.AutoResizeColumns();
+            }
         }
 
         private void SearchBox_KeyDown(object sender, KeyEventArgs e)
@@ -55,28 +67,61 @@ namespace ReArc.Gui.Components
             if (e.KeyData == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
-                FilterItems();
                 PopulateList();
             }
         }
 
         private void FilterDropdown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FilterItems();
             PopulateList();
         }
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
-            FilterItems();
             PopulateList();
         }
 
-        public abstract bool QueryFilterCallback(string query, T item);
-        public abstract bool FilterCallback(string filter, T item);
-        public abstract object[] GetGridRow(T item);
-        public abstract void OnCellClicked(object sender, DataGridViewCellEventArgs e);
-        protected abstract List<string> FilterOptions();
-        protected abstract List<DataGridViewColumn> Columns();
+        protected virtual bool QueryFilterCallback(string query, T item)
+        {
+            return true;
+        }
+
+        protected virtual bool FilterCallback(string filter, T item)
+        {
+            return true;
+        }
+
+        protected virtual object[] GetGridRow(T item)
+        {
+            return [];
+        }
+
+        private void Internal_OnCellClicked(object sender, DataGridViewCellEventArgs e)
+        {
+            var rowIndex = e.RowIndex;
+            var columnIndex = e.ColumnIndex;
+            var columnName = _columns[columnIndex].Name;
+            var item = _filteredItems[rowIndex];
+
+            OnCellClicked(columnName, item, rowIndex, columnIndex);
+        }
+
+        protected virtual void OnCellClicked(string columnName, T item, int row, int column)
+        {
+            return;
+        }
+
+        protected virtual List<string> FilterOptions()
+        {
+            return [];
+        }
+
+        protected virtual List<DataGridViewColumn> Columns()
+        {
+            return [];
+        }
+
+        protected virtual void HandleSingleItemResult(T item, string query, string filter)
+        { }
     }
 }

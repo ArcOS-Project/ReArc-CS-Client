@@ -9,7 +9,7 @@ namespace ReArc.Gui.Components
 {
     public partial class ShareList : BaseList<SharedDrive>
     {
-        protected override List<string> FilterOptions() => ["All", "Regular", "Admins", "Approved", "Disapproved"];
+        protected override List<string> FilterOptions() => ["All", "Not locked", "Locked", "Abnormal size", "Normal size", "No members", "Has members"];
         public List<ArcUser> Users = [];
 
         protected override List<DataGridViewColumn> Columns()
@@ -24,7 +24,7 @@ namespace ReArc.Gui.Components
             ];
         }
 
-        public override bool QueryFilterCallback(string query, SharedDrive item)
+        protected override bool QueryFilterCallback(string query, SharedDrive item)
         {
             var comparison = StringComparison.InvariantCultureIgnoreCase;
 
@@ -34,7 +34,7 @@ namespace ReArc.Gui.Components
                    item._id == query;
         }
 
-        public override bool FilterCallback(string filter, SharedDrive item)
+        protected override bool FilterCallback(string filter, SharedDrive item)
         {
             return filter switch
             {
@@ -49,15 +49,12 @@ namespace ReArc.Gui.Components
             };
         }
 
-        public override object[] GetGridRow(SharedDrive item)
+        protected override object[] GetGridRow(SharedDrive item)
         {
             var author = Users.Find((u) => u._id == item.UserId)?.Username ?? "Stranger";
 
             return ([Properties.Resources.share16, item.ShareName, author, item.Accessors.Length, ByteHelpers.FormatBytes(item.MaxSize), item.Locked]);
         }
-
-        public override void OnCellClicked(object sender, DataGridViewCellEventArgs e)
-        { }
 
         public static void Create(MainForm MainForm, Control target, List<ArcUser> users, List<SharedDrive> shares)
         {
@@ -72,7 +69,6 @@ namespace ReArc.Gui.Components
                 };
 
                 target.Controls.Add(sharesList);
-                sharesList.FilterItems();
                 sharesList.PopulateList();
             });
 

@@ -20,7 +20,7 @@ namespace ReArc.Gui.Components
             ];
         }
 
-        public override bool QueryFilterCallback(string query, BugReport item)
+        protected override bool QueryFilterCallback(string query, BugReport item)
         {
             var comparison = StringComparison.InvariantCultureIgnoreCase;
 
@@ -31,7 +31,7 @@ namespace ReArc.Gui.Components
                    item._id == query;
         }
 
-        public override bool FilterCallback(string filter, BugReport item)
+        protected override bool FilterCallback(string filter, BugReport item)
         {
             return filter switch
             {
@@ -46,16 +46,13 @@ namespace ReArc.Gui.Components
             };
         }
 
-        public override object[] GetGridRow(BugReport item)
+        protected override object[] GetGridRow(BugReport item)
         {
             var createdDate = DateTime.Parse(item.CreatedAt).ToString("dd-MM-yyyy, HH:mm:ss");
             var author = Users.Find((u) => u._id == item.AuthorId)?.Username ?? "Stranger";
 
             return [Properties.Resources.crash16, createdDate, item.Title, author, !item.Closed, item.UserData != null];
         }
-
-        public override void OnCellClicked(object sender, DataGridViewCellEventArgs e)
-        { }
 
         public static void Create(MainForm MainForm, Control target, List<ArcUser> users, List<BugReport> reports)
         {
@@ -70,7 +67,6 @@ namespace ReArc.Gui.Components
                 };
 
                 target.Controls.Add(reportsList);
-                reportsList.FilterItems();
                 reportsList.PopulateList();
             });
         }
