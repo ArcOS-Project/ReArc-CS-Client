@@ -104,6 +104,10 @@ public static class UserLogic
         {
             Program.SetNextForm(new TotpUnlockForm());
             form.Close();
+            return;
         }
+
+        Program.SetNextForm(new MainForm());
+        form.Close();
     }
 }
