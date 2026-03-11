@@ -19,26 +19,20 @@ namespace ReArc.Gui.Logic
             for (int i = 0; i < users.Count; i++)
             {
                 var user = users[i];
-                LoadingDialog.ChangeCaption($"[{i + 1}/{users.Count}] Reading quota for {user.Username}");
+                LoadingDialog.ChangeCaption($"Reading quota for {user.Username}");
 
                 var quotaResult = await AdminController.GetQuotaOf(user.Username);
 
-                if (quotaResult.Success)
-                {
-                    result.Add(user.Username, quotaResult.Result!);
-                }
-                else
-                {
-                    errors.Add($"Could not obtain quota for {user.Username}: {quotaResult.ErrorMessage!}");
-                }
+                if (quotaResult.Success) result.Add(user.Username, quotaResult.Result!);
+                else errors.Add($"Could not obtain quota for {user.Username}: {quotaResult.ErrorMessage!}");
+                
+                LoadingDialog.SetProgress(i + 1, users.Count);
             }
 
             await LoadingDialog.Stop();
 
             if (errors.Count > 0)
-            {
                 return CommandResult<Dictionary<string, UserQuota>>.Error(string.Join(", ", errors), result);
-            }
 
             return CommandResult<Dictionary<string, UserQuota>>.Ok(result);
         }

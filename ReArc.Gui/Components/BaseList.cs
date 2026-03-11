@@ -15,7 +15,6 @@ namespace ReArc.Gui.Components
         private bool _isReady = false;
         public MainForm? MainForm;
 
-
         public BaseList()
         {
             _columns = Columns();
@@ -98,10 +97,11 @@ namespace ReArc.Gui.Components
 
         private void Internal_OnCellClicked(object sender, DataGridViewCellEventArgs e)
         {
-            // TODO: reordering the list using the DataGridView sorting makes it so that
-            // the order of _filteredItems no longer matches what is displayed in the grid.
             var rowIndex = e.RowIndex;
             var columnIndex = e.ColumnIndex;
+
+            if (rowIndex < 0 || rowIndex > _filteredItems.Count || columnIndex < 0 || columnIndex > _columns.Count) return;
+
             var columnName = _columns[columnIndex].Name;
             var item = _filteredItems[rowIndex];
 

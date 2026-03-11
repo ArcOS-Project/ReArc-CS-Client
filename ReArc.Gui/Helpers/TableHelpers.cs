@@ -14,7 +14,8 @@
                 ReadOnly = true,
                 Resizable = DataGridViewTriState.False,
                 ToolTipText = tooltipText,
-                Width = 24
+                Width = 24,
+                SortMode = DataGridViewColumnSortMode.NotSortable
             };
         }
 
@@ -26,7 +27,8 @@
                 HeaderText = headerText,
                 AutoSizeMode = autoSizeMode,
                 ReadOnly = true,
-                Resizable = DataGridViewTriState.True
+                Resizable = DataGridViewTriState.True,
+                SortMode = DataGridViewColumnSortMode.NotSortable
             };
         }
 
@@ -38,8 +40,8 @@
                 Name = name,
                 HeaderText = headerText,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-                SortMode = DataGridViewColumnSortMode.Automatic,
-                Resizable = DataGridViewTriState.False
+                SortMode = DataGridViewColumnSortMode.NotSortable,
+                Resizable = DataGridViewTriState.False,
             };
         }
     }

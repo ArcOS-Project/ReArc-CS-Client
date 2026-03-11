@@ -47,7 +47,7 @@ public class Client
         client = new()
         {
             BaseAddress = new Uri(ServerOption.Url),
-            Timeout = TimeSpan.FromSeconds(3)
+            Timeout = TimeSpan.FromSeconds(8)
         };
     }
 
@@ -88,7 +88,7 @@ public class Client
     public async Task<CommandResult<ServerInfo>> Ping()
     {
         var ct = new CancellationTokenSource();
-        ct.CancelAfter(1000);
+        ct.CancelAfter(3000);
 
         try
         {

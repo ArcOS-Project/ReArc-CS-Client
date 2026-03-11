@@ -34,7 +34,7 @@ namespace ReArc.Gui.Components
 
         protected override bool FilterCallback(string filter, ArcUser item)
         {
-            var quota = QuotaOverview[item.Username];
+            var quota = QuotaOverview.TryGetValue(item.Username, out UserQuota? value) ? value : null;
 
             if (quota == null) return true;
 
@@ -51,15 +51,15 @@ namespace ReArc.Gui.Components
 
         protected override object[] GetGridRow(ArcUser item)
         {
-            var quota = QuotaOverview[item.Username];
+            var quota = QuotaOverview.TryGetValue(item.Username, out UserQuota? value) ? value : null;
 
             return
             [
                 Properties.Resources.user16,
                 item.Username,
-                ByteHelpers.FormatBytes(quota?.Used ?? 0),
-                ByteHelpers.FormatBytes(quota?.Free ?? 0),
-                ByteHelpers.FormatBytes(quota?.Max ?? 0),
+                quota != null ? ByteHelpers.FormatBytes(quota.Used) : "",
+                quota != null ? ByteHelpers.FormatBytes(quota.Free) : "",
+                quota != null ? ByteHelpers.FormatBytes(quota.Max) : "",
                 $"{quota?.Percentage ?? 0:F2}%",
                 Properties.Resources.checklist16
             ];

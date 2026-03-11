@@ -28,6 +28,22 @@
             return dialog;
         }
 
+        public static void SetProgress(int? value = null, int? max = null) {
+            if (_dialog == null) return;
+
+            if (value == null && max == null) {
+                _dialog.ProgressBar.Style = ProgressBarStyle.Marquee;
+                _dialog.ProgressBar.Maximum = 0;
+                _dialog.ProgressBar.Value = 0;
+                return;
+            }
+
+            _dialog.ProgressBar.Maximum = max ?? _dialog.ProgressBar.Maximum;
+            _dialog.ProgressBar.Value = value ?? _dialog.ProgressBar.Value;
+            _dialog.ProgressBar.Style = ProgressBarStyle.Continuous;
+        }
+
+
         public static void ChangeCaption(string caption)
         {
             if (_dialog == null) return;

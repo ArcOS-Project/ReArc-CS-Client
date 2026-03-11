@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             StatusLabel = new Label();
-            progressBar1 = new ProgressBar();
+            ProgressBar = new ProgressBar();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel1 = new Panel();
-            pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
+            pictureBox1 = new PictureBox();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // StatusLabel
@@ -49,14 +49,16 @@
             StatusLabel.TabIndex = 0;
             StatusLabel.Text = "Doing something very important...";
             // 
-            // progressBar1
+            // ProgressBar
             // 
-            progressBar1.Location = new Point(23, 59);
-            progressBar1.MarqueeAnimationSpeed = 20;
-            progressBar1.Name = "progressBar1";
-            progressBar1.Size = new Size(406, 23);
-            progressBar1.Style = ProgressBarStyle.Marquee;
-            progressBar1.TabIndex = 1;
+            ProgressBar.Location = new Point(23, 59);
+            ProgressBar.MarqueeAnimationSpeed = 20;
+            ProgressBar.Maximum = 50;
+            ProgressBar.Name = "ProgressBar";
+            ProgressBar.Size = new Size(406, 23);
+            ProgressBar.Step = 1;
+            ProgressBar.Style = ProgressBarStyle.Marquee;
+            ProgressBar.TabIndex = 1;
             // 
             // tableLayoutPanel1
             // 
@@ -77,7 +79,7 @@
             // 
             panel1.Controls.Add(pictureBox2);
             panel1.Controls.Add(StatusLabel);
-            panel1.Controls.Add(progressBar1);
+            panel1.Controls.Add(ProgressBar);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 70);
             panel1.Margin = new Padding(0);
@@ -85,6 +87,16 @@
             panel1.Padding = new Padding(20);
             panel1.Size = new Size(500, 105);
             panel1.TabIndex = 0;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = Properties.Resources.hourglass32;
+            pictureBox2.Location = new Point(448, 53);
+            pictureBox2.Margin = new Padding(0);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(32, 32);
+            pictureBox2.TabIndex = 2;
+            pictureBox2.TabStop = false;
             // 
             // pictureBox1
             // 
@@ -96,16 +108,6 @@
             pictureBox1.Size = new Size(500, 70);
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = Properties.Resources.hourglass32;
-            pictureBox2.Location = new Point(448, 53);
-            pictureBox2.Margin = new Padding(0);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(32, 32);
-            pictureBox2.TabIndex = 2;
-            pictureBox2.TabStop = false;
             // 
             // LoadingDialog
             // 
@@ -128,15 +130,15 @@
             tableLayoutPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Label StatusLabel;
-        private ProgressBar progressBar1;
+        private ProgressBar ProgressBar;
         private TableLayoutPanel tableLayoutPanel1;
         private Panel panel1;
         private PictureBox pictureBox1;
