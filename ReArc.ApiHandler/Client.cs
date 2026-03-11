@@ -297,7 +297,7 @@ public class Client
         }
     }
 
-    private string CreateUrl(string url, Dictionary<string, string>? parameters = null)
+    public string CreateUrl(string url, Dictionary<string, string>? parameters = null)
     {
         var query = HttpUtility.ParseQueryString(ServerOption.AuthCode != null ? $"authcode={ServerOption.AuthCode}" : string.Empty);
 

@@ -51,6 +51,8 @@
             TokensTab = new TabPage();
             IndexesTab = new TabPage();
             StoreItemsTab = new TabPage();
+            tabPage1 = new TabPage();
+            tabPage2 = new TabPage();
             panel2 = new Panel();
             groupBox3 = new GroupBox();
             label1 = new Label();
@@ -68,7 +70,7 @@
             label7 = new Label();
             AccessorsLabel = new Label();
             toolStrip1 = new ToolStrip();
-            toolStripDropDownButton1 = new ToolStripDropDownButton();
+            CredentialsMenu = new ToolStripDropDownButton();
             ChangeUsernameAction = new ToolStripMenuItem();
             ChangeEmailAction = new ToolStripMenuItem();
             ChangePasswordAction = new ToolStripMenuItem();
@@ -76,16 +78,19 @@
             Manage2faAction = new ToolStripMenuItem();
             toolStripSeparator2 = new ToolStripSeparator();
             LogOutAction = new ToolStripMenuItem();
-            toolStripSeparator4 = new ToolStripSeparator();
-            toolStripDropDownButton2 = new ToolStripDropDownButton();
+            DangerZoneMenu = new ToolStripDropDownButton();
             ApprovedAction = new ToolStripMenuItem();
             AdministratorAction = new ToolStripMenuItem();
             toolStripSeparator3 = new ToolStripSeparator();
-            deleteUserToolStripMenuItem = new ToolStripMenuItem();
+            DeleteUserAction = new ToolStripMenuItem();
+            toolStripSeparator4 = new ToolStripSeparator();
             QuickSwitcher = new ToolStripDropDownButton();
+            CopyMenu = new ToolStripDropDownButton();
+            UsernameCopyAction = new ToolStripMenuItem();
+            UserIdCopyAction = new ToolStripMenuItem();
+            EmailAddressCopyAction = new ToolStripMenuItem();
+            ProfilePictureCopyAction = new ToolStripMenuItem();
             imageList1 = new ImageList(components);
-            tabPage1 = new TabPage();
-            tabPage2 = new TabPage();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
@@ -345,6 +350,26 @@
             StoreItemsTab.Text = "Store Items";
             StoreItemsTab.UseVisualStyleBackColor = true;
             // 
+            // tabPage1
+            // 
+            tabPage1.Location = new Point(4, 24);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(581, 393);
+            tabPage1.TabIndex = 7;
+            tabPage1.Text = "Activity";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Location = new Point(4, 24);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(581, 393);
+            tabPage2.TabIndex = 8;
+            tabPage2.Text = "Scopes";
+            tabPage2.UseVisualStyleBackColor = true;
+            // 
             // panel2
             // 
             panel2.BackgroundImage = Properties.Resources.dashboardstatbg;
@@ -421,7 +446,7 @@
             label4.ForeColor = Color.Navy;
             label4.Location = new Point(13, 82);
             label4.Name = "label4";
-            label4.Size = new Size(43, 15);
+            label4.Size = new Size(44, 15);
             label4.TabIndex = 18;
             label4.Text = "Tokens";
             // 
@@ -511,7 +536,7 @@
             label7.ForeColor = Color.Navy;
             label7.Location = new Point(13, 250);
             label7.Name = "label7";
-            label7.Size = new Size(116, 15);
+            label7.Size = new Size(115, 15);
             label7.TabIndex = 24;
             label7.Text = "Filesystem Indexings";
             // 
@@ -528,7 +553,7 @@
             // toolStrip1
             // 
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, toolStripSeparator4, toolStripDropDownButton2, QuickSwitcher });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { CredentialsMenu, DangerZoneMenu, toolStripSeparator4, QuickSwitcher, CopyMenu });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.RenderMode = ToolStripRenderMode.Professional;
@@ -536,14 +561,14 @@
             toolStrip1.TabIndex = 2;
             toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripDropDownButton1
+            // CredentialsMenu
             // 
-            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { ChangeUsernameAction, ChangeEmailAction, ChangePasswordAction, toolStripSeparator1, Manage2faAction, toolStripSeparator2, LogOutAction });
-            toolStripDropDownButton1.Image = Properties.Resources.keys16;
-            toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
-            toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            toolStripDropDownButton1.Size = new Size(95, 22);
-            toolStripDropDownButton1.Text = "Credentials";
+            CredentialsMenu.DropDownItems.AddRange(new ToolStripItem[] { ChangeUsernameAction, ChangeEmailAction, ChangePasswordAction, toolStripSeparator1, Manage2faAction, toolStripSeparator2, LogOutAction });
+            CredentialsMenu.Image = Properties.Resources.keys16;
+            CredentialsMenu.ImageTransparentColor = Color.Magenta;
+            CredentialsMenu.Name = "CredentialsMenu";
+            CredentialsMenu.Size = new Size(95, 22);
+            CredentialsMenu.Text = "Credentials";
             // 
             // ChangeUsernameAction
             // 
@@ -590,25 +615,20 @@
             LogOutAction.Size = new Size(179, 22);
             LogOutAction.Text = "Log out everywhere";
             // 
-            // toolStripSeparator4
+            // DangerZoneMenu
             // 
-            toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new Size(6, 25);
-            // 
-            // toolStripDropDownButton2
-            // 
-            toolStripDropDownButton2.DropDownItems.AddRange(new ToolStripItem[] { ApprovedAction, AdministratorAction, toolStripSeparator3, deleteUserToolStripMenuItem });
-            toolStripDropDownButton2.Image = Properties.Resources.warning16;
-            toolStripDropDownButton2.ImageTransparentColor = Color.Magenta;
-            toolStripDropDownButton2.Name = "toolStripDropDownButton2";
-            toolStripDropDownButton2.Size = new Size(104, 22);
-            toolStripDropDownButton2.Text = "Danger Zone";
+            DangerZoneMenu.DropDownItems.AddRange(new ToolStripItem[] { ApprovedAction, AdministratorAction, toolStripSeparator3, DeleteUserAction });
+            DangerZoneMenu.Image = Properties.Resources.warning16;
+            DangerZoneMenu.ImageTransparentColor = Color.Magenta;
+            DangerZoneMenu.Name = "DangerZoneMenu";
+            DangerZoneMenu.Size = new Size(104, 22);
+            DangerZoneMenu.Text = "Danger Zone";
             // 
             // ApprovedAction
             // 
             ApprovedAction.Image = Properties.Resources.lock16;
             ApprovedAction.Name = "ApprovedAction";
-            ApprovedAction.Size = new Size(147, 22);
+            ApprovedAction.Size = new Size(180, 22);
             ApprovedAction.Text = "Approved";
             ApprovedAction.Click += ApprovedAction_Click;
             // 
@@ -616,21 +636,27 @@
             // 
             AdministratorAction.Image = Properties.Resources.elevate16;
             AdministratorAction.Name = "AdministratorAction";
-            AdministratorAction.Size = new Size(147, 22);
+            AdministratorAction.Size = new Size(180, 22);
             AdministratorAction.Text = "Administrator";
             AdministratorAction.Click += AdministratorAction_Click;
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(144, 6);
+            toolStripSeparator3.Size = new Size(177, 6);
             // 
-            // deleteUserToolStripMenuItem
+            // DeleteUserAction
             // 
-            deleteUserToolStripMenuItem.Image = Properties.Resources.trash16;
-            deleteUserToolStripMenuItem.Name = "deleteUserToolStripMenuItem";
-            deleteUserToolStripMenuItem.Size = new Size(147, 22);
-            deleteUserToolStripMenuItem.Text = "Delete User";
+            DeleteUserAction.Image = Properties.Resources.trash16;
+            DeleteUserAction.Name = "DeleteUserAction";
+            DeleteUserAction.Size = new Size(180, 22);
+            DeleteUserAction.Text = "Delete User";
+            DeleteUserAction.Click += DeleteUserAction_Click;
+            // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new Size(6, 25);
             // 
             // QuickSwitcher
             // 
@@ -640,6 +666,44 @@
             QuickSwitcher.Name = "QuickSwitcher";
             QuickSwitcher.Size = new Size(88, 22);
             QuickSwitcher.Text = "username";
+            // 
+            // CopyMenu
+            // 
+            CopyMenu.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            CopyMenu.DropDownItems.AddRange(new ToolStripItem[] { UsernameCopyAction, UserIdCopyAction, EmailAddressCopyAction, ProfilePictureCopyAction });
+            CopyMenu.Image = (Image)resources.GetObject("CopyMenu.Image");
+            CopyMenu.ImageTransparentColor = Color.Magenta;
+            CopyMenu.Name = "CopyMenu";
+            CopyMenu.Size = new Size(57, 22);
+            CopyMenu.Text = "Copy...";
+            // 
+            // UsernameCopyAction
+            // 
+            UsernameCopyAction.Name = "UsernameCopyAction";
+            UsernameCopyAction.Size = new Size(180, 22);
+            UsernameCopyAction.Text = "Username";
+            UsernameCopyAction.Click += UsernameCopyAction_Click;
+            // 
+            // UserIdCopyAction
+            // 
+            UserIdCopyAction.Name = "UserIdCopyAction";
+            UserIdCopyAction.Size = new Size(180, 22);
+            UserIdCopyAction.Text = "User ID";
+            UserIdCopyAction.Click += UserIdCopyAction_Click;
+            // 
+            // EmailAddressCopyAction
+            // 
+            EmailAddressCopyAction.Name = "EmailAddressCopyAction";
+            EmailAddressCopyAction.Size = new Size(180, 22);
+            EmailAddressCopyAction.Text = "Email Address";
+            EmailAddressCopyAction.Click += EmailAddressCopyAction_Click;
+            // 
+            // ProfilePictureCopyAction
+            // 
+            ProfilePictureCopyAction.Name = "ProfilePictureCopyAction";
+            ProfilePictureCopyAction.Size = new Size(180, 22);
+            ProfilePictureCopyAction.Text = "Profile Picture URL";
+            ProfilePictureCopyAction.Click += ProfilePictureCopyAction_Click;
             // 
             // imageList1
             // 
@@ -653,26 +717,6 @@
             imageList1.Images.SetKeyName(4, "keys16.png");
             imageList1.Images.SetKeyName(5, "lock16.png");
             imageList1.Images.SetKeyName(6, "share16.png");
-            // 
-            // tabPage1
-            // 
-            tabPage1.Location = new Point(4, 24);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(581, 393);
-            tabPage1.TabIndex = 7;
-            tabPage1.Text = "Activity";
-            tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(581, 393);
-            tabPage2.TabIndex = 8;
-            tabPage2.Text = "Scopes";
-            tabPage2.UseVisualStyleBackColor = true;
             // 
             // ViewUser
             // 
@@ -722,13 +766,13 @@
         private TabPage StoreItemsTab;
         private Panel panel2;
         private ToolStrip toolStrip1;
-        private ToolStripDropDownButton toolStripDropDownButton1;
+        private ToolStripDropDownButton CredentialsMenu;
         private ToolStripMenuItem ChangeUsernameAction;
         private ToolStripMenuItem ChangeEmailAction;
         private ToolStripMenuItem ChangePasswordAction;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem Manage2faAction;
-        private ToolStripDropDownButton toolStripDropDownButton2;
+        private ToolStripDropDownButton DangerZoneMenu;
         private GroupBox groupBox2;
         private Label FilesystemPercentageLabel;
         private Label ByteUsageLabel;
@@ -757,8 +801,13 @@
         private ImageList imageList1;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripSeparator toolStripSeparator3;
-        private ToolStripMenuItem deleteUserToolStripMenuItem;
+        private ToolStripMenuItem DeleteUserAction;
         private TabPage tabPage1;
         private TabPage tabPage2;
+        private ToolStripDropDownButton CopyMenu;
+        private ToolStripMenuItem UsernameCopyAction;
+        private ToolStripMenuItem UserIdCopyAction;
+        private ToolStripMenuItem EmailAddressCopyAction;
+        private ToolStripMenuItem ProfilePictureCopyAction;
     }
 }

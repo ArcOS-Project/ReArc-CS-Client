@@ -58,13 +58,10 @@ public partial class UserList : BaseList<ArcUser>
         switch (columnName)
         {
             case "View":
+            case "Username":
                 _ = MainForm!.SwitchView(new ViewUser(),
                                          $"View {item.Username}",
                                          new Dictionary<string, object>() { { "User", item } });
-                break;
-
-            case "Username":
-                CopyDialog.ShowCopyDialog(MainForm!, item.Username);
                 break;
 
             case "Email":

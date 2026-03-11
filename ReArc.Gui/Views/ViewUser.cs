@@ -1,4 +1,5 @@
-﻿using ReArc.ApiHandler.Controllers;
+﻿using ReArc.ApiHandler;
+using ReArc.ApiHandler.Controllers;
 using ReArc.Gui.Common;
 using ReArc.Gui.Components;
 using ReArc.Shared;
@@ -149,7 +150,7 @@ namespace ReArc.Gui.Views
 
             if (!result.Success)
             {
-                MessageBox.Show($"The operation did not complete successfully. {result.ErrorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(MainForm, $"The operation did not complete successfully. {result.ErrorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -182,7 +183,7 @@ namespace ReArc.Gui.Views
 
             if (!result.Success)
             {
-                MessageBox.Show($"The operation did not complete successfully. {result.ErrorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(MainForm, $"The operation did not complete successfully. {result.ErrorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -201,7 +202,7 @@ namespace ReArc.Gui.Views
 
             if (!reportResult.Success)
             {
-                MessageBox.Show($"An error occurred while obtaining bug reports. {reportResult.ErrorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(MainForm, $"An error occurred while obtaining bug reports. {reportResult.ErrorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -222,11 +223,32 @@ namespace ReArc.Gui.Views
 
             if (!sharesResult.Success)
             {
-                MessageBox.Show($"An error occurred while obtaining shared drives. {sharesResult.ErrorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(MainForm, $"An error occurred while obtaining shared drives. {sharesResult.ErrorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             ShareList.Create(MainForm!, SharesTab, _users!, sharesResult.Result!);
+        }
+
+        private async Task DoDeleteUser()
+        {
+            DialogResult confirm = MessageBox.Show(
+               $"Are you sure you want to permanently delete {_user!.Username} from {Client.Hostname}? This action CANNOT BE REVERTED.",
+               $"Delete {_user!.Username}",
+               MessageBoxButtons.YesNo,
+               MessageBoxIcon.Exclamation);
+
+            if (confirm != DialogResult.Yes) return;
+
+            var result = await AdminController.DeleteUser(_user!.Username);
+
+            if (!result.Success)
+            {
+                MessageBox.Show(MainForm, $"An error occurred while deleting this user. {result.ErrorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            await MainForm!.SwitchView(new Users(), "Users");
         }
 
         private void TabControl_IndexChanged(object sender, EventArgs e)
@@ -240,6 +262,31 @@ namespace ReArc.Gui.Views
                     _ = PopulateSharesTab();
                     break;
             }
+        }
+
+        private void UsernameCopyAction_Click(object sender, EventArgs e)
+        {
+            CopyDialog.ShowCopyDialog(MainForm!, _user!.Username);
+        }
+
+        private void UserIdCopyAction_Click(object sender, EventArgs e)
+        {
+            CopyDialog.ShowCopyDialog(MainForm!, _user!._id);
+        }
+
+        private void EmailAddressCopyAction_Click(object sender, EventArgs e)
+        {
+            CopyDialog.ShowCopyDialog(MainForm!, _user!.Email);
+        }
+
+        private void ProfilePictureCopyAction_Click(object sender, EventArgs e)
+        {
+            CopyDialog.ShowCopyDialog(MainForm!, Client.CurrentClient.CreateUrl($"/user/pfp/{_user!._id}"));
+        }
+
+        private void DeleteUserAction_Click(object sender, EventArgs e)
+        {
+            _ = DoDeleteUser();
         }
     }
 }

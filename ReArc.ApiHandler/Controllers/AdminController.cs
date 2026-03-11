@@ -122,5 +122,13 @@ namespace ReArc.ApiHandler.Controllers
 
             return CommandResult<byte[]>.Ok(data);
         }
+
+        public static async Task<CommandResult<bool>> DeleteUser(string username)
+        {
+            var response = await Client.CurrentClient.Delete($"/admin/users/delete/{username}", UserController.Token!);
+            if (!response.Success) return CommandResult<bool>.Error(response.ErrorMessage);
+
+            return CommandResult<bool>.Ok(true);
+        }
     }
 }
