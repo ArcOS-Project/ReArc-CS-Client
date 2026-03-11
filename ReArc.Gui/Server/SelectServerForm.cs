@@ -22,7 +22,8 @@ namespace ReArc.Gui.Server
             UpdateServerList();
             if (!string.IsNullOrEmpty(Configuration.Settings?.LastServer))
             {
-                ServerListBox.SelectedIndex = _servers.FindIndex((s) => s.Url == Configuration.Settings.LastServer);
+                ServerListBox.Items[_servers.FindIndex((s) => s.Url == Configuration.Settings.LastServer)]?.Selected = true;
+                ServerListBox.Select();
             }
             Focus();
         }
@@ -35,8 +36,12 @@ namespace ReArc.Gui.Server
 
         private void ServerListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ServerListBox.SelectedIndex >= 0 && ServerListBox.SelectedIndex < _servers.Count)
-                _selectedServer = _servers[ServerListBox.SelectedIndex];
+            var selected = ServerListBox.SelectedItems.Count > 0 ? ServerListBox.SelectedItems[0] : null;
+            if (selected != null)
+            {
+                var url = selected.SubItems[0].Text;
+                _selectedServer = _servers.Find((s) => s.Url == url);
+            }
 
             UpdateDisabledState();
         }
@@ -63,7 +68,11 @@ namespace ReArc.Gui.Server
 
             foreach (var server in _servers)
             {
-                ServerListBox.Items.Add(server.Url + " " + (server.AuthCode != null ? "(Protected)" : "(Public)"));
+                var item = new ListViewItem([server.Url, server.Username ?? ""]);
+
+                if (!string.IsNullOrEmpty(server.AuthCode)) item.ImageIndex = 0;
+
+                ServerListBox.Items.Add(item);
             }
         }
 
@@ -129,6 +138,11 @@ namespace ReArc.Gui.Server
             };
 
             form.ShowDialog(this);
+        }
+
+        private void ServerListBox_DoubleClick(object sender, EventArgs e)
+        {
+            _ = DoConnect();
         }
     }
 }

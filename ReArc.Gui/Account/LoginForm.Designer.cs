@@ -77,6 +77,7 @@ partial class LoginForm
         // 
         // panel1
         // 
+        panel1.BackColor = SystemColors.Control;
         panel1.Controls.Add(LogoutButton);
         panel1.Controls.Add(AbortButton);
         panel1.Controls.Add(LoginButton);
@@ -94,7 +95,7 @@ partial class LoginForm
         panel1.Margin = new Padding(0);
         panel1.Name = "panel1";
         panel1.Padding = new Padding(20);
-        panel1.Size = new Size(400, 253);
+        panel1.Size = new Size(400, 215);
         panel1.TabIndex = 1;
         // 
         // LogoutButton
@@ -132,7 +133,7 @@ partial class LoginForm
         // 
         pictureBox2.Image = Properties.Resources.warning16;
         pictureBox2.Location = new Point(23, 123);
-        pictureBox2.Margin = new Padding(0);
+        pictureBox2.Margin = new Padding(0, 0, 5, 0);
         pictureBox2.Name = "pictureBox2";
         pictureBox2.Size = new Size(16, 16);
         pictureBox2.TabIndex = 8;
@@ -140,9 +141,10 @@ partial class LoginForm
         // 
         // StatusLabel
         // 
-        StatusLabel.Location = new Point(52, 123);
+        StatusLabel.Location = new Point(44, 123);
+        StatusLabel.Margin = new Padding(0);
         StatusLabel.Name = "StatusLabel";
-        StatusLabel.Size = new Size(325, 33);
+        StatusLabel.Size = new Size(333, 33);
         StatusLabel.TabIndex = 7;
         StatusLabel.Text = "Please enter your credentials to log in. Note that you must be an administrator to be able to access this resource.";
         // 

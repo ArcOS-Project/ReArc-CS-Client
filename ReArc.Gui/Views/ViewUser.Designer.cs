@@ -76,11 +76,16 @@
             Manage2faAction = new ToolStripMenuItem();
             toolStripSeparator2 = new ToolStripSeparator();
             LogOutAction = new ToolStripMenuItem();
+            toolStripSeparator4 = new ToolStripSeparator();
             toolStripDropDownButton2 = new ToolStripDropDownButton();
             ApprovedAction = new ToolStripMenuItem();
             AdministratorAction = new ToolStripMenuItem();
+            toolStripSeparator3 = new ToolStripSeparator();
+            deleteUserToolStripMenuItem = new ToolStripMenuItem();
             QuickSwitcher = new ToolStripDropDownButton();
             imageList1 = new ImageList(components);
+            tabPage1 = new TabPage();
+            tabPage2 = new TabPage();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
@@ -147,6 +152,8 @@
             Tabs.Controls.Add(TokensTab);
             Tabs.Controls.Add(IndexesTab);
             Tabs.Controls.Add(StoreItemsTab);
+            Tabs.Controls.Add(tabPage1);
+            Tabs.Controls.Add(tabPage2);
             Tabs.Dock = DockStyle.Fill;
             Tabs.Location = new Point(15, 15);
             Tabs.Margin = new Padding(0);
@@ -521,7 +528,7 @@
             // toolStrip1
             // 
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, toolStripDropDownButton2, QuickSwitcher });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, toolStripSeparator4, toolStripDropDownButton2, QuickSwitcher });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.RenderMode = ToolStripRenderMode.Professional;
@@ -531,12 +538,11 @@
             // 
             // toolStripDropDownButton1
             // 
-            toolStripDropDownButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
             toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { ChangeUsernameAction, ChangeEmailAction, ChangePasswordAction, toolStripSeparator1, Manage2faAction, toolStripSeparator2, LogOutAction });
-            toolStripDropDownButton1.Image = (Image)resources.GetObject("toolStripDropDownButton1.Image");
+            toolStripDropDownButton1.Image = Properties.Resources.keys16;
             toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
             toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            toolStripDropDownButton1.Size = new Size(79, 22);
+            toolStripDropDownButton1.Size = new Size(95, 22);
             toolStripDropDownButton1.Text = "Credentials";
             // 
             // ChangeUsernameAction
@@ -584,15 +590,19 @@
             LogOutAction.Size = new Size(179, 22);
             LogOutAction.Text = "Log out everywhere";
             // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new Size(6, 25);
+            // 
             // toolStripDropDownButton2
             // 
-            toolStripDropDownButton2.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripDropDownButton2.DropDownItems.AddRange(new ToolStripItem[] { ApprovedAction, AdministratorAction });
-            toolStripDropDownButton2.Image = (Image)resources.GetObject("toolStripDropDownButton2.Image");
+            toolStripDropDownButton2.DropDownItems.AddRange(new ToolStripItem[] { ApprovedAction, AdministratorAction, toolStripSeparator3, deleteUserToolStripMenuItem });
+            toolStripDropDownButton2.Image = Properties.Resources.warning16;
             toolStripDropDownButton2.ImageTransparentColor = Color.Magenta;
             toolStripDropDownButton2.Name = "toolStripDropDownButton2";
-            toolStripDropDownButton2.Size = new Size(53, 22);
-            toolStripDropDownButton2.Text = "Rights";
+            toolStripDropDownButton2.Size = new Size(104, 22);
+            toolStripDropDownButton2.Text = "Danger Zone";
             // 
             // ApprovedAction
             // 
@@ -609,6 +619,18 @@
             AdministratorAction.Size = new Size(147, 22);
             AdministratorAction.Text = "Administrator";
             AdministratorAction.Click += AdministratorAction_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(144, 6);
+            // 
+            // deleteUserToolStripMenuItem
+            // 
+            deleteUserToolStripMenuItem.Image = Properties.Resources.trash16;
+            deleteUserToolStripMenuItem.Name = "deleteUserToolStripMenuItem";
+            deleteUserToolStripMenuItem.Size = new Size(147, 22);
+            deleteUserToolStripMenuItem.Text = "Delete User";
             // 
             // QuickSwitcher
             // 
@@ -631,6 +653,26 @@
             imageList1.Images.SetKeyName(4, "keys16.png");
             imageList1.Images.SetKeyName(5, "lock16.png");
             imageList1.Images.SetKeyName(6, "share16.png");
+            // 
+            // tabPage1
+            // 
+            tabPage1.Location = new Point(4, 24);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(581, 393);
+            tabPage1.TabIndex = 7;
+            tabPage1.Text = "Activity";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Location = new Point(4, 24);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(581, 393);
+            tabPage2.TabIndex = 8;
+            tabPage2.Text = "Scopes";
+            tabPage2.UseVisualStyleBackColor = true;
             // 
             // ViewUser
             // 
@@ -713,5 +755,10 @@
         private Label AccessorsLabel;
         private ToolStripDropDownButton QuickSwitcher;
         private ImageList imageList1;
+        private ToolStripSeparator toolStripSeparator4;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripMenuItem deleteUserToolStripMenuItem;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
     }
 }

@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectServerForm));
             label1 = new Label();
-            ServerListBox = new ListBox();
             ConnectButton = new Button();
             ExitButton = new Button();
             DeleteButton = new Button();
@@ -38,6 +38,10 @@
             EditButton = new Button();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel1 = new Panel();
+            ServerListBox = new ListView();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
+            imageList1 = new ImageList(components);
             pictureBox1 = new PictureBox();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
@@ -52,15 +56,6 @@
             label1.Size = new Size(256, 15);
             label1.TabIndex = 0;
             label1.Text = "Select the server to which you want to connect:";
-            // 
-            // ServerListBox
-            // 
-            ServerListBox.FormattingEnabled = true;
-            ServerListBox.Location = new Point(23, 50);
-            ServerListBox.Name = "ServerListBox";
-            ServerListBox.Size = new Size(354, 184);
-            ServerListBox.TabIndex = 1;
-            ServerListBox.SelectedIndexChanged += ServerListBox_SelectedIndexChanged;
             // 
             // ConnectButton
             // 
@@ -137,9 +132,9 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(ServerListBox);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(EditButton);
-            panel1.Controls.Add(ServerListBox);
             panel1.Controls.Add(AddButton);
             panel1.Controls.Add(ConnectButton);
             panel1.Controls.Add(DeleteButton);
@@ -151,6 +146,37 @@
             panel1.Padding = new Padding(20);
             panel1.Size = new Size(400, 290);
             panel1.TabIndex = 0;
+            // 
+            // ServerListBox
+            // 
+            ServerListBox.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2 });
+            ServerListBox.Location = new Point(23, 50);
+            ServerListBox.MultiSelect = false;
+            ServerListBox.Name = "ServerListBox";
+            ServerListBox.Size = new Size(354, 184);
+            ServerListBox.SmallImageList = imageList1;
+            ServerListBox.TabIndex = 7;
+            ServerListBox.UseCompatibleStateImageBehavior = false;
+            ServerListBox.View = View.Details;
+            ServerListBox.SelectedIndexChanged += ServerListBox_SelectedIndexChanged;
+            ServerListBox.DoubleClick += ServerListBox_DoubleClick;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "Server";
+            columnHeader1.Width = 250;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "Logged in as";
+            columnHeader2.Width = 100;
+            // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "lock16.png");
             // 
             // pictureBox1
             // 
@@ -189,7 +215,6 @@
         #endregion
 
         private Label label1;
-        private ListBox ServerListBox;
         private Button ConnectButton;
         private Button ExitButton;
         private Button DeleteButton;
@@ -198,5 +223,9 @@
         private TableLayoutPanel tableLayoutPanel1;
         private Panel panel1;
         private PictureBox pictureBox1;
+        private ListView ServerListBox;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
+        private ImageList imageList1;
     }
 }
