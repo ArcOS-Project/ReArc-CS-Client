@@ -60,7 +60,7 @@ namespace ReArc.ApiHandler.Controllers
         {
             if (Token == null) return CommandResult<bool>.Error("Not logged in.");
 
-            var response = await Client.CurrentClient.Post("/totp/unlock", new Dictionary<string, string>()
+            var response = await Client.CurrentClient.Post("/totp/unlock", Token, new Dictionary<string, string>()
             {
                 { "code", totpCode }
             });
