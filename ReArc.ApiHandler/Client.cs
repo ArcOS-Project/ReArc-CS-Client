@@ -142,6 +142,8 @@ public class Client
         try
         {
             var response = await client.WithToken(token).PostAsync(CreateUrl(route), null);
+            client.WithToken(null);
+
             if (response.StatusCode != HttpStatusCode.OK)
                 return await HandleNotOkResponse<HttpResponseMessage>(response);
 
@@ -152,6 +154,33 @@ public class Client
             return CommandResult<HttpResponseMessage>.Error(e.Message);
         }
     }
+
+    public async Task<CommandResult<HttpResponseMessage>> Post(string route, string token, Dictionary<string, string> bodyParams)
+    {
+        try
+        {
+            var content = new MultipartFormDataContent();
+            foreach (string key in bodyParams.Keys)
+            {
+                string value = bodyParams[key];
+
+                content.Add(new StringContent(value), key);
+            }
+
+            var response = await client.WithToken(token).PostAsync(CreateUrl(route), content);
+            client.WithToken(null);
+
+            if (response.StatusCode != HttpStatusCode.OK)
+                return await HandleNotOkResponse<HttpResponseMessage>(response);
+
+            return CommandResult<HttpResponseMessage>.Ok(response);
+        }
+        catch (Exception e)
+        {
+            return CommandResult<HttpResponseMessage>.Error(e.Message);
+        }
+    }
+
 
     public async Task<CommandResult<T>> PostForJson<T>(string route, Dictionary<string, string> bodyParams, Dictionary<string, string>? parameters = null)
     {
@@ -167,6 +196,8 @@ public class Client
     public async Task<CommandResult<T>> PostForJson<T>(string route, string token)
     {
         var response = await Post(route, token);
+        client.WithToken(null);
+
         if (!response.Success)
         {
             return CommandResult<T>.Error(response.ErrorMessage);
@@ -182,6 +213,8 @@ public class Client
             var response = token != null
                 ? await client.WithToken(token).GetAsync(CreateUrl(route, parameters))
                 : await client.GetAsync(CreateUrl(route, parameters));
+
+            client.WithToken(null);
 
             return await NormalizeJsonResponse<T>(response);
         }
@@ -213,6 +246,8 @@ public class Client
         try
         {
             var response = await client.WithToken(token).GetAsync(CreateUrl(route));
+            client.WithToken(null);
+            
             if (response.StatusCode != HttpStatusCode.OK)
                 return await HandleNotOkResponse<HttpResponseMessage>(response);
 
@@ -232,6 +267,8 @@ public class Client
             var response = token != null
                 ? await client.WithToken(token).DeleteAsync(CreateUrl(route, parameters))
                 : await client.DeleteAsync(route);
+            
+            client.WithToken(null);
 
             if (response.StatusCode != HttpStatusCode.OK)
                 return await HandleNotOkResponse<HttpResponseMessage>(response);

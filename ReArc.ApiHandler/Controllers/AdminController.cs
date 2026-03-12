@@ -60,7 +60,7 @@ namespace ReArc.ApiHandler.Controllers
 
         public static async Task<CommandResult<bool>> ApproveUser(string username)
         {
-            var response = await Client.CurrentClient.Post("/admin/users/approve", new Dictionary<string, string>() {
+            var response = await Client.CurrentClient.Post("/admin/users/approve", UserController.Token!, new Dictionary<string, string>() {
                 {"target", username }
             });
 
@@ -70,7 +70,7 @@ namespace ReArc.ApiHandler.Controllers
 
         public static async Task<CommandResult<bool>> DisapproveUser(string username)
         {
-            var response = await Client.CurrentClient.Post("/admin/users/disapprove", new Dictionary<string, string>() {
+            var response = await Client.CurrentClient.Post("/admin/users/disapprove", UserController.Token!, new Dictionary<string, string>() {
                 {"target", username }
             });
 
@@ -79,7 +79,7 @@ namespace ReArc.ApiHandler.Controllers
         }
         public static async Task<CommandResult<bool>> GrantAdmin(string username)
         {
-            var response = await Client.CurrentClient.Post("/admin/grant", new Dictionary<string, string>() {
+            var response = await Client.CurrentClient.Post("/admin/grant", UserController.Token!, new Dictionary<string, string>() {
                 {"target", username }
             });
 
@@ -88,7 +88,7 @@ namespace ReArc.ApiHandler.Controllers
         }
         public static async Task<CommandResult<bool>> RevokeAdmin(string username)
         {
-            var response = await Client.CurrentClient.Post("/admin/revoke", new Dictionary<string, string>() {
+            var response = await Client.CurrentClient.Post("/admin/revoke", UserController.Token!, new Dictionary<string, string>() {
                 {"target", username }
             });
 
@@ -126,6 +126,31 @@ namespace ReArc.ApiHandler.Controllers
         public static async Task<CommandResult<bool>> DeleteUser(string username)
         {
             var response = await Client.CurrentClient.Delete($"/admin/users/delete/{username}", UserController.Token!);
+            if (!response.Success) return CommandResult<bool>.Error(response.ErrorMessage);
+
+            return CommandResult<bool>.Ok(true);
+        }
+
+        public static async Task<CommandResult<bool>> ChangeEmail(string username, string newEmail)
+        {
+            var response = await Client.CurrentClient.Post("/admin/users/changeemail", UserController.Token!, new Dictionary<string, string>
+            {
+                {"target", username },
+                {"newEmail", newEmail }
+            });
+
+            if (!response.Success) return CommandResult<bool>.Error(response.ErrorMessage);
+
+            return CommandResult<bool>.Ok(true);
+        }
+        public static async Task<CommandResult<bool>> ChangePassword(string username, string newPassword)
+        {
+            var response = await Client.CurrentClient.Post("/admin/users/changepswd", UserController.Token!, new Dictionary<string, string>
+            {
+                {"target", username },
+                {"newPassword", newPassword }
+            });
+
             if (!response.Success) return CommandResult<bool>.Error(response.ErrorMessage);
 
             return CommandResult<bool>.Ok(true);

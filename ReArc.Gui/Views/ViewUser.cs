@@ -2,6 +2,7 @@
 using ReArc.ApiHandler.Controllers;
 using ReArc.Gui.Common;
 using ReArc.Gui.Components;
+using ReArc.Gui.User;
 using ReArc.Shared;
 using ReArc.Shared.Helpers;
 using ReArc.Shared.Records.Database;
@@ -287,6 +288,18 @@ namespace ReArc.Gui.Views
         private void DeleteUserAction_Click(object sender, EventArgs e)
         {
             _ = DoDeleteUser();
+        }
+
+        private void ChangeEmailAction_Click(object sender, EventArgs e)
+        {
+            var changeEmailForm = new ChangeEmailForm(_user!.Username, _user!.Email) { Owner = MainForm! };
+            changeEmailForm.ShowDialog(MainForm!);
+        }
+
+        private void ChangePasswordAction_Click(object sender, EventArgs e)
+        {
+            var resetPasswordForm = new ResetPasswordForm(_user!.Username) { Owner = MainForm! };
+            resetPasswordForm.ShowDialog(MainForm!);
         }
     }
 }
