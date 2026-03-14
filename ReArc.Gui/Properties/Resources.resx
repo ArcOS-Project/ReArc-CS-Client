@@ -121,6 +121,9 @@
   <data name="banner" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\banner.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="password32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\password32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="hourglass32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\hourglass32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -157,17 +160,17 @@
   <data name="banner-wide" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\banner-wide.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="warning16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\warning16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="crash16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\crash16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mail16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mail16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="keys16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\keys16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="elevate16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\elevate16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mail16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mail16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="keyfs16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\keyfs16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -196,9 +199,6 @@
   <data name="sidebarbg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sidebarbg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="grayglobe" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\grayglobe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="mail32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mail32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -217,22 +217,25 @@
   <data name="event16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\event16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="dashboardstatbg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dashboardstatbg2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="copy16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\copy16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="server 1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\server 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="warning16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\warning16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="grayglobe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\grayglobe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dashboardstatbg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dashboardstatbg2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="keys16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\keys16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dashboard16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dashboard16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="password32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\password32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="biometrics32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\biometrics32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

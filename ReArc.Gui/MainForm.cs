@@ -12,6 +12,7 @@ namespace ReArc.Gui
     public partial class MainForm : Form
     {
         private readonly List<ToolboxPage> Pages = PageStore.Pages;
+        private readonly Dictionary<string, object>? Props;
 
         public MainForm()
         {
@@ -34,6 +35,14 @@ namespace ReArc.Gui
             CurrentPageLabel.Text = name;
             CurrentPageLabel.Image = Pages.Find((p) => p.Name == name)?.Image ?? Properties.Resources.presenter;
             PopulateSidebarItems(name);
+        }
+
+        public async Task RefreshView() {
+            if (BetterPagePanel.Controls.Count > 0 && BetterPagePanel.Controls[0] is Page oldView)
+            {
+                await oldView.LoadData(Props ?? new Dictionary<string, object>());
+                oldView.Render();
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)

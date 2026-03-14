@@ -17,6 +17,7 @@ namespace ReArc.Gui.Views
         private UserQuota? _quota;
         private ArcUser? _user;
         private UserStatistics? _stats;
+        private Totp? _totpInfo;
         private string _profilePicture = string.Empty;
         public ViewUser()
         {
@@ -48,6 +49,10 @@ namespace ReArc.Gui.Views
                 LoadingDialog.ChangeCaption("Getting user statistics");
                 var statisticsResult = await AdminController.GetStatisticsOf(_user!._id);
                 if (!statisticsResult.Success) return CommandResult<bool>.Error(statisticsResult.ErrorMessage);
+
+                LoadingDialog.ChangeCaption("Obtaining 2FA information");
+                var totpResult = await AdminController.GetTotpOf(_user!.Username);
+                if (totpResult.Success) _totpInfo = totpResult.Result!;
 
                 _users = usersResult.Result!;
                 _quota = quotaResult.Result!;
@@ -88,6 +93,7 @@ namespace ReArc.Gui.Views
 
             PopulateQuickSwitcher();
             QuickSwitcher.Text = _user!.Username;
+            Manage2faAction.Enabled = _totpInfo != null;
         }
 
         private void PopulateQuickSwitcher()
@@ -300,6 +306,12 @@ namespace ReArc.Gui.Views
         {
             var resetPasswordForm = new ResetPasswordForm(_user!.Username) { Owner = MainForm! };
             resetPasswordForm.ShowDialog(MainForm!);
+        }
+
+        private void Manage2faAction_Click(object sender, EventArgs e)
+        {
+            var manageTotpForm = new ManageTotpForm(_user!.Username, _totpInfo!) { Owner = MainForm! };
+            manageTotpForm.ShowDialog(MainForm!);
         }
     }
 }

@@ -93,6 +93,16 @@ namespace ReArc.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap biometrics32 {
+            get {
+                object obj = ResourceManager.GetObject("biometrics32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cabinet16 {
             get {
                 object obj = ResourceManager.GetObject("cabinet16", resourceCulture);

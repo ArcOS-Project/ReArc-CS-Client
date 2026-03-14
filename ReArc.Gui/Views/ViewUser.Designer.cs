@@ -596,6 +596,7 @@
             Manage2faAction.Name = "Manage2faAction";
             Manage2faAction.Size = new Size(180, 22);
             Manage2faAction.Text = "Manage 2FA";
+            Manage2faAction.Click += Manage2faAction_Click;
             // 
             // toolStripSeparator2
             // 

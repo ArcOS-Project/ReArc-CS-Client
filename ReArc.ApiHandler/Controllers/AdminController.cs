@@ -155,5 +155,29 @@ namespace ReArc.ApiHandler.Controllers
 
             return CommandResult<bool>.Ok(true);
         }
+
+        public static async Task<CommandResult<Totp>> GetTotpOf(string username)
+        {
+            var response = await Client.CurrentClient.GetJson<Totp>($"/admin/totp/{username}", UserController.Token);
+            if (!response.Success) return CommandResult<Totp>.Error(response.ErrorMessage);
+
+            return CommandResult<Totp>.Ok(response.Result!);
+        }
+
+        public static async Task<CommandResult<bool>> DeleteTotpOf(string username)
+        {
+            var response = await Client.CurrentClient.Delete($"/admin/totp/{username}", UserController.Token);
+            if (!response.Success) return CommandResult<bool>.Error(response.ErrorMessage);
+
+            return CommandResult<bool>.Ok(true);
+        }
+
+        public static async Task<CommandResult<bool>> DeactivateTotpOf(string username)
+        {
+            var response = await Client.CurrentClient.Post($"/admin/totp/deactivate/{username}", UserController.Token!);
+            if (!response.Success) return CommandResult<bool>.Error(response.ErrorMessage);
+
+            return CommandResult<bool>.Ok(true);
+        }
     }
 }
